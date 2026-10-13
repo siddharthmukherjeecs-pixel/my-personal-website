@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "key": "neural-representations",
+      "title": "Neural Radiance & Latent Synthesis",
+      "summary": "Research implementation studying coordinate-based neural representations, volumetric rendering, and compact spatial priors for high-fidelity 3D reconstruction.",
+      "category": "ai-ml",
+      "phase": "building",
+      "technologies": [
+        "Python",
+        "PyTorch",
+        "CUDA",
+        "Computer Vision"
+      ],
+      "icon": "material-symbols:psychology-outline-rounded",
+      "featured": false,
+      "repository": "https://github.com",
+      "year": "2026"
+    }
+  ]
+}

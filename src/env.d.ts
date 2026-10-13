@@ -1,6 +1,13 @@
 /// <reference types="astro/client" />
 /// <reference path="../.astro/types.d.ts" />
 
+declare module "swup" {
+	interface HookDefinitions {
+		"scroll:start": undefined;
+		"scroll:end": undefined;
+	}
+}
+
 declare module "virtual:shirone-music-sidebar" {
 	const component:
 		| typeof import("@components/organisms/music/MusicSidebar.astro").default

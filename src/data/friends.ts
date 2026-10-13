@@ -13,8 +13,10 @@ export interface FriendItem {
 	tags: string[];
 }
 
+import friendsJson from "./friends.json";
+
 // 友情链接数据
-export const friendsData: FriendItem[] = [];
+export const friendsData: FriendItem[] = friendsJson.items as FriendItem[];
 
 // 获取所有友情链接数据
 export function getFriendsList(): FriendItem[] {

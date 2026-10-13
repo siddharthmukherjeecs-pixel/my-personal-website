@@ -85,7 +85,7 @@ export const IMAGE_ENDPOINT_ROUTE = "/_image/";
  */
 export const swupOptions: NonNullable<Parameters<typeof swup>[0]> = {
 	theme: false as const,
-	ignore: ['a[href="#"]'],
+	ignore: ['a[href="#"]', 'a[href^="/keystatic"]', 'a[href^="/admin"]'],
 	animationClass: "transition-swup-",
 	containers: ["main", "#toc"],
 	smoothScrolling: true,
@@ -269,6 +269,11 @@ export const prebundleSpecifiers: string[] = [
 	// stale pre-bundle id and the dynamic import rejects, so poster
 	// generation fails only in dev.
 	"qrcode",
+	"@keystatic/core",
+	"@keystatic/core/ui",
+	"react",
+	"react-dom",
+	"react/jsx-runtime",
 ];
 
 /**

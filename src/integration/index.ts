@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { createRequire } from "node:module";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { AstroIntegration } from "astro";
 import {
@@ -354,6 +354,7 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 							shironesSsrNodeShims(),
 							createMusicSidebarPlugin(paths, musicEnabled),
 							(await import("@tailwindcss/vite")).default(),
+							keystaticTrailingSlashNormalizer(paths.projectRoot),
 						],
 						optimizeDeps: {
 							// Only pre-bundle what the *user's* project can actually
@@ -609,4 +610,38 @@ async function createBundledIntegrations(
 	];
 }
 
+function keystaticTrailingSlashNormalizer(projectRoot: string) {
+	return {
+		name: "keystatic-trailing-slash-normalizer",
+		enforce: "post" as const,
+		configureServer(server: any) {
+			return () => {
+				server.middlewares.stack.unshift({
+					route: "",
+					handle(req: any, _res: any, next: () => void) {
+						if (req.url) {
+							if (req.url.startsWith("/keystatic.config.")) {
+								const [pathname, search] = req.url.split("?");
+								const filename = pathname.replace(/^\//, "");
+								req.url = `/@fs${resolve(projectRoot, filename)}${search ? `?${search}` : ""}`;
+							} else if (
+								req.url.startsWith("/api/keystatic") ||
+								req.url.startsWith("/keystatic") ||
+								req.url.startsWith("/admin")
+							) {
+								const [pathname, search] = req.url.split("?");
+								if (!pathname.endsWith("/")) {
+									req.url = pathname + "/" + (search ? `?${search}` : "");
+								}
+							}
+						}
+						next();
+					},
+				});
+			};
+		},
+	};
+}
+
 export default shirones;
+

@@ -1,4 +1,7 @@
 import { defineConfig } from "astro/config";
+import react from "@astrojs/react";
+import keystatic from "@keystatic/astro";
+import vercel from "@astrojs/vercel";
 import shirones from "./src/integration/index.ts";
 
 // The integration drives every mode, this repository included: integrations,
@@ -7,5 +10,19 @@ import shirones from "./src/integration/index.ts";
 // Do not re-add per-mode config here — update `src/config/` so both modes
 // stay in lockstep (see `src/config/README.md`).
 export default defineConfig({
-	integrations: [shirones()],
+	adapter: vercel(),
+	devToolbar: {
+		enabled: false,
+	},
+	vite: {
+		optimizeDeps: {
+			entries: [
+				"src/**/*.{jsx,tsx,vue,svelte,html,astro,mdx}",
+				"keystatic.config.*",
+				".astro/keystatic-imports.js",
+			],
+		},
+	},
+	integrations: [react(), keystatic(), shirones()],
 });
+

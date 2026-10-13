@@ -34,8 +34,6 @@ Code constructs worlds out of rigid logic; writing explores the ambiguities that
 
 ---
 
-<section id="contact">
-
 ## ✦ Correspondence & Inquiries
 
 Whether discussing ray tracing architectures, machine learning research, literary projects, or thoughtful collaborations, you are welcome to reach out:
@@ -44,4 +42,3 @@ Whether discussing ray tracing architectures, machine learning research, literar
 - **Code & Repositories**: [GitHub](https://github.com)
 - **Writing & Updates**: [X (Twitter)](https://x.com)
 
-</section>

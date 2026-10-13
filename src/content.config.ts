@@ -71,6 +71,7 @@ const seriesCollection = defineCollection({
 const momentsCollection = defineCollection({
 	loader: glob({ base: "./src/content/moments", pattern: "**/*.md" }),
 	schema: z.object({
+		title: z.string().optional(),
 		published: z.date(),
 		pinned: z.boolean().optional().default(false),
 		location: z.string().optional().default(""),
