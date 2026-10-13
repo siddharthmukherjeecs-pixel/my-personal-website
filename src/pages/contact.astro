@@ -1,0 +1,63 @@
+---
+import Card from "@components/atoms/display/Card.svelte";
+import Markdown from "@components/content/Markdown.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+
+const title = "Contact";
+const description = "Direct channels for technical discussions, AI/ML research inquiries, and literary correspondence.";
+---
+
+<MainGridLayout title={title} description={description} page="about">
+    <div class="flex w-full rounded-[var(--shape-corner-l)] overflow-hidden relative min-h-32">
+        <Card color="var(--card-bg)" radius="l" class="z-10 p-6 lg:p-8 relative w-full">
+            <Markdown class="mt-2">
+                <h1>Contact & Correspondence</h1>
+                <p>
+                    I welcome thoughtful correspondence regarding computer graphics, low-level systems in C, machine learning architectures, and literature.
+                </p>
+
+                <hr />
+
+                <h2>✦ Direct Channels</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6 not-prose">
+                    <a href="mailto:siddharth@example.com" class="flex items-center gap-4 p-4 rounded-xl border border-[var(--outline-variant)] bg-[var(--surface-container-low)] hover:bg-[var(--surface-container)] transition">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--primary-container)] text-[var(--on-primary-container)]">
+                            <Icon name="material-symbols:mail-outline-rounded" class="w-6 h-6" />
+                        </div>
+                        <div>
+                            <div class="text-sm font-semibold text-[var(--on-surface)]">Email</div>
+                            <div class="text-xs text-[var(--on-surface-variant)]">siddharth@example.com</div>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-4 rounded-xl border border-[var(--outline-variant)] bg-[var(--surface-container-low)] hover:bg-[var(--surface-container)] transition">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--primary-container)] text-[var(--on-primary-container)]">
+                            <Icon name="fa7-brands:github" class="w-5 h-5" />
+                        </div>
+                        <div>
+                            <div class="text-sm font-semibold text-[var(--on-surface)]">GitHub</div>
+                            <div class="text-xs text-[var(--on-surface-variant)]">Repositories & Open Source</div>
+                        </div>
+                    </a>
+
+                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-4 rounded-xl border border-[var(--outline-variant)] bg-[var(--surface-container-low)] hover:bg-[var(--surface-container)] transition">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--primary-container)] text-[var(--on-primary-container)]">
+                            <Icon name="fa7-brands:x-twitter" class="w-5 h-5" />
+                        </div>
+                        <div>
+                            <div class="text-sm font-semibold text-[var(--on-surface)]">X (Twitter)</div>
+                            <div class="text-xs text-[var(--on-surface-variant)]">Thoughts & Updates</div>
+                        </div>
+                    </a>
+                </div>
+
+                <h2>✦ Inquiries & Collaboration</h2>
+                <p>
+                    For inquiries regarding <em>The Unordinary</em>, graphics engineering discussions, or research collaboration, please email directly.
+                </p>
+            </Markdown>
+        </Card>
+    </div>
+</MainGridLayout>
