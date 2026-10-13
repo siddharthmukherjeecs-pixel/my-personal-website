@@ -53,8 +53,8 @@ export const siteConfig: SiteConfig = withUserConfig("site", {
 	banner: {
 		// Preserves the original Kanade hero artwork without lossy compression or distortion
 		src: {
-			desktop: ["/images/banner/kanade-hero.webp"],
-			mobile: ["/images/banner/kanade-hero.webp"],
+			desktop: ["assets/images/banner/kanade-hero.webp"],
+			mobile: ["assets/images/banner/kanade-hero.webp"],
 		},
 		// Optical focal point for Arona illustration in header
 		position: "center 43%",

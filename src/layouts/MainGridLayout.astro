@@ -117,16 +117,16 @@ const mainContentClasses = generateMainContentClasses(sidebarResponsive);
         </div>
 
         <FloatingControls page={page} headings={headings} hasComments={hasComments} />
-        <RouteProgress client:load />
+        <RouteProgress client:idle />
     </div>
 </div>
 
-<SiteNavigationDrawer client:load />
+<SiteNavigationDrawer client:idle />
 {contextMenuConfig.enable && (
 	<ContextMenu
 		actions={contextMenuConfig.actions}
 		pages={contextMenuConfig.pages}
-		client:load
+		client:media="(min-width: 1024px)"
 	/>
 )}
 

@@ -87,15 +87,13 @@ html[data-texture-preset="sakura"] #m3e-texture-canvas {
 	animation: m3e-texture-sakura-fall 28s linear infinite;
 }
 
-/* 动效关键帧 */
+/* 动效关键帧：使用 GPU 合成器硬件加速属性 (opacity)，消除 mask-position 每帧重绘与光栅化开销 */
 @keyframes m3e-texture-starlight-float {
 	0%, 100% {
-		-webkit-mask-position: 0px 0px;
-		mask-position: 0px 0px;
+		opacity: var(--texture-opacity, 0.12);
 	}
 	50% {
-		-webkit-mask-position: 14px -18px;
-		mask-position: 14px -18px;
+		opacity: calc(var(--texture-opacity, 0.12) * 0.68);
 	}
 }
 
@@ -118,6 +116,13 @@ html[data-texture-preset="sakura"] #m3e-texture-canvas {
 	100% {
 		-webkit-mask-position: 180px 180px;
 		mask-position: 180px 180px;
+	}
+}
+
+/* 移动端与触控设备性能保护：禁用全屏连续背景动效，节省低端 GPU 与电池电量 */
+@media (hover: none) and (pointer: coarse), (max-width: 1023.98px) {
+	#m3e-texture-canvas {
+		animation: none !important;
 	}
 }
 

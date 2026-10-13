@@ -83,7 +83,7 @@ if (typeof avatarAsset !== "string") {
         <div class="m3-profile__bio">{config.bio}</div>
         <div class="m3-profile__links flex flex-wrap gap-2 justify-center mb-1">
             {config.links.length > 1 && config.links.map(item =>
-                <Tooltip label={item.name} placement="top" client:load>
+                <Tooltip label={item.name} placement="top" client:idle>
                     <IconButton href={item.url} target="_blank" rel="me" label={item.name}>
                         <Icon name={item.icon} class="text-[1.5rem]"></Icon>
                     </IconButton>
