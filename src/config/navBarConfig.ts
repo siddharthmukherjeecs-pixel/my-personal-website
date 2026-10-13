@@ -138,7 +138,7 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		name: "Contact",
 		url: "/contact/",
 		icon: "material-symbols:alternate-email-rounded",
-		pageKey: "about",
+		pageKey: "contact",
 	},
 	GitHub: {
 		name: "GitHub",
@@ -152,10 +152,21 @@ export const LinkPresets: Record<string, NavBarLink> = {
 const defaultNavBarConfig: NavBarConfig = {
 	links: [
 		LinkPresets.Home,
-		LinkPresets.About,
+		LinkPresets.Archive,
 		LinkPresets.Projects,
-		LinkPresets.Writing,
-		LinkPresets.Contact,
+		LinkPresets.Moments,
+		LinkPresets.Anime,
+		{
+			name: i18n(I18nKey.more),
+			icon: "material-symbols:apps-rounded",
+			children: [
+				LinkPresets.About,
+				LinkPresets.Contact,
+				LinkPresets.Timeline,
+				LinkPresets.Skills,
+				LinkPresets.GitHub,
+			],
+		},
 	],
 };
 
