@@ -28,7 +28,7 @@ export const sidebarConfig: SidebarConfig = withUserConfig("sidebar", {
 	side: "left",
 	components: [
 		{ type: "profile", enable: true, slot: "top" },
-		{ type: "music", enable: true, slot: "top" },
+		{ type: "music", enable: false, slot: "top" },
 		{ type: "announcement", enable: true, slot: "top", pages: ["home"] },
 		{
 			type: "categories",
@@ -54,7 +54,7 @@ export const sidebarConfig: SidebarConfig = withUserConfig("sidebar", {
 		},
 		{
 			type: "series",
-			enable: true,
+			enable: false,
 			slot: "sticky",
 			collapseAfter: 5,
 			pages: [
