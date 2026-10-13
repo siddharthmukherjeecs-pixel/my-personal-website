@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { basename, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -6,7 +7,11 @@ import { siteConfig } from "../../src/config/siteConfig.ts";
 import { resolveFontAssetPath } from "./asset-path.mjs";
 
 const projectRoot = fileURLToPath(new URL("../../", import.meta.url));
-const dist = join(projectRoot, "dist");
+const distRoot = join(projectRoot, "dist");
+// When an Astro adapter (such as @astrojs/vercel) is used, client assets reside in dist/client.
+const dist = existsSync(join(distRoot, "client"))
+	? join(distRoot, "client")
+	: distRoot;
 const maxTotalBytes = Number(
 	process.env.FONT_MAX_TOTAL_BYTES ?? resolvedFontOptions.budget.maxTotalBytes,
 );
