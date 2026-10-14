@@ -47,10 +47,10 @@ async function getCredentials() {
 
 	if (!url || !token) {
 		for (const [k, v] of Object.entries(process.env)) {
-			if (!url && typeof v === "string" && (k.endsWith("_REDIS_REST_URL") || k.endsWith("_REST_API_URL"))) {
+			if (!url && typeof v === "string" && v.startsWith("https://") && (k.includes("REST_URL") || k.includes("REDIS") || k.endsWith("_URL"))) {
 				url = v;
 			}
-			if (!token && typeof v === "string" && (k.endsWith("_REDIS_REST_TOKEN") || k.endsWith("_REST_API_TOKEN"))) {
+			if (!token && typeof v === "string" && (k.includes("REST_TOKEN") || k.includes("TOKEN"))) {
 				token = v;
 			}
 		}
