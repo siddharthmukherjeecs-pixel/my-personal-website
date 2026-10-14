@@ -1,0 +1,18 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import Guestbook from "@components/organisms/Guestbook.svelte";
+import { profileConfig } from "@/config/profileConfig";
+
+const pageTitle = "留言";
+const pageDescription = "把心情，贴在这里。选一张喜欢的颜色，留下一点此刻的心情。每一句话，都值得被好好收藏。";
+---
+
+<MainGridLayout title={pageTitle} description={pageDescription} page="messages">
+	<div class="w-full">
+		<Guestbook
+			client:load
+			authorName={profileConfig.name}
+			authorAvatar="/images/banner/kanade-hero.webp"
+		/>
+	</div>
+</MainGridLayout>

@@ -128,6 +128,12 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		icon: "material-symbols:info-outline-rounded",
 		pageKey: "about",
 	},
+	Messages: {
+		name: "留言",
+		url: "/messages/",
+		icon: "material-symbols:sticky-note-2-outline-rounded",
+		pageKey: "messages",
+	},
 	Writing: {
 		name: "Writing",
 		url: "/archive/",
@@ -153,6 +159,7 @@ const defaultNavBarConfig: NavBarConfig = {
 	links: [
 		LinkPresets.Home,
 		LinkPresets.Archive,
+		LinkPresets.Messages,
 		LinkPresets.Projects,
 		LinkPresets.Moments,
 		LinkPresets.Anime,
@@ -162,6 +169,7 @@ const defaultNavBarConfig: NavBarConfig = {
 			children: [
 				LinkPresets.About,
 				LinkPresets.Contact,
+				LinkPresets.Friends,
 				LinkPresets.Timeline,
 				LinkPresets.Skills,
 				LinkPresets.GitHub,
