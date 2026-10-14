@@ -8,7 +8,7 @@ import {
 	MANGA_STATUS_META,
 	MANGA_TYPE_META,
 	resolveMangaType,
-} from "@utils/manga-data";
+} from "@utils/manga/constants";
 import { reveal } from "@utils/motion";
 import { url } from "@utils/url-utils";
 import type { MangaItem } from "../../data/manga";

@@ -164,11 +164,11 @@ onMount(() => {
 
 <Card color="var(--card-bg)" radius="l" class="anime-section px-8 py-6">
 	<nav class="media-tabs" aria-label="Media category selection">
-		<a href="/anime/" class="media-tab active" aria-current="page">
+		<a href="/anime/" class="media-tab active" aria-current="page" data-no-swup>
 			<Icon icon="material-symbols:live-tv-outline-rounded" width="18" height="18" />
 			<span>Anime</span>
 		</a>
-		<a href="/manga/" class="media-tab">
+		<a href="/manga/" class="media-tab" data-no-swup>
 			<Icon icon="material-symbols:auto-stories-outline-rounded" width="18" height="18" />
 			<span>Manga & Webtoons</span>
 		</a>

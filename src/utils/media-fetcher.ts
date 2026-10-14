@@ -15,12 +15,15 @@ export interface FetchedMediaMeta {
 	format?: string;
 }
 
-const CACHE_PATH = resolve(process.cwd(), "node_modules/.cache/media-metadata-cache.json");
+const CACHE_PATH =
+	typeof process !== "undefined" && typeof process.cwd === "function"
+		? resolve(process.cwd(), "node_modules/.cache/media-metadata-cache.json")
+		: "";
 const memoryCache = new Map<string, FetchedMediaMeta | null>();
 
 function loadDiskCache(): void {
 	try {
-		if (existsSync(CACHE_PATH)) {
+		if (CACHE_PATH && existsSync(CACHE_PATH)) {
 			const raw = readFileSync(CACHE_PATH, "utf-8");
 			const parsed = JSON.parse(raw);
 			for (const [k, v] of Object.entries(parsed)) {
@@ -34,6 +37,7 @@ function loadDiskCache(): void {
 
 function saveDiskCache(): void {
 	try {
+		if (!CACHE_PATH) return;
 		const dir = dirname(CACHE_PATH);
 		if (!existsSync(dir)) {
 			mkdirSync(dir, { recursive: true });

@@ -160,6 +160,33 @@ const hasMonoFont =
 				media={favicon.theme && `(prefers-color-scheme: ${favicon.theme})`}
 			/>
 		))}
+		<script is:inline>
+			// Ensure Astro island client directives are ALWAYS available across Swup page transitions
+			(function() {
+				var A = self.Astro = self.Astro || {};
+				if (!A.load) A.load = async function(t) { await (await t())(); };
+				if (!A.idle) A.idle = function(n, t) {
+					var i = async function() { await (await n())(); };
+					var s = { timeout: t?.value?.timeout };
+					"requestIdleCallback" in window ? window.requestIdleCallback(i, s) : setTimeout(i, s.timeout || 200);
+				};
+				if (!A.visible) A.visible = function(s, i, o) {
+					var r = async function() { await (await s())(); };
+					var n = new IntersectionObserver(function(e) {
+						for (var l of e) if (l.isIntersecting) { n.disconnect(); r(); break; }
+					}, { rootMargin: i?.value?.rootMargin });
+					for (var e of o.children) n.observe(e);
+				};
+				if (!A.only) A.only = async function(t) { await (await t())(); };
+				if (!A.media) A.media = function(a, t) {
+					var i = async function() { await (await a())(); };
+					if (t.value) {
+						var e = matchMedia(t.value);
+						e.matches ? i() : e.addEventListener("change", i, { once: true });
+					}
+				};
+			})();
+		</script>
 
 		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, configHue, lightTheme, darkTheme, defaultWallpaperMode, defaultTexturePreset, defaultTextureOpacity, textureEnabled}}>
 			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
@@ -403,6 +430,8 @@ const setup = () => {
 			document.body.dataset.currentPage = newPage;
 		}
 		applyStoredLayoutMode(document.getElementById("post-list"));
+		window.dispatchEvent(new Event("astro:load"));
+		window.dispatchEvent(new Event("astro:visible"));
 	});
 };
 if (window.swup) setup();

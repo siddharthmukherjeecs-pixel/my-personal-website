@@ -15,7 +15,7 @@ import {
 	MANGA_STATUS_META,
 	MANGA_TYPE_META,
 	resolveMangaType,
-} from "@utils/manga-data";
+} from "@utils/manga/constants";
 import { flipFromRect } from "@utils/motion";
 import { onMount } from "svelte";
 import type { MangaItem } from "../../data/manga";
@@ -55,8 +55,8 @@ const LIST_MODE_CLASS: Record<MangaLayoutMode, string> = {
 
 /** 格式 / 产地筛选 Chips */
 const formatOptions = [
-	{ value: "manhwa", label: "Manhwa (만话)", leadingIcon: "material-symbols:menu-book-rounded" },
 	{ value: "webtoon", label: "Webtoon (웹툰)", leadingIcon: "material-symbols:phone-android-outline-rounded" },
+	{ value: "manhwa", label: "Manhwa (만화)", leadingIcon: "material-symbols:menu-book-rounded" },
 	{ value: "manga", label: "Manga (漫画)", leadingIcon: "material-symbols:book-2-outline-rounded" },
 	{ value: "manhua", label: "Manhua (漫画)", leadingIcon: "material-symbols:import-contacts-rounded" },
 ];
@@ -73,23 +73,22 @@ const statusItems = $derived(
 const filtered = $derived.by(() => {
 	const normalizedQuery = query.trim().toLowerCase();
 	return items.filter((item) => {
-		const effectiveType = resolveMangaType(item);
+		const c = item.country?.toUpperCase();
+		const t = item.type?.toLowerCase();
 
 		// Format/Country segregation:
 		if (selectedType) {
-			if (selectedType === "manhwa") {
-				// Segregate Korean manhwa by country OR type
-				const isKorean = item.country?.toUpperCase() === "KR" || item.type === "manhwa";
-				if (!isKorean) return false;
+			if (selectedType === "webtoon") {
+				if (t !== "webtoon") return false;
+			} else if (selectedType === "manhwa") {
+				const isKorean = c === "KR" || t === "manhwa";
+				if (!isKorean || t === "webtoon") return false;
 			} else if (selectedType === "manga") {
-				// Segregate Japanese manga by country OR type
-				const isJapanese = item.country?.toUpperCase() === "JP" || (item.type === "manga" && item.country !== "KR");
-				if (!isJapanese) return false;
+				const isJapanese = c === "JP" || t === "manga";
+				if (!isJapanese || c === "KR" || c === "CN" || c === "TW" || t === "webtoon") return false;
 			} else if (selectedType === "manhua") {
-				const isChinese = item.country?.toUpperCase() === "CN" || item.country?.toUpperCase() === "TW" || item.type === "manhua";
+				const isChinese = c === "CN" || c === "TW" || t === "manhua";
 				if (!isChinese) return false;
-			} else if (effectiveType !== selectedType) {
-				return false;
 			}
 		}
 
@@ -195,11 +194,11 @@ onMount(() => {
 <Card color="var(--card-bg)" radius="l" class="manga-section px-8 py-6">
 	<!-- Top Switcher Bar (Anime <-> Manga) -->
 	<nav class="media-tabs" aria-label="Media category selection">
-		<a href="/anime/" class="media-tab">
+		<a href="/anime/" class="media-tab" data-no-swup>
 			<Icon icon="material-symbols:live-tv-outline-rounded" width="18" height="18" />
 			<span>Anime</span>
 		</a>
-		<a href="/manga/" class="media-tab active" aria-current="page">
+		<a href="/manga/" class="media-tab active" aria-current="page" data-no-swup>
 			<Icon icon="material-symbols:auto-stories-outline-rounded" width="18" height="18" />
 			<span>Manga & Webtoons</span>
 		</a>
