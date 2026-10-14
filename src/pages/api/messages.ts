@@ -39,7 +39,7 @@ async function getCredentials() {
 		}
 	}
 	for (const key of candidatesToken) {
-		if (process.env[key]) {
+		if (process.env[key] && !key.includes("READ_ONLY") && !key.includes("READONLY")) {
 			token = process.env[key];
 			break;
 		}
@@ -50,7 +50,13 @@ async function getCredentials() {
 			if (!url && typeof v === "string" && v.startsWith("https://") && (k.includes("REST_URL") || k.includes("REDIS") || k.endsWith("_URL"))) {
 				url = v;
 			}
-			if (!token && typeof v === "string" && (k.includes("REST_TOKEN") || k.includes("TOKEN"))) {
+			if (
+				!token &&
+				typeof v === "string" &&
+				!k.includes("READ_ONLY") &&
+				!k.includes("READONLY") &&
+				(k.includes("REST_TOKEN") || k.endsWith("_TOKEN"))
+			) {
 				token = v;
 			}
 		}
