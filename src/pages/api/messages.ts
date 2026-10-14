@@ -14,22 +14,57 @@ const STORAGE_KEY = "kanade:guestbook:notes";
 const ALLOWED_COLORS = new Set(["butter", "rose", "mint", "sky", "lilac"]);
 
 async function getCredentials() {
-	let url =
-		process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-	let token =
-		process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+	const candidatesUrl = [
+		"STORAGE_REDIS_REST_URL",
+		"STORAGE_REST_API_URL",
+		"STORAGE_URL",
+		"KV_REST_API_URL",
+		"UPSTASH_REDIS_REST_URL",
+	];
+	const candidatesToken = [
+		"STORAGE_REDIS_REST_TOKEN",
+		"STORAGE_REST_API_TOKEN",
+		"STORAGE_TOKEN",
+		"KV_REST_API_TOKEN",
+		"UPSTASH_REDIS_REST_TOKEN",
+	];
+
+	let url: string | undefined;
+	let token: string | undefined;
+
+	for (const key of candidatesUrl) {
+		if (process.env[key]) {
+			url = process.env[key];
+			break;
+		}
+	}
+	for (const key of candidatesToken) {
+		if (process.env[key]) {
+			token = process.env[key];
+			break;
+		}
+	}
+
+	if (!url || !token) {
+		for (const [k, v] of Object.entries(process.env)) {
+			if (!url && typeof v === "string" && (k.endsWith("_REDIS_REST_URL") || k.endsWith("_REST_API_URL"))) {
+				url = v;
+			}
+			if (!token && typeof v === "string" && (k.endsWith("_REDIS_REST_TOKEN") || k.endsWith("_REST_API_TOKEN"))) {
+				token = v;
+			}
+		}
+	}
 
 	if (!url || !token) {
 		try {
 			const { getSecret } = await import("astro:env/server");
-			url =
-				url ||
-				getSecret("KV_REST_API_URL") ||
-				getSecret("UPSTASH_REDIS_REST_URL");
-			token =
-				token ||
-				getSecret("KV_REST_API_TOKEN") ||
-				getSecret("UPSTASH_REDIS_REST_TOKEN");
+			for (const key of candidatesUrl) {
+				if (!url) url = getSecret(key);
+			}
+			for (const key of candidatesToken) {
+				if (!token) token = getSecret(key);
+			}
 		} catch {
 			// ignore
 		}
