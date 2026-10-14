@@ -111,36 +111,45 @@ export async function queryAniList(
 		}
 	`;
 
-	try {
-		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), 6000);
+	const candidates = [
+		title,
+		title.replace(/\b(\w+)s\b/g, "$1's"),
+		title.replace(/['’]/g, ""),
+		title.split(/[:\-\(]/)[0].trim(),
+	];
+	const uniqueCandidates = [...new Set(candidates.filter(Boolean))];
 
-		const response = await fetch("https://graphql.anilist.co", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify({
-				query,
-				variables: { search: title, type: mediaType },
-			}),
-			signal: controller.signal,
-		});
+	for (const candidate of uniqueCandidates) {
+		try {
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-		clearTimeout(timeoutId);
+			const response = await fetch("https://graphql.anilist.co", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify({
+					query,
+					variables: { search: candidate, type: mediaType },
+				}),
+				signal: controller.signal,
+			});
 
-		if (!response.ok) return null;
+			clearTimeout(timeoutId);
 
-		const json = await response.json();
-		const media = json.data?.Media;
-		if (!media) return null;
+			if (!response.ok) continue;
 
-		const cover =
-			media.coverImage?.extraLarge ||
-			media.coverImage?.large ||
-			media.coverImage?.medium ||
-			"";
+			const json = await response.json();
+			const media = json.data?.Media;
+			if (!media) continue;
+
+			const cover =
+				media.coverImage?.extraLarge ||
+				media.coverImage?.large ||
+				media.coverImage?.medium ||
+				"";
 
 		const authorEdge = media.staff?.edges?.find(
 			(e: { role: string }) =>
@@ -156,22 +165,24 @@ export async function queryAniList(
 				? Math.round((media.averageScore / 10) * 10) / 10
 				: undefined;
 
-		return {
-			title: media.title?.english || media.title?.romaji || title,
-			cover,
-			banner: media.bannerImage || undefined,
-			description: stripHtml(media.description),
-			rating,
-			year: media.startDate?.year ? String(media.startDate.year) : undefined,
-			genres: Array.isArray(media.genres) ? media.genres : [],
-			authorOrStudio: authorOrStudio || undefined,
-			link: media.siteUrl || undefined,
-			country: media.countryOfOrigin || undefined,
-			format: media.format || undefined,
-		};
-	} catch {
-		return null;
+			return {
+				title: media.title?.english || media.title?.romaji || title,
+				cover,
+				banner: media.bannerImage || undefined,
+				description: stripHtml(media.description),
+				rating,
+				year: media.startDate?.year ? String(media.startDate.year) : undefined,
+				genres: Array.isArray(media.genres) ? media.genres : [],
+				authorOrStudio: authorOrStudio || undefined,
+				link: media.siteUrl || undefined,
+				country: media.countryOfOrigin || undefined,
+				format: media.format || undefined,
+			};
+		} catch {
+			// try next candidate
+		}
 	}
+	return null;
 }
 
 /**
@@ -258,6 +269,21 @@ export async function fetchMediaMetadata(
 				...meta,
 				cover: fallback.cover,
 			};
+		}
+	}
+
+	// Cross-type fallback (e.g. user entered a manhwa/manga in anime list or vice versa)
+	if (!meta || !meta.cover) {
+		const oppositeAniListType = isAnime ? "MANGA" : "ANIME";
+		const crossMeta = await queryAniList(trimmed, oppositeAniListType);
+		if (crossMeta && crossMeta.cover) {
+			meta = crossMeta;
+		} else {
+			const oppositeJikan = isAnime ? "manga" : "anime";
+			const crossJikan = await queryJikan(trimmed, oppositeJikan);
+			if (crossJikan && crossJikan.cover) {
+				meta = crossJikan;
+			}
 		}
 	}
 

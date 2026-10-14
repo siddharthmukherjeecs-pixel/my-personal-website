@@ -31,40 +31,51 @@ async function queryAniList(title, type) {
 		}
 	`;
 
-	try {
-		const res = await fetch("https://graphql.anilist.co", {
-			method: "POST",
-			headers: { "Content-Type": "application/json", Accept: "application/json" },
-			body: JSON.stringify({ query, variables: { search: title, type: mediaType } }),
-		});
-		if (!res.ok) return null;
-		const json = await res.json();
-		const m = json.data?.Media;
-		if (!m) return null;
+	const candidates = [
+		title,
+		title.replace(/\b(\w+)s\b/g, "$1's"),
+		title.replace(/['’]/g, ""),
+		title.split(/[:\-\(]/)[0].trim(),
+	];
+	const uniqueCandidates = [...new Set(candidates.filter(Boolean))];
 
-		const cover = m.coverImage?.extraLarge || m.coverImage?.large || m.coverImage?.medium || "";
-		const authorEdge = m.staff?.edges?.find((e) => /story|art|author|creator/i.test(e.role));
-		const authorOrStudio =
-			mediaType === "ANIME"
-				? m.studios?.nodes?.[0]?.name
-				: authorEdge?.node?.name?.full || m.staff?.edges?.[0]?.node?.name?.full;
+	for (const candidate of uniqueCandidates) {
+		try {
+			const res = await fetch("https://graphql.anilist.co", {
+				method: "POST",
+				headers: { "Content-Type": "application/json", Accept: "application/json" },
+				body: JSON.stringify({ query, variables: { search: candidate, type: mediaType } }),
+			});
+			if (!res.ok) continue;
+			const json = await res.json();
+			const m = json.data?.Media;
+			if (!m) continue;
 
-		const desc = m.description ? m.description.replace(/<[^>]+>/g, "").trim() : "";
-		const rating = typeof m.averageScore === "number" ? Math.round((m.averageScore / 10) * 10) / 10 : undefined;
+			const cover = m.coverImage?.extraLarge || m.coverImage?.large || m.coverImage?.medium || "";
+			const authorEdge = m.staff?.edges?.find((e) => /story|art|author|creator/i.test(e.role));
+			const authorOrStudio =
+				mediaType === "ANIME"
+					? m.studios?.nodes?.[0]?.name
+					: authorEdge?.node?.name?.full || m.staff?.edges?.[0]?.node?.name?.full;
 
-		return {
-			title: m.title?.english || m.title?.romaji || title,
-			cover,
-			description: desc,
-			rating,
-			year: m.startDate?.year ? String(m.startDate.year) : undefined,
-			genres: Array.isArray(m.genres) ? m.genres : [],
-			authorOrStudio,
-			link: m.siteUrl,
-		};
-	} catch {
-		return null;
+			const desc = m.description ? m.description.replace(/<[^>]+>/g, "").trim() : "";
+			const rating = typeof m.averageScore === "number" ? Math.round((m.averageScore / 10) * 10) / 10 : undefined;
+
+			return {
+				title: m.title?.english || m.title?.romaji || title,
+				cover,
+				description: desc,
+				rating,
+				year: m.startDate?.year ? String(m.startDate.year) : undefined,
+				genres: Array.isArray(m.genres) ? m.genres : [],
+				authorOrStudio,
+				link: m.siteUrl,
+			};
+		} catch {
+			// continue
+		}
 	}
+	return null;
 }
 
 async function queryJikan(title, type) {
@@ -137,6 +148,15 @@ async function syncMediaFile(filePath, defaultType, label) {
 			let meta = await queryAniList(item.title, type);
 			if (!meta || !meta.cover) {
 				meta = await queryJikan(item.title, type);
+			}
+
+			// Cross-type fallback (e.g. searching manga if anime returned no results)
+			if (!meta || !meta.cover) {
+				const crossType = type === "anime" ? "manhwa" : "anime";
+				meta = await queryAniList(item.title, crossType);
+				if (!meta || !meta.cover) {
+					meta = await queryJikan(item.title, crossType);
+				}
 			}
 
 			if (meta && meta.cover) {

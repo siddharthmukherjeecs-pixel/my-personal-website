@@ -49,7 +49,15 @@
       "title": "omniscient readers viewpoint",
       "status": "completed",
       "rating": 9,
-      "genres": []
+      "genres": [
+        "Action",
+        "Adventure",
+        "Fantasy"
+      ],
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx179068-wlmOf8c4HnXf.jpg",
+      "description": "Dokja was an average office worker whose sole interest was reading his favorite web novel 'Three Ways to Survive the Apocalypse.' But when the novel suddenly becomes reality, he is the only person who knows how the world will end. Armed with this realization, Dokja uses his understanding to change the course of the story, and the world, as he knows it.\n\n(Source: Crunchyroll)",
+      "year": "2027",
+      "link": "https://anilist.co/anime/179068"
     }
   ]
 }
