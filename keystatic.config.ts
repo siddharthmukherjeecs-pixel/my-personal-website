@@ -6,9 +6,9 @@ const useGithubStorage =
 	storageKind === "github" || (isProd && storageKind !== "local");
 
 const repoOwner =
-	import.meta.env?.PUBLIC_KEYSTATIC_REPO_OWNER || "siddharth-mukherjee";
+	import.meta.env?.PUBLIC_KEYSTATIC_REPO_OWNER || "siddharthmukherjeecs-pixel";
 const repoName =
-	import.meta.env?.PUBLIC_KEYSTATIC_REPO_NAME || "meowww";
+	import.meta.env?.PUBLIC_KEYSTATIC_REPO_NAME || "my-personal-website";
 const githubRepo = `${repoOwner}/${repoName}` as `${string}/${string}`;
 
 
