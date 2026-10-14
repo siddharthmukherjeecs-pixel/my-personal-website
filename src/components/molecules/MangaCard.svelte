@@ -10,6 +10,8 @@ let {
 	delay = 0,
 }: { item: MangaItem; delay?: number } = $props();
 
+let imgFailed = $state(false);
+
 const statusMeta = $derived(
 	MANGA_STATUS_META[item.status] || MANGA_STATUS_META.reading,
 );
@@ -29,18 +31,20 @@ const metaLine = $derived(
 	use:reveal={{ delay }}
 >
 	{#snippet coverContent()}
-		{#if item.cover}
+		{#if item.cover && !imgFailed}
 			<img
 				class="manga-card__cover-img"
 				src={url(item.cover)}
 				alt={item.title}
 				loading="lazy"
 				referrerpolicy="no-referrer"
+				onerror={() => (imgFailed = true)}
 			/>
 		{:else}
-			<span class="manga-card__placeholder" aria-hidden="true">
+			<div class="manga-card__placeholder" aria-hidden="true">
 				<Icon icon={typeMeta.icon} />
-			</span>
+				<span class="manga-card__placeholder-text">{item.title}</span>
+			</div>
 		{/if}
 		<span class="manga-card__scrim" aria-hidden="true"></span>
 		
@@ -147,13 +151,27 @@ const metaLine = $derived(
 
 	&__placeholder
 		display: flex
+		flex-direction: column
 		align-items: center
 		justify-content: center
+		gap: 0.5rem
+		padding: 1rem
+		text-align: center
 		width: 100%
 		height: 100%
-		font-size: 3rem
+		font-size: 2.5rem
 		color: var(--on-surface-variant)
-		opacity: 0.3
+		opacity: 0.6
+
+	&__placeholder-text
+		font-size: 0.75rem
+		font-weight: 600
+		line-height: 1.3
+		color: var(--on-surface-variant)
+		display: -webkit-box
+		-webkit-line-clamp: 2
+		-webkit-box-orient: vertical
+		overflow: hidden
 
 	&__scrim
 		position: absolute

@@ -67,6 +67,46 @@ async function queryAniList(title, type) {
 	}
 }
 
+async function queryJikan(title, type) {
+	try {
+		const mediaType = type === "anime" ? "anime" : "manga";
+		const url = `https://api.jikan.moe/v4/${mediaType}?q=${encodeURIComponent(title)}&limit=1`;
+		const res = await fetch(url, { headers: { Accept: "application/json" }, signal: AbortSignal.timeout(4000) });
+		if (!res.ok) return null;
+		const json = await res.json();
+		const m = json.data?.[0];
+		if (!m) return null;
+
+		const cover = m.images?.webp?.large_image_url || m.images?.jpg?.large_image_url || m.images?.webp?.image_url || "";
+		const authorOrStudio = type === "anime" ? m.studios?.[0]?.name : m.authors?.[0]?.name;
+		const desc = m.synopsis ? m.synopsis.replace(/<[^>]+>/g, "").trim() : "";
+		const genres = Array.isArray(m.genres) ? m.genres.map((g) => g.name) : [];
+
+		return {
+			title: m.title_english || m.title || title,
+			cover,
+			description: desc,
+			rating: typeof m.score === "number" ? m.score : undefined,
+			year: m.year ? String(m.year) : undefined,
+			genres,
+			authorOrStudio,
+			link: m.url,
+		};
+	} catch {
+		return null;
+	}
+}
+
+async function isUrlValid(url) {
+	if (!url || typeof url !== "string" || !url.startsWith("http")) return false;
+	try {
+		const res = await fetch(url, { method: "HEAD", signal: AbortSignal.timeout(4000) });
+		return res.ok;
+	} catch {
+		return false;
+	}
+}
+
 async function syncMediaFile(filePath, defaultType, label) {
 	if (!existsSync(filePath)) {
 		console.log(`[media-sync] ${label} file not found at ${filePath}`);
@@ -77,6 +117,7 @@ async function syncMediaFile(filePath, defaultType, label) {
 	const data = JSON.parse(raw);
 	const items = data.items || [];
 	let updatedCount = 0;
+	const force = process.argv.includes("--force");
 
 	console.log(`\n[media-sync] Checking ${items.length} ${label} items...`);
 
@@ -84,11 +125,22 @@ async function syncMediaFile(filePath, defaultType, label) {
 		const item = items[i];
 		const type = item.type || defaultType;
 
-		if (!item.cover || !item.cover.trim() || !item.description) {
-			process.stdout.write(`  → Looking up "${item.title}" (${type})... `);
-			const meta = await queryAniList(item.title, type);
+		const validCover = !force && item.cover && item.cover.trim() ? await isUrlValid(item.cover) : false;
+
+		if (!validCover || !item.description) {
+			if (!validCover && item.cover) {
+				process.stdout.write(`  ⚠ Cover for "${item.title}" is invalid/broken. Re-fetching... `);
+			} else {
+				process.stdout.write(`  → Looking up "${item.title}" (${type})... `);
+			}
+
+			let meta = await queryAniList(item.title, type);
+			if (!meta || !meta.cover) {
+				meta = await queryJikan(item.title, type);
+			}
+
 			if (meta && meta.cover) {
-				if (!item.cover || !item.cover.trim()) item.cover = meta.cover;
+				item.cover = meta.cover;
 				if (!item.description) item.description = meta.description;
 				if (!item.year && meta.year) item.year = meta.year;
 				if ((!item.genres || item.genres.length === 0) && meta.genres.length > 0) item.genres = meta.genres;
@@ -97,14 +149,13 @@ async function syncMediaFile(filePath, defaultType, label) {
 				if (!item.link && meta.link) item.link = meta.link;
 
 				updatedCount++;
-				console.log(`✓ Fetched cover & details!`);
+				console.log(`✓ Fetched fresh cover & details!`);
 			} else {
 				console.log(`⚠ No cover found.`);
 			}
-			// slight delay to be polite to AniList
 			await new Promise((r) => setTimeout(r, 200));
 		} else {
-			console.log(`  ✓ "${item.title}" already has cover.`);
+			console.log(`  ✓ "${item.title}" cover is valid.`);
 		}
 	}
 

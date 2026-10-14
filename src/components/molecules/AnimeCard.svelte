@@ -22,6 +22,8 @@ let {
 	delay = 0,
 }: { anime: AnimeItem; delay?: number } = $props();
 
+let imgFailed = $state(false);
+
 const statusMeta = $derived(ANIME_STATUS_META[anime.status]);
 const isWatching = $derived(
 	anime.status === "watching" && anime.progress !== undefined,
@@ -44,18 +46,20 @@ const metaLine = $derived(
 >
 	<!-- 封面内部内容（img/占位 + 播放层 + 评分）：link/非 link 两分支共享，避免重复维护 -->
 	{#snippet coverContent()}
-		{#if anime.cover}
+		{#if anime.cover && !imgFailed}
 			<img
 				class="anime-card__cover-img"
 				src={url(anime.cover)}
 				alt={anime.title}
 				loading="lazy"
 				referrerpolicy="no-referrer"
+				onerror={() => (imgFailed = true)}
 			/>
 		{:else}
-			<span class="anime-card__placeholder" aria-hidden="true">
+			<div class="anime-card__placeholder" aria-hidden="true">
 				<Icon icon="material-symbols:live-tv-outline-rounded" />
-			</span>
+				<span class="anime-card__placeholder-text">{anime.title}</span>
+			</div>
 		{/if}
 		<span class="anime-card__scrim" aria-hidden="true"></span>
 		{#if anime.link}
@@ -198,17 +202,32 @@ const metaLine = $derived(
 			opacity: 1
 			transform: scale(1)
 
-	/* 占位水印：主题色淡渐变 + tv 图标（无封面时） */
+	/* 占位水印：主题色淡渐变 + tv 图标（无封面或图片加载失败时） */
 	&__placeholder
 		position: absolute
 		inset: 0
 		display: flex
+		flex-direction: column
 		align-items: center
 		justify-content: center
-		color: unquote("color-mix(in oklab, var(--on-surface-variant) 40%, transparent)")
+		gap: 0.5rem
+		padding: 1rem
+		text-align: center
+		color: unquote("color-mix(in oklab, var(--on-surface-variant) 60%, transparent)")
 		> :global(svg)
 			width: 2.5rem
 			height: 2.5rem
+			opacity: 0.7
+
+	&__placeholder-text
+		font: var(--m3e-type-label-small)
+		font-weight: 600
+		color: var(--on-surface-variant)
+		opacity: 0.8
+		display: -webkit-box
+		-webkit-line-clamp: 2
+		-webkit-box-orient: vertical
+		overflow: hidden
 
 	/* 评分 scrim pill：毛玻璃 + star 图标 + 数字 */
 	&__rating
