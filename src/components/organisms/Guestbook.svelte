@@ -38,6 +38,8 @@ let messages = $state<Message[]>([]);
 let feedback = $state("");
 let error = $state("");
 let ready = $state(false);
+let isSynced = $state(false);
+let isSubmitting = $state(false);
 let newestFirst = $state(true);
 let freshId = $state("");
 let textareaEl: HTMLTextAreaElement | undefined = $state();
@@ -86,37 +88,48 @@ function normalizeMessage(value: unknown): Message | null {
 	};
 }
 
-onMount(() => {
+onMount(async () => {
+	// First load local cache if available for instant display
 	try {
 		const raw = JSON.parse(localStorage.getItem(storageKey) || "[]");
-		const seen = new Set<string>();
-		messages = Array.isArray(raw)
-			? raw
+		if (Array.isArray(raw) && raw.length > 0) {
+			messages = raw.map(normalizeMessage).filter((m): m is Message => Boolean(m));
+		}
+	} catch {
+		// ignore
+	}
+
+	// Then fetch live cloud messages from the serverless API
+	try {
+		const res = await fetch("/api/messages/");
+		if (res.ok) {
+			const data = await res.json();
+			if (data.synced && Array.isArray(data.messages)) {
+				isSynced = true;
+				const seen = new Set<string>();
+				messages = data.messages
 					.map(normalizeMessage)
-					.filter((message): message is Message => {
-						if (!message || seen.has(message.id)) return false;
-						seen.add(message.id);
+					.filter((m: Message | null): m is Message => {
+						if (!m || seen.has(m.id)) return false;
+						seen.add(m.id);
 						return true;
 					})
 					.slice(0, 100)
-					.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
-			: [];
+					.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+				try {
+					localStorage.setItem(storageKey, JSON.stringify(messages));
+				} catch {
+					// ignore
+				}
+			} else {
+				isSynced = false;
+			}
+		}
 	} catch {
-		error = "Browser storage is unavailable. You can still write; copy your text to keep it.";
+		// network fallback: use local cache
 	}
 	ready = true;
 });
-
-function save(next: Message[]): boolean {
-	try {
-		localStorage.setItem(storageKey, JSON.stringify(next));
-		messages = next;
-		return true;
-	} catch {
-		error = "Note not saved: browser storage is full or disabled. Copy your text before trying again.";
-		return false;
-	}
-}
 
 async function submit(e: Event) {
 	e.preventDefault();
@@ -132,42 +145,87 @@ async function submit(e: Event) {
 		error = "Names can have up to 24 characters and messages up to 500.";
 		return;
 	}
-	if (messages.length >= 100) {
-		error = "You have 100 saved notes. Remove a few old ones before adding another.";
-		return;
-	}
-	const id =
-		globalThis.crypto?.randomUUID?.() ||
-		`${Date.now()}-${Math.random().toString(36).slice(2)}`;
-	if (
-		save([
-			{
-				id,
+
+	isSubmitting = true;
+	try {
+		const res = await fetch("/api/messages/", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
 				name: author,
 				content: text,
-				date: new Date().toISOString(),
 				color: selectedColor,
-			},
-			...messages,
-		])
-	) {
+			}),
+		});
+
+		const data = await res.json();
+		if (data.success && data.message) {
+			const newNote = data.message as Message;
+			messages = [newNote, ...messages.filter((m) => m.id !== newNote.id)];
+			freshId = newNote.id;
+			newestFirst = true;
+			content = "";
+			isSynced = Boolean(data.synced);
+			feedback = data.synced
+				? "Note placed on the wall! Synced across all visitors ✿"
+				: "Note saved locally. (Connect Upstash Redis in Vercel Storage to sync across all visitors!)";
+			try {
+				localStorage.setItem(storageKey, JSON.stringify(messages));
+			} catch {
+				// ignore
+			}
+			setTimeout(() => {
+				document.getElementById(`note-${newNote.id}`)?.scrollIntoView({
+					block: "nearest",
+					behavior: "smooth",
+				});
+			}, 50);
+		} else {
+			error = data.error || "Failed to post note. Please try again.";
+		}
+	} catch (err: unknown) {
+		const id =
+			globalThis.crypto?.randomUUID?.() ||
+			`${Date.now()}-${Math.random().toString(36).slice(2)}`;
+		const localNote: Message = {
+			id,
+			name: author,
+			content: text,
+			date: new Date().toISOString(),
+			color: selectedColor,
+		};
+		messages = [localNote, ...messages];
 		freshId = id;
-		newestFirst = true;
 		content = "";
-		feedback = "Note added! Saved in this browser, so it will remain after a refresh.";
-		setTimeout(() => {
-			document.getElementById(`note-${id}`)?.scrollIntoView({
-				block: "nearest",
-				behavior: "smooth",
-			});
-		}, 50);
+		feedback = "Note saved locally.";
+		try {
+			localStorage.setItem(storageKey, JSON.stringify(messages));
+		} catch {
+			// ignore
+		}
+	} finally {
+		isSubmitting = false;
 	}
 }
 
-function remove(id: string) {
+async function remove(id: string) {
 	error = "";
-	if (save(messages.filter((message) => message.id !== id))) {
-		feedback = "The note has been taken down.";
+	messages = messages.filter((message) => message.id !== id);
+	try {
+		localStorage.setItem(storageKey, JSON.stringify(messages));
+	} catch {
+		// ignore
+	}
+	feedback = "The note has been taken down.";
+
+	try {
+		await fetch("/api/messages/", {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ id }),
+		});
+	} catch {
+		// ignore
 	}
 }
 
@@ -307,12 +365,12 @@ function tilt(id: string): string {
 					<span>Add a little feeling</span>
 				</div>
 
-				<button type="submit" class="btn stick-button" disabled={!ready}>
+				<button type="submit" class="btn stick-button" disabled={!ready || isSubmitting}>
 					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="M12 17v5"/>
 						<path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>
 					</svg>
-					Put it on the wall
+					{isSubmitting ? "Posting note…" : "Put it on the wall"}
 					<svg class="h-4 w-4 ml-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<line x1="7" y1="17" x2="17" y2="7"/>
 						<polyline points="7 7 17 7 17 17"/>
@@ -327,12 +385,19 @@ function tilt(id: string): string {
 				{/if}
 			</form>
 
-			<div class="local-notice">
-				<svg class="h-3.5 w-3.5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
-					<path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-				</svg>
-				<p>This is your local guestbook. Notes stay in this browser and are visible only to you. They are not sent to the site owner or synced across devices.</p>
+			<div class="local-notice" class:synced-notice={isSynced}>
+				{#if isSynced}
+					<svg class="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+						<polyline points="9 11 12 14 16 10"/>
+					</svg>
+					<p><strong>Cloud Synced:</strong> Notes are live and synced across all visitors and devices.</p>
+				{:else}
+					<svg class="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+					</svg>
+					<p><strong>Live Sync Ready:</strong> Connect <em>Upstash Redis</em> in your Vercel project storage to sync notes with everyone.</p>
+				{/if}
 			</div>
 		</section>
 
@@ -917,6 +982,9 @@ textarea.paper-input {
 }
 .local-notice svg {
   color: var(--accent);
+}
+.local-notice.synced-notice svg {
+  color: #10b981;
 }
 .local-notice p {
   margin: 0;
