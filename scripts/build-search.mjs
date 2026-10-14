@@ -29,6 +29,14 @@ function sanitizeBrowserBundles(dir) {
 					.replace(/import\s+[^;]*from\s*["']node:module["'];?/g, "");
 				writeFileSync(fullPath, content);
 			}
+			if (content.includes('.pathname.replace(/^\\/keystatic\\/?/,"")')) {
+				console.log(`[build] normalizing keystatic router trailing slashes: ${file}`);
+				content = content.replaceAll(
+					'.pathname.replace(/^\\/keystatic\\/?/,"")',
+					'.pathname.replace(/^\\/keystatic\\/?/,"").replace(/\\/+$/,"")',
+				);
+				writeFileSync(fullPath, content);
+			}
 		}
 	}
 }

@@ -97,10 +97,39 @@ export const ALL: APIRoute = async (context) => {
 				slugEnvName: "PUBLIC_KEYSTATIC_GITHUB_APP_SLUG",
 			},
 		);
-		const { body, headers, status } = await handler(context.request);
-		return new Response(body, {
-			status,
-			headers,
+		const res = await handler(context.request);
+		const location = res.headers.get("location");
+
+		// If redirecting to GitHub OAuth authorize, ensure repo scope is requested so Keystatic can access the repository
+		if (location && location.includes("github.com/login/oauth/authorize")) {
+			const u = new URL(location);
+			if (!u.searchParams.has("scope")) {
+				u.searchParams.set("scope", "repo");
+				const headers = new Headers(res.headers);
+				headers.set("location", u.toString());
+				return new Response(res.body, {
+					status: res.status,
+					headers,
+				});
+			}
+		}
+
+		// If GitHub reported repo-not-found, clear the existing insufficient token cookie so user can re-auth with full repo scope
+		if (context.request.url.includes("/api/keystatic/github/repo-not-found")) {
+			const headers = new Headers(res.headers);
+			headers.append(
+				"Set-Cookie",
+				"keystatic-gh-access-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax",
+			);
+			return new Response(res.body, {
+				status: res.status,
+				headers,
+			});
+		}
+
+		return new Response(res.body, {
+			status: res.status,
+			headers: res.headers,
 		});
 	} catch (error) {
 		return new Response(`Keystatic Error: ${(error as Error).message}`, {
