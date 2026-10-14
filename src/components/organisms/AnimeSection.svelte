@@ -163,6 +163,17 @@ onMount(() => {
 </script>
 
 <Card color="var(--card-bg)" radius="l" class="anime-section px-8 py-6">
+	<nav class="media-tabs" aria-label="Media category selection">
+		<a href="/anime/" class="media-tab active" aria-current="page">
+			<Icon icon="material-symbols:live-tv-outline-rounded" width="18" height="18" />
+			<span>Anime</span>
+		</a>
+		<a href="/manga/" class="media-tab">
+			<Icon icon="material-symbols:auto-stories-outline-rounded" width="18" height="18" />
+			<span>Manga & Webtoons</span>
+		</a>
+	</nav>
+
 	<PageHeader
 		icon="material-symbols:live-tv-outline-rounded"
 		{title}
@@ -282,6 +293,34 @@ onMount(() => {
 
 <style lang="stylus">
 @import "../../styles/breakpoints.styl"
+
+.media-tabs
+	display: inline-flex
+	gap: 6px
+	padding: 4px
+	background: var(--surface-container-high)
+	border-radius: 9999px
+	margin-bottom: 1rem
+
+.media-tab
+	display: inline-flex
+	align-items: center
+	gap: 6px
+	padding: 6px 16px
+	font-size: 13px
+	font-weight: 600
+	color: var(--on-surface-variant)
+	border-radius: 9999px
+	text-decoration: none
+	transition: all 200ms ease
+
+	&:hover
+		color: var(--on-surface)
+
+	&.active
+		background: var(--card-bg, #ffffff)
+		color: var(--primary)
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08)
 
 .anime-section
 	display: block

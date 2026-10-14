@@ -1,0 +1,16 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import MangaSection from "@components/organisms/MangaSection.svelte";
+import { getMangaList } from "../utils/manga-data";
+
+const pageTitle = "Manga & Webtoons";
+const pageDescription = "Stories, manhwa, and webtoons that keep me turning pages.";
+
+const items = await getMangaList();
+---
+
+<MainGridLayout title={pageTitle} description={pageDescription} page="manga">
+	<div class="w-full">
+		<MangaSection items={items} title={pageTitle} subtitle={pageDescription} client:visible />
+	</div>
+</MainGridLayout>

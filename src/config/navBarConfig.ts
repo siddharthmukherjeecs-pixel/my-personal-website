@@ -62,6 +62,12 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		icon: "material-symbols:live-tv-outline-rounded",
 		pageKey: "anime",
 	},
+	Manga: {
+		name: "Manga & Webtoons",
+		url: "/manga/",
+		icon: "material-symbols:auto-stories-outline-rounded",
+		pageKey: "manga",
+	},
 	Compass: {
 		name: i18n(I18nKey.compass),
 		url: "/compass/",
@@ -167,6 +173,7 @@ const defaultNavBarConfig: NavBarConfig = {
 			name: i18n(I18nKey.more),
 			icon: "material-symbols:apps-rounded",
 			children: [
+				LinkPresets.Manga,
 				LinkPresets.About,
 				LinkPresets.Contact,
 				LinkPresets.Friends,

@@ -126,7 +126,32 @@ export async function getAnimeList(
 	}
 
 	if (options.source.kind === "local") {
-		return animeData;
+		const enriched = await Promise.all(
+			animeData.map(async (item) => {
+				if (item.cover && item.cover.trim() && item.description && item.studio) {
+					return item;
+				}
+				try {
+					const { fetchMediaMetadata } = await import("./media-fetcher.ts");
+					const meta = await fetchMediaMetadata(item.title, "anime");
+					if (meta) {
+						return {
+							...item,
+							cover: item.cover || meta.cover || undefined,
+							description: item.description || meta.description || undefined,
+							studio: item.studio || meta.authorOrStudio || undefined,
+							year: item.year || meta.year || undefined,
+							genres: item.genres && item.genres.length > 0 ? item.genres : meta.genres || [],
+							link: item.link || meta.link || undefined,
+						};
+					}
+				} catch {
+					// ignore
+				}
+				return item;
+			}),
+		);
+		return enriched;
 	}
 
 	if (options.source.kind === "snapshot") {

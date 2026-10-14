@@ -1,3 +1,37 @@
 {
-  "items": []
+  "items": [
+    {
+      "title": "Frieren: Beyond Journey's End",
+      "status": "completed",
+      "rating": 10,
+      "year": "2023",
+      "studio": "Madhouse",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154587-qQTzQnEJJ3oB.jpg",
+      "genres": ["Adventure", "Drama", "Fantasy"],
+      "description": "An elf mage sets out on a journey to understand mortals and fulfill the last wishes of her fallen comrades decades after their victory over the Demon King.",
+      "link": "https://anilist.co/anime/154587"
+    },
+    {
+      "title": "Jujutsu Kaisen",
+      "status": "watching",
+      "rating": 9.5,
+      "year": "2020",
+      "studio": "MAPPA",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-bbBWj4pEFseh.jpg",
+      "genres": ["Action", "Fantasy", "Supernatural"],
+      "description": "A high school student joins a secret organization of sorcerers to eliminate a powerful Curse named Ryomen Sukuna, of whom he becomes the host.",
+      "link": "https://anilist.co/anime/113415"
+    },
+    {
+      "title": "Demon Slayer: Kimetsu no Yaiba",
+      "status": "completed",
+      "rating": 9.5,
+      "year": "2019",
+      "studio": "ufotable",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101922-WBsBl0ClmgLd.jpg",
+      "genres": ["Action", "Adventure", "Supernatural"],
+      "description": "A youth begins a quest to fight demons and turn his sister, who was transformed into a demon, back into a human.",
+      "link": "https://anilist.co/anime/101922"
+    }
+  ]
 }

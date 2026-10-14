@@ -28,7 +28,7 @@ export default config({
 		navigation: {
 			"Writing & Publishing": ["posts", "moments"],
 			"Profile & Identity": ["about", "projects", "skills"],
-			"Curations & Network": ["anime", "timeline", "friends"],
+			"Curations & Network": ["anime", "manga", "timeline", "friends"],
 		},
 	},
 	collections: {
@@ -231,32 +231,115 @@ export default config({
 						status: fields.select({
 							label: "Watch Status",
 							options: [
-								{ label: "Completed", value: "completed" },
 								{ label: "Watching", value: "watching" },
+								{ label: "Completed", value: "completed" },
 								{ label: "Planned", value: "planned" },
 								{ label: "On Hold", value: "onHold" },
 								{ label: "Dropped", value: "dropped" },
 							],
-							defaultValue: "completed",
+							defaultValue: "watching",
 						}),
 						rating: fields.number({
 							label: "Rating (0 - 10)",
 							defaultValue: 9,
 						}),
-						year: fields.text({ label: "Year" }),
-						studio: fields.text({ label: "Studio" }),
+						cover: fields.text({
+							label: "Cover Image URL (Optional)",
+							description: "Leave empty to automatically fetch cover from AniList / Jikan!",
+						}),
+						year: fields.text({
+							label: "Year (Optional)",
+							description: "Leave empty to auto-fetch",
+						}),
+						studio: fields.text({
+							label: "Studio (Optional)",
+							description: "Leave empty to auto-fetch",
+						}),
 						genres: fields.array(fields.text({ label: "Genre" }), {
 							label: "Genres",
 							itemLabel: (props) => props.value || "Genre",
 						}),
 						description: fields.text({
-							label: "Review / Description",
+							label: "Review / Synopsis (Optional)",
+							description: "Leave empty to auto-fetch synopsis",
 							multiline: true,
+						}),
+						link: fields.text({
+							label: "Streaming / Detail Link (Optional)",
 						}),
 					}),
 					{
 						label: "Anime Entries",
 						itemLabel: (props) => props.fields.title.value || "Anime",
+					},
+				),
+			},
+		}),
+		manga: singleton({
+			label: "Manga, Manhwa & Webtoons",
+			path: "src/data/manga",
+			format: "json",
+			schema: {
+				items: fields.array(
+					fields.object({
+						title: fields.text({ label: "Title" }),
+						type: fields.select({
+							label: "Format / Type",
+							options: [
+								{ label: "Manhwa (Korean)", value: "manhwa" },
+								{ label: "Manga (Japanese)", value: "manga" },
+								{ label: "Webtoon (Vertical Scroll)", value: "webtoon" },
+								{ label: "Manhua (Chinese)", value: "manhua" },
+							],
+							defaultValue: "manhwa",
+						}),
+						status: fields.select({
+							label: "Reading Status",
+							options: [
+								{ label: "Reading", value: "reading" },
+								{ label: "Completed", value: "completed" },
+								{ label: "Planned", value: "planned" },
+								{ label: "On Hold", value: "onHold" },
+								{ label: "Dropped", value: "dropped" },
+							],
+							defaultValue: "reading",
+						}),
+						rating: fields.number({
+							label: "Rating (0 - 10)",
+							defaultValue: 9,
+						}),
+						progress: fields.text({
+							label: "Progress (e.g. Ch. 45 or 45/120)",
+						}),
+						cover: fields.text({
+							label: "Cover Image URL (Optional)",
+							description: "Leave empty to automatically fetch cover from AniList / Jikan!",
+						}),
+						author: fields.text({
+							label: "Author / Artist (Optional)",
+							description: "Leave empty to auto-fetch",
+						}),
+						year: fields.text({
+							label: "Year (Optional)",
+							description: "Leave empty to auto-fetch",
+						}),
+						genres: fields.array(fields.text({ label: "Genre" }), {
+							label: "Genres",
+							itemLabel: (props) => props.value || "Genre",
+						}),
+						description: fields.text({
+							label: "Review / Synopsis (Optional)",
+							description: "Leave empty to auto-fetch synopsis",
+							multiline: true,
+						}),
+						link: fields.text({
+							label: "Reading / Detail Link (Optional)",
+						}),
+					}),
+					{
+						label: "Manga Entries",
+						itemLabel: (props) =>
+							`${props.fields.title.value || "Entry"} (${props.fields.type.value})`,
 					},
 				),
 			},
