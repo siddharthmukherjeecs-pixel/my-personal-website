@@ -1,13 +1,32 @@
 import { makeGenericAPIRouteHandler } from "@keystatic/core/api/generic";
+import { getSecret } from "astro:env/server";
 import config from "../../../../keystatic.config";
 import type { APIRoute } from "astro";
 
 export const prerender = false;
 
 export const ALL: APIRoute = async (context) => {
-	const clientId = process.env.KEYSTATIC_GITHUB_CLIENT_ID;
-	const clientSecret = process.env.KEYSTATIC_GITHUB_CLIENT_SECRET;
-	const secret = process.env.KEYSTATIC_SECRET;
+	let clientId: string | undefined;
+	let clientSecret: string | undefined;
+	let secret: string | undefined;
+
+	try {
+		clientId = getSecret("KEYSTATIC_GITHUB_CLIENT_ID") || process.env.KEYSTATIC_GITHUB_CLIENT_ID;
+	} catch {
+		clientId = process.env.KEYSTATIC_GITHUB_CLIENT_ID;
+	}
+
+	try {
+		clientSecret = getSecret("KEYSTATIC_GITHUB_CLIENT_SECRET") || process.env.KEYSTATIC_GITHUB_CLIENT_SECRET;
+	} catch {
+		clientSecret = process.env.KEYSTATIC_GITHUB_CLIENT_SECRET;
+	}
+
+	try {
+		secret = getSecret("KEYSTATIC_SECRET") || process.env.KEYSTATIC_SECRET;
+	} catch {
+		secret = process.env.KEYSTATIC_SECRET;
+	}
 
 	if (!clientId || !clientSecret || !secret) {
 		const missing: string[] = [];
