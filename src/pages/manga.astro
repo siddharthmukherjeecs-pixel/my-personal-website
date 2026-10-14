@@ -10,7 +10,5 @@ const items = await getMangaList();
 ---
 
 <MainGridLayout title={pageTitle} description={pageDescription} page="manga">
-	<div class="w-full">
-		<MangaSection items={items} title={pageTitle} subtitle={pageDescription} client:visible />
-	</div>
+	<MangaSection items={items} title={pageTitle} subtitle={pageDescription} client:load></MangaSection>
 </MainGridLayout>

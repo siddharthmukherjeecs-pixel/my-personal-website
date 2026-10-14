@@ -21,5 +21,5 @@ const animes = await getAnimeList();
 ---
 
 <MainGridLayout title={pageTitle} description={pageDescription} page="anime">
-    <AnimeSection animes={animes} title={pageTitle} subtitle={pageDescription} client:visible></AnimeSection>
+    <AnimeSection animes={animes} title={pageTitle} subtitle={pageDescription} client:load></AnimeSection>
 </MainGridLayout>

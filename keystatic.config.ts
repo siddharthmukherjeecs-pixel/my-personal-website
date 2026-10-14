@@ -293,6 +293,16 @@ export default config({
 							],
 							defaultValue: "manhwa",
 						}),
+						country: fields.select({
+							label: "Country of Origin",
+							options: [
+								{ label: "Auto (from AniList / Type)", value: "" },
+								{ label: "🇰🇷 South Korea (Manhwa / Webtoon)", value: "KR" },
+								{ label: "🇯🇵 Japan (Manga)", value: "JP" },
+								{ label: "🇨🇳 China / Taiwan (Manhua)", value: "CN" },
+							],
+							defaultValue: "",
+						}),
 						status: fields.select({
 							label: "Reading Status",
 							options: [

@@ -17,6 +17,7 @@ export interface MangaItem {
 	backupCover?: string;
 	author?: string;
 	year?: string;
+	country?: string;
 	genres: string[];
 	description?: string;
 	link?: string;

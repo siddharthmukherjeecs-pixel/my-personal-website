@@ -3,6 +3,7 @@
     {
       "title": "Solo Leveling",
       "type": "manhwa",
+      "country": "KR",
       "status": "completed",
       "rating": 10,
       "progress": "Ch. 200 / 200",
@@ -21,6 +22,7 @@
     {
       "title": "Tower of God",
       "type": "manhwa",
+      "country": "KR",
       "status": "reading",
       "rating": 9.5,
       "progress": "Ch. 610",
@@ -41,6 +43,7 @@
     {
       "title": "Omniscient Reader's Viewpoint",
       "type": "webtoon",
+      "country": "KR",
       "status": "reading",
       "rating": 10,
       "progress": "Ch. 210",
@@ -60,6 +63,7 @@
     {
       "title": "Berserk",
       "type": "manga",
+      "country": "JP",
       "status": "reading",
       "rating": 10,
       "progress": "Ch. 376",
