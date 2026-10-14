@@ -129,7 +129,7 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		pageKey: "about",
 	},
 	Messages: {
-		name: "留言",
+		name: "Messages",
 		url: "/messages/",
 		icon: "material-symbols:sticky-note-2-outline-rounded",
 		pageKey: "messages",

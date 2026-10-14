@@ -8,15 +8,15 @@ export interface Props {
 
 let {
 	authorName = "Siddharth Mukherjee",
-	authorAvatar = "/_astro/demo-avatar.B0TLgbTh_1Kppty.webp",
+	authorAvatar = "/images/banner/kanade-hero.webp",
 }: Props = $props();
 
 const paperColors = [
-	{ value: "butter", label: "奶油黄", mood: "留一点阳光" },
-	{ value: "rose", label: "樱花粉", mood: "送一份温柔" },
-	{ value: "mint", label: "薄荷绿", mood: "收集小确幸" },
-	{ value: "sky", label: "晴空蓝", mood: "写一个愿望" },
-	{ value: "lilac", label: "浅芋紫", mood: "藏一点浪漫" },
+	{ value: "butter", label: "Butter yellow", mood: "Keep a little sunshine" },
+	{ value: "rose", label: "Cherry pink", mood: "Send a little kindness" },
+	{ value: "mint", label: "Mint green", mood: "Collect a small joy" },
+	{ value: "sky", label: "Sky blue", mood: "Write down a wish" },
+	{ value: "lilac", label: "Soft lilac", mood: "Keep a little wonder" },
 ] as const;
 
 type PaperColor = (typeof paperColors)[number]["value"];
@@ -102,7 +102,7 @@ onMount(() => {
 					.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
 			: [];
 	} catch {
-		error = "浏览器存储暂不可用。你仍可以编辑文字，请复制留存。";
+		error = "Browser storage is unavailable. You can still write; copy your text to keep it.";
 	}
 	ready = true;
 });
@@ -113,7 +113,7 @@ function save(next: Message[]): boolean {
 		messages = next;
 		return true;
 	} catch {
-		error = "留言未保存：浏览器存储已满或已被关闭，请复制文字留存后重试。";
+		error = "Note not saved: browser storage is full or disabled. Copy your text before trying again.";
 		return false;
 	}
 }
@@ -125,15 +125,15 @@ async function submit(e: Event) {
 	const author = name.trim();
 	const text = content.trim();
 	if (!author || !text) {
-		error = "请填写昵称和想说的话。";
+		error = "Please enter a name and a message.";
 		return;
 	}
 	if (author.length > 24 || text.length > 500) {
-		error = "昵称最多 24 字，留言最多 500 字。";
+		error = "Names can have up to 24 characters and messages up to 500.";
 		return;
 	}
 	if (messages.length >= 100) {
-		error = "本地已保存 100 条留言，删除一些旧留言后再试试。";
+		error = "You have 100 saved notes. Remove a few old ones before adding another.";
 		return;
 	}
 	const id =
@@ -154,7 +154,7 @@ async function submit(e: Event) {
 		freshId = id;
 		newestFirst = true;
 		content = "";
-		feedback = "便签已贴上墙！已保存在当前浏览器，刷新后仍可查看。";
+		feedback = "Note added! Saved in this browser, so it will remain after a refresh.";
 		setTimeout(() => {
 			document.getElementById(`note-${id}`)?.scrollIntoView({
 				block: "nearest",
@@ -167,7 +167,7 @@ async function submit(e: Event) {
 function remove(id: string) {
 	error = "";
 	if (save(messages.filter((message) => message.id !== id))) {
-		feedback = "这张便签已从留言墙取下。";
+		feedback = "The note has been taken down.";
 	}
 }
 
@@ -184,10 +184,10 @@ function startWriting() {
 
 function dateLabel(date: string) {
 	try {
-		return new Intl.DateTimeFormat("zh-CN", {
+		return new Intl.DateTimeFormat("en-US", {
 			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
+			month: "short",
+			day: "numeric",
 		}).format(new Date(date));
 	} catch {
 		return date.slice(0, 10);
@@ -204,15 +204,15 @@ function tilt(id: string): string {
 	<header class="wall-heading">
 		<div>
 			<span class="eyebrow">LITTLE NOTES, WARM CONNECTIONS</span>
-			<h2>把心情，贴在这里<span aria-hidden="true">✿</span></h2>
-			<p>选一张喜欢的颜色，留下一点此刻的心情。每一句话，都值得被好好收藏。</p>
+			<h2>Leave a little feeling here<span aria-hidden="true">✿</span></h2>
+			<p>Pick a color you like and leave a thought from this moment. Every little word is worth keeping.</p>
 		</div>
 		<div class="wall-stamp" aria-hidden="true">
 			<svg class="stamp-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 				<path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"/>
 				<path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"/>
 			</svg>
-			<span>见字如面</span>
+			<span>Write</span>
 			<small>WITH LOVE</small>
 		</div>
 	</header>
@@ -226,14 +226,14 @@ function tilt(id: string): string {
 						<path d="M12 20h9"/>
 						<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
 					</svg>
-					写一张便签
+					Write a note
 				</h3>
 				<span class="compose-step">MAKE A LITTLE MARK</span>
 			</div>
 
 			<form onsubmit={submit}>
 				<fieldset class="color-picker">
-					<legend>今天的心情是什么颜色？</legend>
+					<legend>What color is your mood today?</legend>
 					<div class="color-options">
 						{#each paperColors as paper}
 							<label class="color-option">
@@ -264,25 +264,25 @@ function tilt(id: string): string {
 
 				<div class="writing-paper paper" data-color={selectedColor}>
 					<span class="paper-tape" aria-hidden="true"></span>
-					<label class="field-label" for="guest-name">怎么称呼你<span>*</span></label>
+					<label class="field-label" for="guest-name">Your name<span>*</span></label>
 					<input
 						id="guest-name"
 						bind:value={name}
 						class="paper-input"
 						type="text"
 						autocomplete="nickname"
-						placeholder="留下你的昵称"
+						placeholder="Leave a nickname"
 						maxlength="24"
 						required
 					/>
-					<label class="field-label" for="guest-content">想说的话<span>*</span></label>
+					<label class="field-label" for="guest-content">Your message<span>*</span></label>
 					<textarea
 						id="guest-content"
 						bind:this={textareaEl}
 						bind:value={content}
 						class="paper-input"
 						rows="5"
-						placeholder="路过这里，想对你说…"
+						placeholder="Passing by, I wanted to say…"
 						maxlength="500"
 						required
 					></textarea>
@@ -298,13 +298,13 @@ function tilt(id: string): string {
 							<button
 								type="button"
 								onclick={() => insertEmoji(item)}
-								aria-label={`插入表情 ${item}`}
+								aria-label={`Insert emoji ${item}`}
 							>
 								{item}
 							</button>
 						{/each}
 					</div>
-					<span>加一点心情</span>
+					<span>Add a little feeling</span>
 				</div>
 
 				<button type="submit" class="btn stick-button" disabled={!ready}>
@@ -312,7 +312,7 @@ function tilt(id: string): string {
 						<path d="M12 17v5"/>
 						<path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>
 					</svg>
-					贴到留言墙
+					Put it on the wall
 					<svg class="h-4 w-4 ml-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<line x1="7" y1="17" x2="17" y2="7"/>
 						<polyline points="7 7 17 7 17 17"/>
@@ -332,7 +332,7 @@ function tilt(id: string): string {
 					<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
 					<path d="M7 11V7a5 5 0 0 1 10 0v4"/>
 				</svg>
-				<p>这是你的本地留言墙。便签仅保存在当前浏览器，仅你可见，不会发送给站长或跨设备同步。</p>
+				<p>This is your local guestbook. Notes stay in this browser and are visible only to you. They are not sent to the site owner or synced across devices.</p>
 			</div>
 		</section>
 
@@ -344,14 +344,14 @@ function tilt(id: string): string {
 						<path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z"/>
 						<path d="M15 3v5h6"/>
 					</svg>
-					<h3 id="board-title">心意收集处</h3>
-					<span class="note-count">{messages.length} 张便签</span>
+					<h3 id="board-title">A collection of little thoughts</h3>
+					<span class="note-count">{messages.length} {messages.length === 1 ? "note" : "notes"}</span>
 				</div>
 				<button
 					type="button"
 					class="sort-button"
 					onclick={() => (newestFirst = !newestFirst)}
-					aria-label={newestFirst ? "切换为最早优先" : "切换为最新优先"}
+					aria-label={newestFirst ? "Show oldest first" : "Show newest first"}
 				>
 					<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="m3 16 4 4 4-4"/>
@@ -359,7 +359,7 @@ function tilt(id: string): string {
 						<path d="m21 8-4-4-4 4"/>
 						<path d="M17 4v16"/>
 					</svg>
-					{newestFirst ? "最新贴上" : "最早贴上"}
+					{newestFirst ? "Newest first" : "Oldest first"}
 				</button>
 			</div>
 
@@ -373,15 +373,15 @@ function tilt(id: string): string {
 							class:just-posted={freshId === message.id}
 							data-color={message.color}
 							style={`--tilt: ${tilt(message.id)};`}
-							aria-label={`${message.name} 的便签`}
+							aria-label={`A note by ${message.name}`}
 						>
 							<span class="paper-tape" aria-hidden="true"></span>
 							<button
 								type="button"
 								class="remove-note"
 								onclick={() => remove(message.id)}
-								aria-label={`删除 ${message.name} 的留言`}
-								title="取下这张便签"
+								aria-label={`Delete ${message.name}’s note`}
+								title="Take down this note"
 							>
 								<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 									<line x1="18" y1="6" x2="6" y2="18"/>
@@ -412,15 +412,15 @@ function tilt(id: string): string {
 						class="sticky-note paper welcome-note"
 						data-color="rose"
 						style="--tilt: -1.2deg"
-						aria-label="小站寄语"
+						aria-label="A little welcome"
 					>
 						<span class="paper-tape" aria-hidden="true"></span>
 						<span class="note-hello">
-							小站寄语<span aria-hidden="true">♡</span>
+							A little welcome<span aria-hidden="true">♡</span>
 						</span>
 						<div class="message-main">
-							<h4>很高兴，在这里遇见你。</h4>
-							<p>一句问候，一个愿望，<br/>或是今天遇见的小确幸。<br/><br/>把想说的话留在这里，<br/>让平凡的一天多一点颜色。</p>
+							<h4>It’s lovely to meet you here.</h4>
+							<p>A hello, a wish,<br/>or a small joy from today.<br/><br/>Leave a few words here,<br/>and add a little color to the day.</p>
 						</div>
 						<footer class="note-footer">
 							<div class="note-author">
@@ -433,7 +433,7 @@ function tilt(id: string): string {
 								/>
 								<strong>{authorName}</strong>
 							</div>
-							<span>欢迎路过<span aria-hidden="true">✿</span></span>
+							<span>Thanks for stopping by<span aria-hidden="true">✿</span></span>
 						</footer>
 						<span class="paper-fold" aria-hidden="true"></span>
 					</article>
@@ -444,16 +444,16 @@ function tilt(id: string): string {
 							class="sticky-note paper inspiration-note"
 							data-color="mint"
 							style="--tilt: 1.6deg"
-							aria-label="写作灵感"
+							aria-label="Writing inspiration"
 						>
 							<span class="paper-tape" aria-hidden="true"></span>
 							<span class="note-hello">
-								一点灵感<span aria-hidden="true">✧</span>
+								A little inspiration<span aria-hidden="true">✧</span>
 							</span>
 							<span class="inspiration-flower" aria-hidden="true">✿</span>
-							<h4>不知道写点什么？</h4>
-							<p>今天有什么让你笑了一下？<br/>最近在听哪一首歌？<br/>想对未来的自己说什么？</p>
-							<span class="inspiration-sign">小事也值得被记录。</span>
+							<h4>Not sure what to write?</h4>
+							<p>What made you smile today?<br/>What song are you listening to?<br/>What would you tell your future self?</p>
+							<span class="inspiration-sign">Small things deserve a record, too.</span>
 							<span class="paper-fold" aria-hidden="true"></span>
 						</article>
 
@@ -464,8 +464,8 @@ function tilt(id: string): string {
 							onclick={startWriting}
 						>
 							<span class="empty-plus">+</span>
-							<strong>第一张便签，留给你</strong>
-							<span>写下此刻，贴上一点温柔</span>
+							<strong>The first note is yours</strong>
+							<span>Write this moment, leave a little warmth</span>
 							<span class="empty-arrow" aria-hidden="true">↖</span>
 						</button>
 					{/if}
@@ -473,7 +473,7 @@ function tilt(id: string): string {
 
 				<div class="board-bottom">
 					<span></span>
-					<p>{messages.length ? "每一张便签，都是认真生活的小小证据。" : "墙面还很空，但好故事总是从第一句话开始。"}</p>
+					<p>{messages.length ? "Every note is a little sign of a life being lived." : "The wall is still quiet. Every good story begins with a first word."}</p>
 					<span></span>
 				</div>
 			</div>
@@ -484,7 +484,7 @@ function tilt(id: string): string {
 		<svg class="h-3.5 w-3.5 text-[var(--accent)]" viewBox="0 0 24 24" fill="currentColor">
 			<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
 		</svg>
-		风会吹走烦恼，文字会留下温度。
+		Let the breeze take your worries; let words keep the warmth.
 	</p>
 </div>
 

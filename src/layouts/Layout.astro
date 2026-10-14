@@ -259,28 +259,39 @@ const hasMonoFont =
 			--banner-stage-height: var(--banner-height-home);
 			--banner-content-top: calc(var(--banner-stage-height) - var(--banner-panel-overlap));
 		}
+		body:not([data-current-page="home"]) {
+			--banner-stage-height: var(--banner-height);
+			--banner-content-top: calc(var(--banner-height) - var(--banner-panel-overlap));
+		}
 		#main-layout {
 			top: 5.5rem;
 			transition: top var(--m3e-duration-long) var(--m3e-easing-standard);
 		}
+		#top-row {
+			transition: height var(--m3e-duration-long) var(--m3e-easing-standard);
+		}
 		body[data-banner-layout="banner"] #main-layout { top: var(--banner-content-top); }
 		body[data-banner-layout="banner"] #top-row { height: calc(var(--banner-stage-height) - 4.5rem); }
 		.navbar-hidden { opacity: 0; transform: translateY(-4rem); }
+	}
+	body:not([data-current-page="home"]) {
+		--banner-stage-height: var(--banner-height);
+		--banner-content-top: calc(var(--banner-height) - var(--banner-panel-overlap));
 	}
 	@media (min-width: 1024px) {
 		html[data-wallpaper-mode="banner"] body[data-banner-has-desktop="true"] #main-layout { top: var(--banner-content-top); }
 		html[data-wallpaper-mode="banner"] body[data-banner-has-desktop="true"] #top-row { height: calc(var(--banner-stage-height) - 4.5rem); }
 	}
 	@media (max-width: 1023.98px) {
-		:root { --banner-stage-height: max(70vh, 28rem); }
+		body[data-current-page="home"] { --banner-stage-height: max(70vh, 28rem); }
 		@media (max-width: 479.98px) { :root { --banner-panel-overlap: var(--m3e-space-2); } }
 		@media (min-width: 480px) and (max-width: 767.98px) { :root { --banner-panel-overlap: var(--m3e-space-2); } }
 		html[data-wallpaper-mode="banner"] body[data-current-page="home"][data-banner-has-mobile="true"] #main-layout { top: var(--banner-content-top); }
 		html[data-wallpaper-mode="banner"] body[data-current-page="home"][data-banner-has-mobile="true"] #top-row { height: calc(var(--banner-stage-height) - 4.5rem); }
 		body[data-banner-layout="compact"] #top-row { height: auto; }
 	}
-	@media (min-width: 480px) and (max-width: 767.98px) { :root { --banner-stage-height: max(75vh, 31.25rem); } }
-	@media (min-width: 768px) and (max-width: 1023.98px) { :root { --banner-stage-height: max(70vh, 31.25rem); } }
+	@media (min-width: 480px) and (max-width: 767.98px) { body[data-current-page="home"] { --banner-stage-height: max(75vh, 31.25rem); } }
+	@media (min-width: 768px) and (max-width: 1023.98px) { body[data-current-page="home"] { --banner-stage-height: max(70vh, 31.25rem); } }
 </style>
 
 <script>
@@ -373,7 +384,7 @@ window.addEventListener('resize', () => {
 	document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
 	scrollFunction();
 });
-new MutationObserver(scrollFunction).observe(document.body, { attributes: true, attributeFilter: ['data-banner-visible', 'data-banner-layout'] });
+new MutationObserver(scrollFunction).observe(document.body, { attributes: true, attributeFilter: ['data-banner-visible', 'data-banner-layout', 'data-current-page'] });
 window.addEventListener(WALLPAPER_MODE_CHANGE_EVENT, () => requestAnimationFrame(scrollFunction));
 document.addEventListener('swup:page:view', scrollFunction);
 scrollFunction();
@@ -387,6 +398,10 @@ bindFancyboxRuntime();
 
 const setup = () => {
 	window.swup?.hooks.on("content:replace", () => {
+		const newPage = document.getElementById("swup-container")?.dataset.currentPage;
+		if (newPage !== undefined) {
+			document.body.dataset.currentPage = newPage;
+		}
 		applyStoredLayoutMode(document.getElementById("post-list"));
 	});
 };
