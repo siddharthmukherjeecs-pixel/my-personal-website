@@ -14,6 +14,7 @@ export interface MangaItem {
 	rating: number;
 	progress?: string;
 	cover?: string;
+	backupCover?: string;
 	author?: string;
 	year?: string;
 	genres: string[];

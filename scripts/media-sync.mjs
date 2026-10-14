@@ -108,8 +108,38 @@ async function queryJikan(title, type) {
 	}
 }
 
+function slugify(text) {
+	return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+async function mirrorCoverLocally(remoteUrl, title, group) {
+	if (!remoteUrl || typeof remoteUrl !== "string" || !remoteUrl.startsWith("http")) {
+		return remoteUrl;
+	}
+	try {
+		const dir = resolve(process.cwd(), "public/images/covers", group);
+		if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+		const filename = `${slugify(title)}.jpg`;
+		const filePath = resolve(dir, filename);
+
+		const res = await fetch(remoteUrl, { signal: AbortSignal.timeout(6000) });
+		if (res.ok) {
+			const buf = Buffer.from(await res.arrayBuffer());
+			writeFileSync(filePath, buf);
+			return `/images/covers/${group}/${filename}`;
+		}
+	} catch {
+		// fallback to remote URL if download fails
+	}
+	return remoteUrl;
+}
+
 async function isUrlValid(url) {
-	if (!url || typeof url !== "string" || !url.startsWith("http")) return false;
+	if (!url || typeof url !== "string") return false;
+	if (url.startsWith("/")) {
+		const diskPath = resolve(process.cwd(), "public", url.replace(/^\/+/, ""));
+		return existsSync(diskPath);
+	}
 	try {
 		const res = await fetch(url, { method: "HEAD", signal: AbortSignal.timeout(4000) });
 		return res.ok;
@@ -129,6 +159,7 @@ async function syncMediaFile(filePath, defaultType, label) {
 	const items = data.items || [];
 	let updatedCount = 0;
 	const force = process.argv.includes("--force");
+	const group = defaultType === "anime" ? "anime" : "manga";
 
 	console.log(`\n[media-sync] Checking ${items.length} ${label} items...`);
 
@@ -138,44 +169,55 @@ async function syncMediaFile(filePath, defaultType, label) {
 
 		const validCover = !force && item.cover && item.cover.trim() ? await isUrlValid(item.cover) : false;
 
-		if (!validCover || !item.description) {
+		if (!validCover || !item.description || (item.cover?.startsWith("http") && !item.cover?.startsWith("/"))) {
 			if (!validCover && item.cover) {
 				process.stdout.write(`  ⚠ Cover for "${item.title}" is invalid/broken. Re-fetching... `);
+			} else if (item.cover?.startsWith("http")) {
+				process.stdout.write(`  📥 Mirroring remote cover for "${item.title}" locally... `);
 			} else {
 				process.stdout.write(`  → Looking up "${item.title}" (${type})... `);
 			}
 
-			let meta = await queryAniList(item.title, type);
-			if (!meta || !meta.cover) {
-				meta = await queryJikan(item.title, type);
-			}
-
-			// Cross-type fallback (e.g. searching manga if anime returned no results)
-			if (!meta || !meta.cover) {
-				const crossType = type === "anime" ? "manhwa" : "anime";
-				meta = await queryAniList(item.title, crossType);
+			let meta = null;
+			if (!validCover || !item.cover) {
+				meta = await queryAniList(item.title, type);
 				if (!meta || !meta.cover) {
-					meta = await queryJikan(item.title, crossType);
+					meta = await queryJikan(item.title, type);
+				}
+
+				// Cross-type fallback (e.g. searching manga if anime returned no results)
+				if (!meta || !meta.cover) {
+					const crossType = type === "anime" ? "manhwa" : "anime";
+					meta = await queryAniList(item.title, crossType);
+					if (!meta || !meta.cover) {
+						meta = await queryJikan(item.title, crossType);
+					}
 				}
 			}
 
-			if (meta && meta.cover) {
-				item.cover = meta.cover;
-				if (!item.description) item.description = meta.description;
-				if (!item.year && meta.year) item.year = meta.year;
-				if ((!item.genres || item.genres.length === 0) && meta.genres.length > 0) item.genres = meta.genres;
-				if (type === "anime" && !item.studio && meta.authorOrStudio) item.studio = meta.authorOrStudio;
-				if (type !== "anime" && !item.author && meta.authorOrStudio) item.author = meta.authorOrStudio;
-				if (!item.link && meta.link) item.link = meta.link;
+			const remoteUrl = meta?.cover || (item.cover?.startsWith("http") ? item.cover : "");
+			if (remoteUrl) {
+				const localPath = await mirrorCoverLocally(remoteUrl, item.title, group);
+				item.backupCover = remoteUrl;
+				item.cover = localPath;
+
+				if (meta) {
+					if (!item.description) item.description = meta.description;
+					if (!item.year && meta.year) item.year = meta.year;
+					if ((!item.genres || item.genres.length === 0) && meta.genres?.length > 0) item.genres = meta.genres;
+					if (type === "anime" && !item.studio && meta.authorOrStudio) item.studio = meta.authorOrStudio;
+					if (type !== "anime" && !item.author && meta.authorOrStudio) item.author = meta.authorOrStudio;
+					if (!item.link && meta.link) item.link = meta.link;
+				}
 
 				updatedCount++;
-				console.log(`✓ Fetched fresh cover & details!`);
+				console.log(`✓ Mirrored locally & set backupCover!`);
 			} else {
 				console.log(`⚠ No cover found.`);
 			}
 			await new Promise((r) => setTimeout(r, 200));
 		} else {
-			console.log(`  ✓ "${item.title}" cover is valid.`);
+			console.log(`  ✓ "${item.title}" is up to date (local: ${item.cover}).`);
 		}
 	}
 

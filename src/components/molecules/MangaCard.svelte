@@ -10,7 +10,16 @@ let {
 	delay = 0,
 }: { item: MangaItem; delay?: number } = $props();
 
+let currentCover = $state(item.cover);
 let imgFailed = $state(false);
+
+function handleImageError() {
+	if (item.backupCover && currentCover !== item.backupCover) {
+		currentCover = item.backupCover;
+	} else {
+		imgFailed = true;
+	}
+}
 
 const statusMeta = $derived(
 	MANGA_STATUS_META[item.status] || MANGA_STATUS_META.reading,
@@ -31,14 +40,14 @@ const metaLine = $derived(
 	use:reveal={{ delay }}
 >
 	{#snippet coverContent()}
-		{#if item.cover && !imgFailed}
+		{#if currentCover && !imgFailed}
 			<img
 				class="manga-card__cover-img"
-				src={url(item.cover)}
+				src={url(currentCover)}
 				alt={item.title}
 				loading="lazy"
 				referrerpolicy="no-referrer"
-				onerror={() => (imgFailed = true)}
+				onerror={handleImageError}
 			/>
 		{:else}
 			<div class="manga-card__placeholder" aria-hidden="true">

@@ -6,12 +6,17 @@
       "status": "completed",
       "rating": 10,
       "progress": "Ch. 200 / 200",
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx105398-b673Vt5ZSuz3.jpg",
+      "cover": "/images/covers/manga/solo-leveling.jpg",
       "author": "Chugong, DUBU (REDICE STUDIO)",
       "year": "2018",
-      "genres": ["Action", "Adventure", "Fantasy"],
+      "genres": [
+        "Action",
+        "Adventure",
+        "Fantasy"
+      ],
       "description": "In a world where awakened beings called Hunters must battle deadly monsters to protect humanity, Sung Jin-woo is the weakest hunter of all mankind. But when a mysterious System chooses him, he gains the ability to level up beyond all limits.",
-      "link": "https://anilist.co/manga/105398"
+      "link": "https://anilist.co/manga/105398",
+      "backupCover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx105398-b673Vt5ZSuz3.jpg"
     },
     {
       "title": "Tower of God",
@@ -19,12 +24,19 @@
       "status": "reading",
       "rating": 9.5,
       "progress": "Ch. 610",
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx85143-23oup3ETbFJk.jpg",
+      "cover": "/images/covers/manga/tower-of-god.jpg",
       "author": "SIU",
       "year": "2010",
-      "genres": ["Action", "Adventure", "Drama", "Fantasy", "Mystery"],
+      "genres": [
+        "Action",
+        "Adventure",
+        "Drama",
+        "Fantasy",
+        "Mystery"
+      ],
       "description": "What do you desire? Money and wealth? Honor and pride? Authority and power? Revenge? Or something that transcends them all? Whatever you desire—it's at the top of the Tower.",
-      "link": "https://anilist.co/manga/85143"
+      "link": "https://anilist.co/manga/85143",
+      "backupCover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx85143-23oup3ETbFJk.jpg"
     },
     {
       "title": "Omniscient Reader's Viewpoint",
@@ -32,12 +44,18 @@
       "status": "reading",
       "rating": 10,
       "progress": "Ch. 210",
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx119257-Pi21aq3ey9GG.jpg",
+      "cover": "/images/covers/manga/omniscient-reader-s-viewpoint.jpg",
       "author": "sing N song, Sleepy-C",
       "year": "2020",
-      "genres": ["Action", "Adventure", "Fantasy", "Psychological"],
+      "genres": [
+        "Action",
+        "Adventure",
+        "Fantasy",
+        "Psychological"
+      ],
       "description": "Dokja was an ordinary office worker whose sole interest was reading his favorite web novel. But when the novel suddenly becomes reality, he is the only person who knows how the world will end.",
-      "link": "https://anilist.co/manga/119257"
+      "link": "https://anilist.co/manga/119257",
+      "backupCover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx119257-Pi21aq3ey9GG.jpg"
     },
     {
       "title": "Berserk",
@@ -45,12 +63,19 @@
       "status": "reading",
       "rating": 10,
       "progress": "Ch. 376",
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx30002-Cul4OeN7bYtn.jpg",
+      "cover": "/images/covers/manga/berserk.jpg",
       "author": "Kentarou Miura, Studio Gaga",
       "year": "1989",
-      "genres": ["Action", "Adventure", "Drama", "Fantasy", "Horror"],
+      "genres": [
+        "Action",
+        "Adventure",
+        "Drama",
+        "Fantasy",
+        "Horror"
+      ],
       "description": "Guts, a former mercenary now known as the 'Black Swordsman', is out for revenge. He travels a dark, monster-infested medieval world with a massive blade, marked for death by demonic forces.",
-      "link": "https://anilist.co/manga/30002"
+      "link": "https://anilist.co/manga/30002",
+      "backupCover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx30002-Cul4OeN7bYtn.jpg"
     }
   ]
 }

@@ -22,7 +22,16 @@ let {
 	delay = 0,
 }: { anime: AnimeItem; delay?: number } = $props();
 
+let currentCover = $state(anime.cover);
 let imgFailed = $state(false);
+
+function handleImageError() {
+	if (anime.backupCover && currentCover !== anime.backupCover) {
+		currentCover = anime.backupCover;
+	} else {
+		imgFailed = true;
+	}
+}
 
 const statusMeta = $derived(ANIME_STATUS_META[anime.status]);
 const isWatching = $derived(
@@ -46,14 +55,14 @@ const metaLine = $derived(
 >
 	<!-- 封面内部内容（img/占位 + 播放层 + 评分）：link/非 link 两分支共享，避免重复维护 -->
 	{#snippet coverContent()}
-		{#if anime.cover && !imgFailed}
+		{#if currentCover && !imgFailed}
 			<img
 				class="anime-card__cover-img"
-				src={url(anime.cover)}
+				src={url(currentCover)}
 				alt={anime.title}
 				loading="lazy"
 				referrerpolicy="no-referrer"
-				onerror={() => (imgFailed = true)}
+				onerror={handleImageError}
 			/>
 		{:else}
 			<div class="anime-card__placeholder" aria-hidden="true">

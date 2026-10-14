@@ -18,6 +18,7 @@ export type AnimeStatus =
 export interface AnimeItem {
 	title: string;
 	cover?: string;
+	backupCover?: string;
 	link?: string;
 	status: AnimeStatus;
 	rating: number;
