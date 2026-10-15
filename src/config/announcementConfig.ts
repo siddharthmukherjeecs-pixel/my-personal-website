@@ -9,12 +9,12 @@ export const announcementConfig: AnnouncementConfig = withUserConfig(
 	"announcement",
 	{
 		title: "", // 公告标题，填空使用 i18n 字符串 Key.announcement
-		content: "The Unordinary — a literary novel exploring perception and interior landscapes. Now featured in Writing.", // 公告内容
+		content: "Welcome to my digital space — thoughts on AI/ML, computer systems, and writing.", // 公告内容
 		closable: true, // 允许用户关闭公告
 		link: {
-			enable: true, // 启用链接
-			text: "Read Novel", // 链接文本
-			url: "/posts/the-unordinary/", // 链接 URL
+			enable: false, // 启用链接
+			text: "", // 链接文本
+			url: "", // 链接 URL
 			external: false, // 外部链接
 		},
 	},

@@ -6,7 +6,7 @@
 
 const STATIC_CACHE = "shirone-static-v2";
 const PAGES_CACHE = "shirone-pages-v2";
-const PRECACHE_URLS = ["/", "/anime/", "/manga/", "/posts/the-unordinary/", "/logo/icon.webp"];
+const PRECACHE_URLS = ["/", "/anime/", "/manga/", "/logo/icon.webp"];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(

@@ -43,6 +43,13 @@ const { mode, cover, cardWidth } = postListConfig.layout;
                 style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}
             ></PostCard>
         ))}
+        {page.data.length === 0 && (
+            <div class="flex flex-col items-center justify-center p-12 text-center rounded-[var(--shape-corner-l)] bg-[var(--card-bg)] border border-[var(--outline-variant)]">
+                <div class="text-[var(--primary)] text-3xl mb-2">✦</div>
+                <div class="text-base font-semibold text-[var(--on-surface)]">Fresh Slate</div>
+                <div class="text-xs text-[var(--on-surface-variant)] mt-1">No articles published yet. Ready for your first story.</div>
+            </div>
+        )}
     </div>
 </div>
 

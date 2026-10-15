@@ -15,14 +15,13 @@ I believe in understanding computers from first principles. Writing a path trace
 My focus in AI/ML centers on representation learning, neural spatial representations, and the mechanisms through which computational models perceive, compress, and reason about continuous worlds.
 
 ### Literature & Prose
-Code constructs worlds out of rigid logic; writing explores the ambiguities that logic cannot capture. My novel, ***The Unordinary***, is a literary inquiry into perception, memory, and the unseen currents running beneath ordinary lives.
+Code constructs worlds out of rigid logic; writing explores the ambiguities that logic cannot capture. In prose and essays, I explore perception, memory, and the unseen currents running beneath ordinary lives.
 
 ---
 
 ## ✦ Featured Work
 
 - **C Ray Tracer**: A physically-based rendering engine implemented without external dependencies. Features bounding volume hierarchies (BVH), dielectric glass refraction, Lambertian reflection, thin-lens depth of field, and multithreaded tile dispatch.
-- **The Unordinary**: A literary novel examining what happens when the scaffolding of routine fractures, revealing the hidden interior landscapes we inhabit.
 
 ---
 

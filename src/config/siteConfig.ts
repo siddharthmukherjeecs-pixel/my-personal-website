@@ -70,7 +70,6 @@ export const siteConfig: SiteConfig = withUserConfig("site", {
 			subtitle: [
 				"CS · AI/ML · Writer · Builder",
 				"Crafting deterministic systems and evocative prose",
-				"Author of The Unordinary",
 			],
 			typewriter: {
 				// 副标题逐字显示；关闭后直接显示完整副标题。
