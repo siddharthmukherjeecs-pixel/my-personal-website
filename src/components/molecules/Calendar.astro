@@ -32,7 +32,7 @@ const { postsByDate, activeMonths } = await getCalendarData();
 
 <WidgetLayout name={i18n(I18nKey.calendar)} id="calendar" class={className} style={style}>
 	<CalendarView
-		client:visible
+		client:load
 		{locale}
 		{startOfWeek}
 		{postsByDate}
