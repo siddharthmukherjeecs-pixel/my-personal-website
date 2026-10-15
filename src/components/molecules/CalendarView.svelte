@@ -97,36 +97,10 @@ function isTodayCell(cell: DayCell): boolean {
 
 const currentMonthKey = $derived(`${year}-${pad(month + 1)}`);
 
-// 相邻有文月：prev/next 跳过空月——博客日历的信息单元是「有文章的
-// 月份」，空月没有可浏览的内容；无文章数据时退化为逐月 ±1。
-const prevMonthKey = $derived.by(() => {
-	let best: string | null = null;
-	for (const key of activeMonths) {
-		if (key < currentMonthKey) best = key;
-		else break;
-	}
-	return best;
-});
-const nextMonthKey = $derived.by(() => {
-	for (const key of activeMonths) {
-		if (key > currentMonthKey) return key;
-	}
-	return null;
-});
-// 边界禁用：有文月存在且相邻方向没有更多有文月
-const canPrev = $derived(activeMonths.length === 0 || prevMonthKey !== null);
-const canNext = $derived(activeMonths.length === 0 || nextMonthKey !== null);
+const canPrev = true;
+const canNext = true;
 
 function shiftMonth(delta: number) {
-	if (activeMonths.length > 0) {
-		const target = delta < 0 ? prevMonthKey : nextMonthKey;
-		if (!target) return;
-		const [y, m] = target.split("-").map(Number);
-		year = y;
-		month = m - 1;
-		selectedDate = null;
-		return;
-	}
 	const next = new Date(year, month + delta, 1);
 	year = next.getFullYear();
 	month = next.getMonth();
@@ -140,9 +114,18 @@ function backToToday() {
 }
 
 function toggleDay(cell: DayCell) {
-	if (cell.posts.length === 0) return;
 	selectedDate = selectedDate === cell.key ? null : cell.key;
 }
+
+const selectedDateFormatted = $derived.by(() => {
+	if (!selectedDate) return "";
+	const [y, m, d] = selectedDate.split("-").map(Number);
+	return new Intl.DateTimeFormat(locale, {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+	}).format(new Date(y, m - 1, d));
+});
 </script>
 
 <div class="m3-calendar">
@@ -192,12 +175,14 @@ function toggleDay(cell: DayCell) {
 					<button
 						type="button"
 						class={`m3-calendar__day${cell.posts.length > 0 ? " m3-calendar__day--has-posts" : ""}${isTodayCell(cell) ? " m3-calendar__day--today" : ""}${cell.key === selectedDate ? " m3-calendar__day--selected" : ""}`}
-						disabled={cell.posts.length === 0}
 						aria-current={isTodayCell(cell) ? "date" : undefined}
-						aria-label={`${cell.key}${cell.posts.length > 0 ? `，${cell.posts.length} 篇文章` : ""}`}
+						aria-label={`${cell.key}${cell.posts.length > 0 ? `，${cell.posts.length} entries` : ""}`}
 						onclick={() => toggleDay(cell)}
 					>
-						{cell.day}
+						<span class="m3-calendar__day-num">{cell.day}</span>
+						{#if cell.posts.length > 0}
+							<span class="m3-calendar__day-dot" aria-hidden="true"></span>
+						{/if}
 					</button>
 				{/if}
 			{/each}
@@ -205,14 +190,21 @@ function toggleDay(cell: DayCell) {
 	{/key}
 
 	<div class="m3-calendar__panel" use:collapse={{ open: listOpen }}>
-		<ul class="m3-calendar__posts">
-			{#each selectedPosts as post}
-				<li class="m3-calendar__post">
-					<a href={post.url}>{post.title}</a>
-					<span class="m3-calendar__post-date">{post.date.slice(5)}</span>
-				</li>
-			{/each}
-		</ul>
+		{#if selectedPosts.length > 0}
+			<ul class="m3-calendar__posts">
+				{#each selectedPosts as post}
+					<li class="m3-calendar__post">
+						<a href={post.url}>{post.title}</a>
+						<span class="m3-calendar__post-date">{post.date.slice(5)}</span>
+					</li>
+				{/each}
+			</ul>
+		{:else if selectedDate}
+			<div class="m3-calendar__empty-day">
+				<span class="m3-calendar__empty-date">{selectedDateFormatted}</span>
+				<span class="m3-calendar__empty-msg">No entries on this date</span>
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -270,8 +262,10 @@ function toggleDay(cell: DayCell) {
 			aspect-ratio: 1
 
 		&__day
+			position: relative
 			aspect-ratio: 1
 			display: flex
+			flex-direction: column
 			align-items: center
 			justify-content: center
 			border: none
@@ -280,21 +274,25 @@ function toggleDay(cell: DayCell) {
 			font: var(--m3e-type-label-large)
 			font-variant-numeric: tabular-nums
 			color: var(--on-surface-variant)
-			cursor: default
-			transition: background-color var(--m3e-duration-short) var(--m3e-easing-standard)
+			cursor: pointer
+			transition:
+				background-color var(--m3e-duration-short) var(--m3e-easing-standard),
+				color var(--m3e-duration-short) var(--m3e-easing-standard),
+				transform var(--m3e-duration-short) var(--m3e-easing-standard),
+				box-shadow var(--m3e-duration-short) var(--m3e-easing-standard)
+
+			&:hover
+				background: var(--btn-plain-bg-hover)
+				color: var(--on-surface)
+				transform: scale(1.08)
 
 			&--has-posts
-				/* 淡 tint 状态层（primary 12%）：比实底 container 柔和得多，
-				   有文日的视觉层级应低于今天（实底 primary）；数字保持
-				   on-surface（primary 浅色系在白底卡片上对比度不足），
-				   识别靠淡底 + 加粗；hover 加深 tint 一档 */
-				background: unquote("color-mix(in oklab, var(--primary) 12%, transparent)")
+				background: unquote("color-mix(in oklab, var(--primary) 14%, transparent)")
 				color: var(--on-surface)
 				font-weight: 600
-				cursor: pointer
 
 				&:hover
-					background: unquote("color-mix(in oklab, var(--primary) 20%, transparent)")
+					background: unquote("color-mix(in oklab, var(--primary) 22%, transparent)")
 
 			&--today
 				background: var(--primary)
@@ -302,15 +300,53 @@ function toggleDay(cell: DayCell) {
 				font-weight: 700
 
 				&:hover
-					filter: brightness(1.06)
+					background: var(--primary)
+					color: var(--on-primary)
+					filter: brightness(1.08)
 
 			&--selected
-				/* 选中强调：box-shadow 内描边跟随 corner-s 圆角
-				   （outline 不跟圆角，会画出突兀的方框） */
-				box-shadow: inset 0 0 0 2px var(--outline)
+				box-shadow: inset 0 0 0 2px var(--primary)
+				background: unquote("color-mix(in oklab, var(--primary) 18%, transparent)")
+				color: var(--on-surface)
 
-			&:disabled
-				opacity: 0.55
+			&--today&--selected
+				box-shadow: 0 0 0 2px var(--surface-container-lowest), 0 0 0 4px var(--primary)
+
+		&__day-num
+			z-index: 1
+
+		&__day-dot
+			position: absolute
+			bottom: 3px
+			width: 4px
+			height: 4px
+			border-radius: var(--shape-corner-full)
+			background: var(--primary)
+			pointer-events: none
+
+		&__day--today .m3-calendar__day-dot
+			background: var(--on-primary)
+
+		&__empty-day
+			display: flex
+			flex-direction: column
+			align-items: center
+			gap: 0.25rem
+			padding: 0.625rem 0.75rem
+			border-radius: var(--shape-corner-s)
+			background: unquote("color-mix(in oklab, var(--surface-container-high) 50%, transparent)")
+			border: 1px dashed unquote("color-mix(in oklab, var(--outline-variant) 70%, transparent)")
+			text-align: center
+
+		&__empty-date
+			font: var(--m3e-type-label-medium)
+			font-weight: 600
+			color: var(--on-surface)
+
+		&__empty-msg
+			font: var(--m3e-type-body-small)
+			color: var(--on-surface-variant)
+			opacity: 0.85
 
 		&__panel
 			overflow: hidden

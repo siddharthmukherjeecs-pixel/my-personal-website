@@ -107,7 +107,7 @@ export const ALL: APIRoute = async (context) => {
 			if (!u.searchParams.has("scope")) {
 				u.searchParams.set("scope", "repo");
 				headers.set("location", u.toString());
-				return new Response(res.body, {
+				return new Response(res.body as BodyInit | null, {
 					status: res.status,
 					headers,
 				});
@@ -120,13 +120,13 @@ export const ALL: APIRoute = async (context) => {
 				"Set-Cookie",
 				"keystatic-gh-access-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax",
 			);
-			return new Response(res.body, {
+			return new Response(res.body as BodyInit | null, {
 				status: res.status,
 				headers,
 			});
 		}
 
-		return new Response(res.body, {
+		return new Response(res.body as BodyInit | null, {
 			status: res.status,
 			headers,
 		});

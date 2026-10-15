@@ -151,7 +151,7 @@ export async function getAnimeList(
 				return item;
 			}),
 		);
-		return enriched;
+		return enriched as AnimeItem[];
 	}
 
 	if (options.source.kind === "snapshot") {

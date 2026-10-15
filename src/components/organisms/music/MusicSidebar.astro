@@ -37,7 +37,7 @@ const optimizedOptions = options
 					if (!configuredCover) return track;
 					const asset = await resolveImageAsset(configuredCover);
 					if (typeof asset === "string") return track;
-					const widths = [64, 128].filter((width) => width <= asset.width);
+					const widths = [80, 160].filter((width) => width <= asset.width);
 					if (!widths.length) widths.push(asset.width);
 					const candidates = await Promise.all(
 						widths.map(async (width) => ({
@@ -46,7 +46,7 @@ const optimizedOptions = options
 								src: asset,
 								width,
 								format: "webp",
-								quality: 68,
+								quality: 75,
 							}),
 						})),
 					);
@@ -56,7 +56,7 @@ const optimizedOptions = options
 						coverSrcset: candidates
 							.map(({ image, width }) => `${image.src} ${width}w`)
 							.join(", "),
-						coverSizes: "52px",
+						coverSizes: "68px",
 						coverWidth: asset.width,
 						coverHeight: asset.height,
 					};

@@ -456,7 +456,7 @@ export async function buildFontDeclarations(
 								? {
 										unicodeRange: Array.isArray(variant.unicodeRange)
 											? variant.unicodeRange
-											: variant.unicodeRange.split(/\s*,\s*/),
+											: (variant.unicodeRange as string).split(/\s*,\s*/),
 									}
 								: {}),
 						};

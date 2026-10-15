@@ -457,7 +457,7 @@ const setup = () => {
 		window.dispatchEvent(new Event("astro:visible"));
 	});
 
-	window.swup?.hooks.on("visit:abort", (visit) => {
+	window.swup?.hooks.on("visit:abort", (visit: any) => {
 		if (!navigator.onLine) {
 			showSnackbar("Connection lost. Tap to retry.", {
 				icon: "material-symbols:signal-cellular-connected-no-internet-0-bar-rounded",

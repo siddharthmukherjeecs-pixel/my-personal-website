@@ -3,43 +3,55 @@ export const musicSidebarStylus = `
 	min-width: 0
 	display: flex
 	flex-direction: column
-	gap: 0.75rem
+	gap: 0.875rem
 	color: var(--on-surface)
 
 	&__track
 		display: grid
-		grid-template-columns: 3.25rem minmax(0, 1fr)
+		grid-template-columns: 4.25rem minmax(0, 1fr)
 		align-items: center
-		gap: 0.75rem
+		gap: 0.875rem
 		min-width: 0
 
 	&__cover
 		position: relative
-		width: 3.25rem
-		height: 3.25rem
+		width: 4.25rem
+		height: 4.25rem
 		display: grid
 		place-items: center
 		border-radius: var(--shape-corner-full)
 		background: var(--secondary-container)
 		color: var(--on-secondary-container)
-		box-shadow: 0 0 0 1.5px var(--surface-container-lowest), unquote("0 0 0 2.5px color-mix(in oklab, var(--primary) 20%, var(--outline-variant) 80%)"), unquote("0 2px 6px color-mix(in oklab, var(--on-surface) 6%, transparent)")
-		transition: box-shadow var(--m3e-duration-medium) var(--m3e-easing-standard)
+		box-shadow: 0 0 0 1.5px var(--surface-container-lowest), unquote("0 0 0 2.5px color-mix(in oklab, var(--primary) 22%, var(--outline-variant) 78%)"), unquote("0 3px 10px color-mix(in oklab, var(--on-surface) 8%, transparent)")
+		transition: box-shadow var(--m3e-duration-medium) var(--m3e-easing-standard), transform var(--m3e-duration-medium) var(--m3e-easing-standard)
 		animation: music-cover-playing var(--m3e-duration-ambient-extra-long) linear infinite
 		animation-play-state: paused
 
 		&::before
 			content: ""
 			position: absolute
-			inset: -2px
+			inset: -3px
 			border-radius: var(--shape-corner-full)
 			border: 1.5px solid var(--primary)
 			opacity: 0
 			pointer-events: none
 			z-index: 1
 
+		&::after
+			content: ""
+			position: absolute
+			width: 0.875rem
+			height: 0.875rem
+			border-radius: var(--shape-corner-full)
+			background: unquote("color-mix(in srgb, #000 35%, transparent)")
+			box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.45), 0 0 0 3px rgba(0, 0, 0, 0.25)
+			backdrop-filter: blur(2px)
+			z-index: 2
+			pointer-events: none
+
 		> svg
-			width: 1.5rem
-			height: 1.5rem
+			width: 1.75rem
+			height: 1.75rem
 
 		img
 			width: 100%
@@ -49,7 +61,7 @@ export const musicSidebarStylus = `
 
 		&--playing
 			animation-play-state: running
-			box-shadow: 0 0 0 1.5px var(--surface-container-lowest), 0 0 0 2.5px var(--primary), unquote("0 3px 10px color-mix(in oklab, var(--primary) 22%, transparent)")
+			box-shadow: 0 0 0 2px var(--surface-container-lowest), 0 0 0 3px var(--primary), unquote("0 6px 20px color-mix(in oklab, var(--primary) 32%, transparent)")
 
 			&::before
 				animation: music-cover-ripple 3.2s cubic-bezier(0.1, 0.8, 0.2, 1) infinite
@@ -61,7 +73,7 @@ export const musicSidebarStylus = `
 		min-width: 0
 		display: flex
 		flex-direction: column
-		gap: 0.125rem
+		gap: 0.2rem
 
 		strong,
 		span
@@ -70,18 +82,22 @@ export const musicSidebarStylus = `
 			white-space: nowrap
 
 		strong
-			font: var(--m3e-type-title-small)
+			font: var(--m3e-type-title-medium)
+			font-weight: 600
+			line-height: 1.35
+			color: var(--on-surface)
 
 		span
 			font: var(--m3e-type-body-small)
 			color: var(--on-surface-variant)
+			opacity: 0.85
 
 	&__submeta
 		display: flex
 		justify-content: space-between
 		align-items: center
-		margin-top: 0.125rem
-		min-height: 1.25rem
+		margin-top: 0.2rem
+		min-height: 1.35rem
 
 	&__time-display
 		display: inline-flex
@@ -90,6 +106,7 @@ export const musicSidebarStylus = `
 		font: var(--m3e-type-label-small)
 		font-variant-numeric: tabular-nums
 		color: var(--on-surface-variant)
+		font-weight: 500
 
 	&__time-separator
 		opacity: 0.5
@@ -101,8 +118,8 @@ export const musicSidebarStylus = `
 
 		.m3-icon-button
 			position: relative
-			width: 1.25rem
-			height: 1.25rem
+			width: 1.35rem
+			height: 1.35rem
 			padding: 0
 			color: var(--on-surface-variant)
 
@@ -116,11 +133,11 @@ export const musicSidebarStylus = `
 				color: var(--primary)
 
 			&__icon
-				font-size: 1rem
+				font-size: 1.05rem
 
 	&__volume-slider-wrap
 		position: relative
-		width: 3.25rem
+		width: 3.75rem
 		height: 1.25rem
 		display: flex
 		align-items: center
@@ -205,7 +222,7 @@ export const musicSidebarStylus = `
 	&__progress-control
 		position: relative
 		width: 100%
-		height: 1.25rem
+		height: 1.375rem
 		display: flex
 		align-items: center
 		touch-action: pan-y
@@ -218,7 +235,7 @@ export const musicSidebarStylus = `
 			pointer-events: none
 
 		.m3-progress--wavy
-			height: 10px
+			height: 12px
 			overflow: visible
 
 			.m3-progress__wavy-track,
@@ -285,58 +302,76 @@ export const musicSidebarStylus = `
 		justify-content: space-between
 		align-items: center
 		padding: 0 0.25rem
+		margin-top: 0.125rem
 
 		.m3-icon-button
 			color: var(--on-surface-variant)
+			transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), color 0.15s ease
 
 			&:hover:not(:disabled)
 				color: var(--primary)
+				transform: scale(1.08)
 
 			&--filled
 				color: var(--on-primary)
+				background: var(--primary)
+				box-shadow: 0 3px 12px unquote("color-mix(in oklab, var(--primary) 32%, transparent)")
+				transform: scale(1.04)
 
 				&:hover:not(:disabled)
 					color: var(--on-primary)
+					background: var(--primary)
+					transform: scale(1.12)
+					box-shadow: 0 5px 16px unquote("color-mix(in oklab, var(--primary) 45%, transparent)")
+
+				&:active:not(:disabled)
+					transform: scale(0.98)
 
 	&__playlist-panel
 		overflow: hidden
 
 	&__playlist
 		list-style: none
-		max-height: 12rem
+		max-height: 14rem
 		display: flex
 		flex-direction: column
-		gap: 0.125rem
+		gap: 0.25rem
 		margin: 0
-		padding: 0.25rem 0 0
+		padding: 0.375rem 0 0
 		overflow-y: auto
 		overscroll-behavior: contain
 		scrollbar-width: none
-		-webkit-mask-image: linear-gradient(to bottom, black calc(100% - 1.5rem), transparent 100%)
-		mask-image: linear-gradient(to bottom, black calc(100% - 1.5rem), transparent 100%)
+		-webkit-mask-image: linear-gradient(to bottom, black calc(100% - 1.75rem), transparent 100%)
+		mask-image: linear-gradient(to bottom, black calc(100% - 1.75rem), transparent 100%)
 
 		&::-webkit-scrollbar
 			display: none
 
 	&__playlist-item
 		width: 100%
-		min-height: 2.75rem
+		min-height: 2.875rem
 		display: grid
 		grid-template-columns: 1.5rem minmax(0, 1fr) auto
 		align-items: center
-		gap: 0.5rem
-		padding: 0.375rem 0.5rem
+		gap: 0.625rem
+		padding: 0.4rem 0.625rem
 		border: none
-		border-radius: var(--shape-corner-s)
+		border-radius: var(--shape-corner-m)
 		background: transparent
 		color: var(--on-surface)
 		text-align: left
 		cursor: pointer
+		transition: background-color var(--m3e-duration-short) var(--m3e-easing-standard), transform var(--m3e-duration-short) var(--m3e-easing-standard)
 		--m3e-state-color: var(--on-surface)
+
+		&:hover
+			background: var(--btn-plain-bg-hover)
+			transform: translateX(3px)
 
 		&--current
 			background: var(--secondary-container)
 			color: var(--on-secondary-container)
+			font-weight: 600
 			--m3e-state-color: var(--on-secondary-container)
 
 	&__playlist-index
