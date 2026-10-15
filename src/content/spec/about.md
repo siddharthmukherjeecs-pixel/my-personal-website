@@ -1,41 +1,51 @@
-# Hey, I'm heftymouse 👋
+# Hey, I'm Siddharth 👋
 
-> Student · Hobbyist Software Developer · CS Undergrad
+> AI/ML · AI Engineering (AIE) · Systems & Web Dev · Builder
 
-I am a student and hobbyist software developer based in **Bengaluru, India**, currently pursuing a bachelor's degree in **Computer Science**.
+I am a student and software builder based in **Bengaluru, India**, currently pursuing a bachelor's degree in **Artificial Intelligence & Machine Learning (AI/ML / AIE)**.
 
-I love building applications tailored for the **modern Windows ecosystem**, alongside exploring **web development**, crafting **Discord bots**, and diving into anything else that I find neat.
+I like to build and experiment with **AI/ML architectures, intelligent systems, and AI engineering**, alongside exploring **low-level systems and computer graphics** (like path tracers in pure C). Other interests of mine include **web development**, crafting interactive tools, and anything else at the intersection of mathematics, algorithms, and code.
 
 ---
 
 ## ✦ Interests & Craft
 
-### Modern Windows Ecosystem
-I enjoy designing clean, performant apps tailored for modern Windows—focusing on fluid visual aesthetics, native system integrations, and responsive daily utility.
+### Artificial Intelligence & Machine Learning (AI/ML)
+My focus centers on machine learning models, representation learning, and neural architectures. I love understanding how computational models perceive, represent, and reason about complex data patterns from first principles.
 
-### Web Development
-Building fast, accessible, and reactive websites and web applications using modern web standards, thoughtful component systems, and clean design tokens.
+### AI Engineering (AIE)
+Bridging model prototypes with reliable software engineering—building data pipelines, integrating models into reactive workflows, optimizing inference, and designing robust systems where AI solves real problems.
 
-### Discord Bots & Automation
-Architecting event-driven Discord bots, interactive integrations, and server tools that streamline community interactions and connect services.
+### Systems & Computer Graphics
+I believe in understanding computers from the ground up. Writing a physically-based path tracer from scratch in pure C demands respect for memory layouts, cache coherence, optical physics, and linear algebra. Building from first principles keeps my engineering grounded and rigorous.
+
+### Web Development & Tooling
+Building fast, accessible, and reactive web applications with modern component architectures and thoughtful UI tokens. I enjoy turning complex computational ideas into clean, interactive interfaces.
 
 ### Tinkering & Curiosity
-I like exploring new technologies across the software stack—from low-level experiments and graphics to whatever neat framework, tool, or library sparks my curiosity.
+I like exploring new technologies across the entire stack—from parallel computing and scientific Python to whatever neat library, tool, or framework catches my attention.
+
+---
+
+## ✦ Featured Work
+
+- **C Ray Tracer**: A physically-based rendering engine implemented from scratch in pure C without external dependencies. Features bounding volume hierarchies (BVH), dielectric glass refraction, Lambertian reflection, thin-lens depth of field, and multithreaded tile dispatch.
+- **AI & Intelligent Systems**: Exploring neural architectures, PyTorch pipelines, and AI engineering workflows for intelligent applications.
 
 ---
 
 ## ✦ Current Journey
 
 - 📍 **Location**: Bengaluru, India
-- 🎓 **Education**: Currently pursuing a bachelor's degree in Computer Science
-- 💻 **Active Focus**: Windows desktop applications, web dev, and automation tools
-- 🚀 **Philosophy**: Building software that is practical, clean, and fun to use
+- 🎓 **Education**: Pursuing a Bachelor's degree in Artificial Intelligence & Machine Learning (AI/ML / AIE)
+- 💻 **Active Focus**: Deep learning models, AI engineering pipelines, systems programming in C, and modern web applications
+- 🚀 **Philosophy**: First principles, mathematical clarity, and building software that is both rigorous and fun to create
 
 ---
 
 ## ✦ Get in Touch
 
-I'm always open to chatting about Windows app design, web dev, Discord bot development, or collaborating on neat ideas:
+I'm always open to discussing AI/ML research, AI engineering, graphics, web development, or collaborating on neat projects:
 
 - **Email**: [siddharth@example.com](mailto:siddharth@example.com)
 - **GitHub**: [github.com](https://github.com)

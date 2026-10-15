@@ -13,7 +13,7 @@ export const siteConfig: SiteConfig = withUserConfig("site", {
 	site: "https://shirone.mysqil.com/",
 	base: "/",
 	title: "Siddharth Mukherjee",
-	subtitle: "CS · AI/ML · Writer · Builder",
+	subtitle: "AI/ML · AIE · Systems · Builder",
 	// 电脑端顶栏标题与导航内容区域："left" 左对齐，"center" 居中。
 	topAppBar: {
 		contentAlign: "center",
@@ -68,8 +68,8 @@ export const siteConfig: SiteConfig = withUserConfig("site", {
 			enable: true,
 			title: "Siddharth Mukherjee",
 			subtitle: [
-				"Student & Hobbyist Software Developer",
-				"Modern Windows Apps · Web Dev · Discord Bots",
+				"AI/ML & AI Engineering (AIE) Undergrad",
+				"Intelligent Systems · Pure C Graphics · Web Dev",
 				"Bengaluru, India",
 			],
 			typewriter: {
