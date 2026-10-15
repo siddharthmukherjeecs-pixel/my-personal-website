@@ -19,38 +19,34 @@ I like to build and experiment with **AI/ML architectures, intelligent systems, 
 
 ### Artificial Intelligence & Machine Learning (AI/ML)
 
-My focus centers on machine learning models, representation learning, and neural architectures. I love understanding how computational models perceive, represent, and reason about complex data patterns from first principles.
+My interest centers on understanding how machine learning and neural networks work from the ground up. I love exploring the fundamentals and learning how models process data and patterns.
 
 ### AI Engineering (AIE)
 
-Bridging model prototypes with reliable software engineering—building data pipelines, integrating models into reactive workflows, optimizing inference, and designing robust systems where AI solves real problems.
+Exploring how to take models, prompt tools, and local LLMs, and connect them into real projects to see how AI features work in practice.
 
 ### Web Development & Tooling
 
-Building fast, accessible, and reactive web applications with modern component architectures and thoughtful UI tokens. I enjoy turning complex computational ideas into clean, interactive interfaces.
+Learning HTML, CSS, JavaScript/TypeScript, and modern frameworks to build responsive websites, clean interfaces, and interactive tools.
 
 ### Tinkering & Curiosity
 
-I like exploring new technologies across the entire stack from running local llms to making websites and tinkering here and there!.
-
-
-
----
+I like exploring new technologies across the software world—from running local LLMs to building websites and tinkering with whatever catches my eye!
 
 ---
 
 ## ✦ Current Journey
 
 * 📍 **Location**: Bengaluru, India
-* 🎓 **Education**: Pursuing a Bachelor's degree in Artificial Intelligence & Machine Learning (AI/ML / AIE)
-* 💻 **Active Focus**: Deep learning models, AI engineering pipelines, intelligent tools, and modern web applications
-* 🚀 **Philosophy**: First principles, mathematical clarity, and building software that is both rigorous and fun to create
+* 🎓 **Education**: First-Year Undergrad in Artificial Intelligence & Machine Learning (AI/ML / AIE)
+* 💻 **Active Focus**: Learning programming, AI/ML concepts, local LLM experiments, and web development
+* 🚀 **Philosophy**: Stay curious, learn by building, and have fun exploring new technology!
 
 ---
 
 ## ✦ Get in Touch
 
-I'm always open to discussing AI/ML research, AI engineering, web development, or collaborating on neat projects:
+I'm always open to connecting, talking about tech, web development, or learning together:
 
 * **Email**: [siddharthmukherjee.cs@gmail.com](mailto:siddharthmukherjee.cs@gmail.com)
 * **GitHub**: [github.com/siddharthmukherjeecs-pixel](https://github.com/siddharthmukherjeecs-pixel)

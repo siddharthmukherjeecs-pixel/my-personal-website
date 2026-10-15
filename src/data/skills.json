@@ -2,45 +2,45 @@
 	"items": [
 		{
 			"name": "AI & Machine Learning",
-			"description": "Deep learning models, representation learning, neural architectures, and data modeling.",
+			"description": "Learning the fundamentals of machine learning, neural networks, and how models learn from data.",
 			"icon": "simple-icons:pytorch",
 			"category": "backend",
-			"level": "expert"
+			"level": "beginner"
 		},
 		{
 			"name": "AI Engineering (AIE)",
-			"description": "Local LLM workflows, intelligent model integration, prompt architectures, and AI pipelines.",
+			"description": "Experimenting with local LLMs, prompt crafting, and exploring how to integrate AI tools into projects.",
 			"icon": "material-symbols:psychology-rounded",
 			"category": "backend",
-			"level": "expert"
+			"level": "beginner"
 		},
 		{
 			"name": "Python",
-			"description": "AI/ML prototyping, data engineering, algorithmic scripting, and automation.",
+			"description": "Learning programming basics, simple scripts, data structures, and beginner automation tasks.",
 			"icon": "simple-icons:python",
 			"category": "backend",
-			"level": "expert"
+			"level": "beginner"
 		},
 		{
 			"name": "Web Development",
-			"description": "Modern reactive websites and web applications, responsive layouts, and clean design tokens.",
+			"description": "Learning HTML, CSS, modern website layout basics, and tinkering with simple web pages.",
 			"icon": "material-symbols:web-rounded",
 			"category": "frontend",
-			"level": "advanced"
+			"level": "beginner"
 		},
 		{
-			"name": "TypeScript & JavaScript",
-			"description": "Strict type systems, modern component architectures, and responsive interactive interfaces.",
+			"name": "JavaScript & TypeScript",
+			"description": "Exploring basic frontend scripting, syntax, and learning how interactive web features work.",
 			"icon": "simple-icons:typescript",
 			"category": "frontend",
-			"level": "advanced"
+			"level": "beginner"
 		},
 		{
-			"name": "Developer Tooling & Git",
-			"description": "Git, GitHub workflows, modern tooling, and continuous development environments.",
+			"name": "Git & GitHub",
+			"description": "Getting familiar with version control, commits, pushing repositories, and managing code online.",
 			"icon": "simple-icons:git",
 			"category": "tooling",
-			"level": "advanced"
+			"level": "beginner"
 		}
 	]
 }
