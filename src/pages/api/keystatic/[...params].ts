@@ -28,6 +28,8 @@ export const ALL: APIRoute = async (context) => {
 		secret = process.env.KEYSTATIC_SECRET;
 	}
 
+	const origin = new URL(context.request.url).origin;
+
 	if (!clientId || !clientSecret || !secret) {
 		const missing: string[] = [];
 		if (!clientId) missing.push("KEYSTATIC_GITHUB_CLIENT_ID");
@@ -67,8 +69,8 @@ export const ALL: APIRoute = async (context) => {
     <p><strong>To enable login in 2 minutes:</strong></p>
     <ol>
       <li>Go to <a href="https://github.com/settings/developers" target="_blank" rel="noreferrer">GitHub &rarr; Developer Settings &rarr; OAuth Apps &rarr; New OAuth App</a>.</li>
-      <li>Set <strong>Homepage URL</strong>: <code>https://itsmysongmp3.vercel.app</code></li>
-      <li>Set <strong>Authorization callback URL</strong>: <code>https://itsmysongmp3.vercel.app/api/keystatic/github/oauth/callback</code></li>
+      <li>Set <strong>Homepage URL</strong>: <code>${origin}</code></li>
+      <li>Set <strong>Authorization callback URL</strong>: <code>${origin}/api/keystatic/github/oauth/callback</code></li>
       <li>Click <strong>Register application</strong>, copy the <strong>Client ID</strong>, and generate a <strong>Client Secret</strong>.</li>
       <li>Go to your <a href="https://vercel.com/codenova7/my-personal-website/settings/environment-variables" target="_blank" rel="noreferrer">Vercel Project &rarr; Settings &rarr; Environment Variables</a>, and add the missing variables shown above.</li>
     </ol>
