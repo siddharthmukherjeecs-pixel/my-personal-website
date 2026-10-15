@@ -144,6 +144,8 @@ const hasMonoFont =
 		{absoluteOgImage && <meta name="twitter:image" content={absoluteOgImage} />}
 
 		<meta name="viewport" content="width=device-width" />
+		<link rel="dns-prefetch" href="https://s4.anilist.co" />
+		<link rel="preconnect" href="https://s4.anilist.co" crossorigin />
 		<meta name="generator" content={Astro.generator} />
 		{fontRoleStyle && <style is:inline set:html={fontRoleStyle}></style>}
 		{textureEnabled && <style is:inline set:html={textureStyles}></style>}

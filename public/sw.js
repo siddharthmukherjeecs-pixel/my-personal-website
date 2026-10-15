@@ -4,11 +4,17 @@
  * Network-First for HTML pages with offline cache fallback
  */
 
-const STATIC_CACHE = "shirone-static-v1";
-const PAGES_CACHE = "shirone-pages-v1";
+const STATIC_CACHE = "shirone-static-v2";
+const PAGES_CACHE = "shirone-pages-v2";
+const PRECACHE_URLS = ["/", "/anime/", "/manga/", "/posts/the-unordinary/", "/logo/icon.webp"];
 
-self.addEventListener("install", () => {
-	self.skipWaiting();
+self.addEventListener("install", (event) => {
+	event.waitUntil(
+		caches
+			.open(PAGES_CACHE)
+			.then((cache) => cache.addAll(PRECACHE_URLS).catch(() => {}))
+			.then(() => self.skipWaiting()),
+	);
 });
 
 self.addEventListener("activate", (event) => {
