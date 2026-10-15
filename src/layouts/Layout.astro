@@ -420,10 +420,31 @@ scrollFunction();
 <script>
 import { bindFancyboxRuntime } from "../utils/fancybox-runtime";
 import { applyStoredLayoutMode } from "../utils/layout-mode";
+import { showSnackbar } from "../utils/snackbar";
 
 bindFancyboxRuntime();
 
+// Register Service Worker for offline resilience and asset acceleration
+if (typeof window !== "undefined" && "serviceWorker" in navigator && !window.location.host.includes("localhost:4321")) {
+	window.addEventListener("load", () => {
+		navigator.serviceWorker.register("/sw.js").catch(() => {});
+	});
+}
+
+// Adaptive Low-Bandwidth: Disable aggressive hover preloads on 2G / Slow 3G / Save-Data
+const checkConnection = () => {
+	const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+	const isConstrained = conn?.saveData || ["slow-2g", "2g", "3g"].includes(conn?.effectiveType ?? "");
+	if (isConstrained && window.swup) {
+		const preloadPlugin = window.swup.findPlugin?.("SwupPreloadPlugin") as { options?: { preloadHoveredLinks?: boolean } } | undefined;
+		if (preloadPlugin?.options) {
+			preloadPlugin.options.preloadHoveredLinks = false;
+		}
+	}
+};
+
 const setup = () => {
+	checkConnection();
 	window.swup?.hooks.on("content:replace", () => {
 		const newPage = document.getElementById("swup-container")?.dataset.currentPage;
 		if (newPage !== undefined) {
@@ -433,7 +454,34 @@ const setup = () => {
 		window.dispatchEvent(new Event("astro:load"));
 		window.dispatchEvent(new Event("astro:visible"));
 	});
+
+	window.swup?.hooks.on("visit:abort", (visit) => {
+		if (!navigator.onLine) {
+			showSnackbar("Connection lost. Tap to retry.", {
+				icon: "material-symbols:signal-cellular-connected-no-internet-0-bar-rounded",
+				action: {
+					label: "Retry",
+					onClick: () => {
+						const toUrl = (visit as { to?: { url?: string } })?.to?.url;
+						if (toUrl) window.location.href = toUrl;
+					},
+				},
+			});
+		}
+	});
 };
+
+window.addEventListener("offline", () => {
+	showSnackbar("You are currently offline.", {
+		icon: "material-symbols:wifi-off-rounded",
+	});
+});
+window.addEventListener("online", () => {
+	showSnackbar("Connection restored.", {
+		icon: "material-symbols:wifi-rounded",
+	});
+});
+
 if (window.swup) setup();
 else document.addEventListener("swup:enable", setup);
 </script>

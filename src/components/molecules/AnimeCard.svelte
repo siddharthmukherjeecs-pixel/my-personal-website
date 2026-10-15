@@ -60,7 +60,9 @@ const metaLine = $derived(
 				class="anime-card__cover-img"
 				src={url(currentCover)}
 				alt={anime.title}
-				loading="lazy"
+				loading={delay < 70 ? "eager" : "lazy"}
+				fetchpriority={delay === 0 ? "high" : "auto"}
+				decoding="async"
 				referrerpolicy="no-referrer"
 				onerror={handleImageError}
 			/>

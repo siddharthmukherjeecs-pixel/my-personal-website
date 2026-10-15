@@ -453,7 +453,11 @@ export async function buildFontDeclarations(
 							display: resolvedRole.display,
 							...(variant.subset ? { subset: variant.subset } : {}),
 							...(variant.unicodeRange
-								? { unicodeRange: variant.unicodeRange }
+								? {
+										unicodeRange: Array.isArray(variant.unicodeRange)
+											? variant.unicodeRange
+											: variant.unicodeRange.split(/\s*,\s*/),
+									}
 								: {}),
 						};
 					}),

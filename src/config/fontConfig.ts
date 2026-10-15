@@ -92,6 +92,8 @@ export const fontConfig: FontConfig = withUserConfig("font", {
 					file: "src/assets/fonts/Yozai-Medium.ttf",
 					weight: 500,
 					style: "normal",
+					unicodeRange:
+						"U+2E80-2EFF, U+3000-303F, U+3040-309F, U+30A0-30FF, U+3100-312F, U+31A0-31BF, U+31F0-31FF, U+3200-32FF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+AC00-D7AF, U+1100-11FF, U+3130-318F, U+FF00-FFEF",
 				},
 			],
 			fallback: ["system-ui", "sans-serif"],
