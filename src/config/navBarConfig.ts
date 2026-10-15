@@ -165,15 +165,15 @@ const defaultNavBarConfig: NavBarConfig = {
 	links: [
 		LinkPresets.Home,
 		LinkPresets.Archive,
-		LinkPresets.Messages,
+		LinkPresets.Manga,
+		LinkPresets.Anime,
 		LinkPresets.Projects,
 		LinkPresets.Moments,
-		LinkPresets.Anime,
+		LinkPresets.Messages,
 		{
 			name: i18n(I18nKey.more),
 			icon: "material-symbols:apps-rounded",
 			children: [
-				LinkPresets.Manga,
 				LinkPresets.About,
 				LinkPresets.Contact,
 				LinkPresets.Friends,
