@@ -13,17 +13,17 @@ export const profileConfig: ProfileConfig = withUserConfig("profile", {
 		{
 			name: "GitHub",
 			icon: "fa7-brands:github",
-			url: "https://github.com",
+			url: "https://github.com/siddharthmukherjeecs-pixel",
 		},
 		{
-			name: "X",
-			icon: "fa7-brands:x-twitter",
-			url: "https://x.com",
+			name: "Instagram",
+			icon: "fa7-brands:instagram",
+			url: "https://www.instagram.com/siddharthmukherjee356?exln=MTZjZ2h1MDNmNHlt",
 		},
 		{
 			name: "Email",
 			icon: "material-symbols:mail-outline-rounded",
-			url: "mailto:siddharth@example.com",
+			url: "mailto:siddharthmukherjee.cs@gmail.com",
 		},
 	],
 });

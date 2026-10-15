@@ -52,6 +52,6 @@ I like exploring new technologies across the entire stack from running local llm
 
 I'm always open to discussing AI/ML research, AI engineering, graphics, web development, or collaborating on neat projects:
 
-* **Email**: siddharthmukherjee.cs\@gmail.com
-* **GitHub**: [https://github.com/siddharthmukherjeecs-pixel](https://github.com/siddharthmukherjeecs-pixel)
-* **Instagram :** [https://www.instagram.com/siddharthmukherjee356?exln=MTZjZ2h1MDNmNHlt](https://www.instagram.com/siddharthmukherjee356?exln=MTZjZ2h1MDNmNHlt)
+* **Email**: [siddharthmukherjee.cs@gmail.com](mailto:siddharthmukherjee.cs@gmail.com)
+* **GitHub**: [github.com/siddharthmukherjeecs-pixel](https://github.com/siddharthmukherjeecs-pixel)
+* **Instagram**: [@siddharthmukherjee356](https://www.instagram.com/siddharthmukherjee356?exln=MTZjZ2h1MDNmNHlt)
