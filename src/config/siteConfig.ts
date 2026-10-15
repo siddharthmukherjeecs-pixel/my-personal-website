@@ -68,8 +68,9 @@ export const siteConfig: SiteConfig = withUserConfig("site", {
 			enable: true,
 			title: "Siddharth Mukherjee",
 			subtitle: [
-				"CS · AI/ML · Writer · Builder",
-				"Crafting deterministic systems and evocative prose",
+				"Student & Hobbyist Software Developer",
+				"Modern Windows Apps · Web Dev · Discord Bots",
+				"Bengaluru, India",
 			],
 			typewriter: {
 				// 副标题逐字显示；关闭后直接显示完整副标题。

@@ -1,43 +1,42 @@
-# Siddharth Mukherjee
+# Hey, I'm heftymouse 👋
 
-> CS · AI/ML · Writer · Builder
+> Student · Hobbyist Software Developer · CS Undergrad
 
-I build at the intersection of mathematical clarity and narrative depth. My work spans computer science—low-level graphics systems, path tracers in pure C, and machine learning architectures—alongside fiction and long-form literary prose.
+I am a student and hobbyist software developer based in **Bengaluru, India**, currently pursuing a bachelor's degree in **Computer Science**.
 
----
-
-## ✦ Core Disciplines
-
-### Systems & Computer Graphics
-I believe in understanding computers from first principles. Writing a path tracer from scratch in C demands respect for memory layouts, cache coherence, optical physics, and linear algebra. There is a quiet beauty in watching light propagate through deterministic equations until a scene breathes with physical realism.
-
-### Artificial Intelligence & Machine Learning
-My focus in AI/ML centers on representation learning, neural spatial representations, and the mechanisms through which computational models perceive, compress, and reason about continuous worlds.
-
-### Literature & Prose
-Code constructs worlds out of rigid logic; writing explores the ambiguities that logic cannot capture. In prose and essays, I explore perception, memory, and the unseen currents running beneath ordinary lives.
+I love building applications tailored for the **modern Windows ecosystem**, alongside exploring **web development**, crafting **Discord bots**, and diving into anything else that I find neat.
 
 ---
 
-## ✦ Featured Work
+## ✦ Interests & Craft
 
-- **C Ray Tracer**: A physically-based rendering engine implemented without external dependencies. Features bounding volume hierarchies (BVH), dielectric glass refraction, Lambertian reflection, thin-lens depth of field, and multithreaded tile dispatch.
+### Modern Windows Ecosystem
+I enjoy designing clean, performant apps tailored for modern Windows—focusing on fluid visual aesthetics, native system integrations, and responsive daily utility.
+
+### Web Development
+Building fast, accessible, and reactive websites and web applications using modern web standards, thoughtful component systems, and clean design tokens.
+
+### Discord Bots & Automation
+Architecting event-driven Discord bots, interactive integrations, and server tools that streamline community interactions and connect services.
+
+### Tinkering & Curiosity
+I like exploring new technologies across the software stack—from low-level experiments and graphics to whatever neat framework, tool, or library sparks my curiosity.
 
 ---
 
-## ✦ Philosophy & Method
+## ✦ Current Journey
 
-- **First Principles**: Seek the mathematical and architectural core before adding abstractions.
-- **Restraint**: Elegance is achieved not when there is nothing left to add, but when nothing essential can be removed.
-- **Dual Craft**: Engineering sharpens structure; literature deepens meaning.
+- 📍 **Location**: Bengaluru, India
+- 🎓 **Education**: Currently pursuing a bachelor's degree in Computer Science
+- 💻 **Active Focus**: Windows desktop applications, web dev, and automation tools
+- 🚀 **Philosophy**: Building software that is practical, clean, and fun to use
 
 ---
 
-## ✦ Correspondence & Inquiries
+## ✦ Get in Touch
 
-Whether discussing ray tracing architectures, machine learning research, literary projects, or thoughtful collaborations, you are welcome to reach out:
+I'm always open to chatting about Windows app design, web dev, Discord bot development, or collaborating on neat ideas:
 
 - **Email**: [siddharth@example.com](mailto:siddharth@example.com)
-- **Code & Repositories**: [GitHub](https://github.com)
-- **Writing & Updates**: [X (Twitter)](https://x.com)
-
+- **GitHub**: [github.com](https://github.com)
+- **Twitter / X**: [x.com](https://x.com)

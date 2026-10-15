@@ -8,7 +8,7 @@ import { withUserConfig } from "../utils/config-overlay.ts";
 export const profileConfig: ProfileConfig = withUserConfig("profile", {
 	avatar: "assets/images/demo-avatar.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "Siddharth Mukherjee",
-	bio: "CS · AI/ML · Writer · Builder",
+	bio: "Student & Hobbyist Developer · Bengaluru, IN",
 	links: [
 		{
 			name: "GitHub",
