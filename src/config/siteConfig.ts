@@ -69,7 +69,7 @@ export const siteConfig: SiteConfig = withUserConfig("site", {
 			title: "Siddharth Mukherjee",
 			subtitle: [
 				"AI/ML & AI Engineering (AIE) Undergrad",
-				"Intelligent Systems · Pure C Graphics · Web Dev",
+				"Intelligent Systems · AI Engineering · Web Dev",
 				"Bengaluru, India",
 			],
 			typewriter: {

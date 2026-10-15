@@ -43,14 +43,14 @@ I like exploring new technologies across the entire stack from running local llm
 
 * 📍 **Location**: Bengaluru, India
 * 🎓 **Education**: Pursuing a Bachelor's degree in Artificial Intelligence & Machine Learning (AI/ML / AIE)
-* 💻 **Active Focus**: Deep learning models, AI engineering pipelines, systems programming in C, and modern web applications
+* 💻 **Active Focus**: Deep learning models, AI engineering pipelines, intelligent tools, and modern web applications
 * 🚀 **Philosophy**: First principles, mathematical clarity, and building software that is both rigorous and fun to create
 
 ---
 
 ## ✦ Get in Touch
 
-I'm always open to discussing AI/ML research, AI engineering, graphics, web development, or collaborating on neat projects:
+I'm always open to discussing AI/ML research, AI engineering, web development, or collaborating on neat projects:
 
 * **Email**: [siddharthmukherjee.cs@gmail.com](mailto:siddharthmukherjee.cs@gmail.com)
 * **GitHub**: [github.com/siddharthmukherjeecs-pixel](https://github.com/siddharthmukherjeecs-pixel)

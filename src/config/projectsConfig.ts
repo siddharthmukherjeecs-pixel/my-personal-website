@@ -17,14 +17,19 @@ export const projectsConfig: ProjectsConfig = withUserConfig("projects", {
 	description: "$t:projectsBanner",
 	categories: [
 		{
-			key: "graphics",
-			label: "Graphics & Systems",
-			icon: "material-symbols:blur-on-rounded",
+			key: "ai-ml",
+			label: "AI & Machine Learning",
+			icon: "material-symbols:psychology-outline-rounded",
 		},
 		{
-			key: "ai-ml",
-			label: "AI / Machine Learning",
-			icon: "material-symbols:psychology-outline-rounded",
+			key: "web-dev",
+			label: "Web & Applications",
+			icon: "material-symbols:web-rounded",
+		},
+		{
+			key: "tools",
+			label: "Tools & Automation",
+			icon: "material-symbols:construction-rounded",
 		},
 	],
 	// disabledKeys: [],

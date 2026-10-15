@@ -1,45 +1,45 @@
 {
 	"items": [
 		{
-			"name": "C / Systems",
-			"description": "Low-level systems programming, memory architecture, SIMD, and multi-threaded path tracing engines.",
-			"icon": "simple-icons:c",
+			"name": "AI & Machine Learning",
+			"description": "Deep learning models, representation learning, neural architectures, and data modeling.",
+			"icon": "simple-icons:pytorch",
 			"category": "backend",
 			"level": "expert"
 		},
 		{
-			"name": "Computer Graphics",
-			"description": "Physically-based rendering (PBR), BVH acceleration structures, dielectric materials, and thin-lens optics.",
-			"icon": "material-symbols:wb-iridescent-outline-rounded",
+			"name": "AI Engineering (AIE)",
+			"description": "Local LLM workflows, intelligent model integration, prompt architectures, and AI pipelines.",
+			"icon": "material-symbols:psychology-rounded",
 			"category": "backend",
 			"level": "expert"
 		},
 		{
 			"name": "Python",
-			"description": "Scientific computation, AI/ML pipelines, algorithmic prototyping, and numerical modeling.",
+			"description": "AI/ML prototyping, data engineering, algorithmic scripting, and automation.",
 			"icon": "simple-icons:python",
 			"category": "backend",
 			"level": "expert"
 		},
 		{
-			"name": "PyTorch & Deep Learning",
-			"description": "Neural radiance fields (NeRF), coordinate-based networks, and differentiable volumetric synthesis.",
-			"icon": "simple-icons:pytorch",
-			"category": "backend",
+			"name": "Web Development",
+			"description": "Modern reactive websites and web applications, responsive layouts, and clean design tokens.",
+			"icon": "material-symbols:web-rounded",
+			"category": "frontend",
 			"level": "advanced"
 		},
 		{
-			"name": "CUDA & GPU Compute",
-			"description": "Parallel kernel dispatch, shared memory hierarchies, and hardware acceleration.",
-			"icon": "simple-icons:nvidia",
-			"category": "backend",
-			"level": "intermediate"
-		},
-		{
-			"name": "TypeScript",
-			"description": "Strict type contracts, deterministic architecture, and modern reactive application systems.",
+			"name": "TypeScript & JavaScript",
+			"description": "Strict type systems, modern component architectures, and responsive interactive interfaces.",
 			"icon": "simple-icons:typescript",
 			"category": "frontend",
+			"level": "advanced"
+		},
+		{
+			"name": "Developer Tooling & Git",
+			"description": "Git, GitHub workflows, modern tooling, and continuous development environments.",
+			"icon": "simple-icons:git",
+			"category": "tooling",
 			"level": "advanced"
 		}
 	]
