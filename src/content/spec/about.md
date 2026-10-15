@@ -1,15 +1,13 @@
 ---
 {}
 ---
-# Hey, I'm Siddharth 👋
+# Heyoo, I'm Siddharth 👋&#x20;
 
 > AI/ML · AI Engineering (AIE)  · Builder  · Writer
 
 I am a student and software builder based in **Bengaluru, India**, currently pursuing a bachelor's degree in **Artificial Intelligence & Machine Learning (AI/ML / AIE)**.
 
 I like to build and experiment with **AI/ML architectures, intelligent systems, and AI engineering**, alongside exploring **new technologies and whatever catches my eyes!!** . Other interests of mine include **web development**, crafting interactive tools, and anything else at the intersection of mathematics, algorithms, and code.
-
-
 
 **I am currently a first year student!!.**
 
