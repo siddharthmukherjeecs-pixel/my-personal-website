@@ -13,7 +13,7 @@ export const siteConfig: SiteConfig = withUserConfig("site", {
 	site: "https://shirone.mysqil.com/",
 	base: "/",
 	title: "Siddharth Mukherjee",
-	subtitle: "AI/ML · AIE · Systems · Builder",
+	subtitle: "AI/ML · AIE · Student · Builder",
 	// 电脑端顶栏标题与导航内容区域："left" 左对齐，"center" 居中。
 	topAppBar: {
 		contentAlign: "center",

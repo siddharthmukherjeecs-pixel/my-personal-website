@@ -2,9 +2,13 @@
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import Guestbook from "@components/organisms/Guestbook.svelte";
 import { profileConfig } from "@/config/profileConfig";
+import { resolveImageAsset } from "@utils/asset-utils";
 
 const pageTitle = "Messages";
 const pageDescription = "Leave a little feeling here. Pick a color you like and leave a thought from this moment.";
+
+const avatarAsset = await resolveImageAsset(profileConfig.avatar ?? "");
+const avatarUrl = typeof avatarAsset === "string" ? avatarAsset : avatarAsset.src;
 ---
 
 <MainGridLayout title={pageTitle} description={pageDescription} page="messages">
@@ -12,7 +16,7 @@ const pageDescription = "Leave a little feeling here. Pick a color you like and 
 		<Guestbook
 			client:load
 			authorName={profileConfig.name}
-			authorAvatar="/images/banner/kanade-hero.webp"
+			authorAvatar={avatarUrl}
 		/>
 	</div>
 </MainGridLayout>
