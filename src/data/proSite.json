@@ -31,11 +31,11 @@
       "overview": "Set up Ollama on my own machine to experiment with running open-source models (like Llama and Mistral) locally. Wanted to see firsthand how prompts work, how fast models respond on my laptop, and what running AI locally feels like.",
       "challenge": "Understanding hardware limits and seeing how system prompts guide model responses.",
       "cover": "/assets/project-orbit-cover.webp",
-      "coverAlt": "Local LLM runtime visualization",
+      "coverAlt": "Ollama CLI model execution terminal",
       "showcase": "/assets/project-orbit-showcase.webp",
-      "showcaseAlt": "Ollama inference showcase",
+      "showcaseAlt": "Local LLM latency and token generation benchmark",
       "heroImage": "/assets/hero-orbit.webp",
-      "heroAlt": "Compute architecture hero"
+      "heroAlt": "Ollama dark mode terminal running Llama 3.2 locally"
     },
     {
       "id": "rag-concepts",
@@ -48,11 +48,11 @@
       "overview": "Started learning about the concept of Retrieval-Augmented Generation (RAG)—how vector embeddings and text chunking allow an LLM to look up information from local documents or notes before answering questions, reducing hallucinations.",
       "challenge": "Learning how text gets turned into vector numbers and how similarity search finds the right passages.",
       "cover": "/assets/project-halo-cover.webp",
-      "coverAlt": "RAG architecture diagram",
+      "coverAlt": "RAG vector embeddings and semantic search flowchart",
       "showcase": "/assets/project-halo-showcase.webp",
-      "showcaseAlt": "Vector retrieval pipeline showcase",
+      "showcaseAlt": "Top-k chunk similarity search inspection",
       "heroImage": "/assets/hero-halo.webp",
-      "heroAlt": "Retrieval augmented generation hero"
+      "heroAlt": "Retrieval-Augmented Generation complete pipeline architecture"
     },
     {
       "id": "building-this-website",
@@ -65,11 +65,11 @@
       "overview": "Built my personal website using Astro to learn modern web development. Created both a fun casual digital garden and a clean professional portfolio page to practice components, styling, and Git version control.",
       "challenge": "Learning how Astro components work, managing layouts, and getting comfortable with Git commits and pushes.",
       "cover": "/assets/project-pace-cover.webp",
-      "coverAlt": "Portfolio interface showcase",
+      "coverAlt": "VS Code editor with Astro component structure",
       "showcase": "/assets/project-pace-showcase.webp",
-      "showcaseAlt": "Web architecture showcase",
+      "showcaseAlt": "Astro production build audit and terminal output",
       "heroImage": "/assets/hero-pace.webp",
-      "heroAlt": "Clean editorial layout hero"
+      "heroAlt": "Astro and TypeScript IDE development environment"
     },
     {
       "id": "python-basics",
@@ -82,11 +82,11 @@
       "overview": "Practicing basic programming logic, loops, functions, and simple data structures in Python. Writing small scripts to automate everyday tasks and building a solid foundation for upcoming college coursework.",
       "challenge": "Building programming logic and learning how to debug errors step by step.",
       "cover": "/assets/project-lumen-cover.webp",
-      "coverAlt": "Algorithmic computation",
+      "coverAlt": "Python algorithm functions and vector math script",
       "showcase": "/assets/project-lumen-showcase.webp",
-      "showcaseAlt": "Python data workflow graph",
+      "showcaseAlt": "Python algorithm unit tests passing in terminal",
       "heroImage": "/assets/hero-lumen.webp",
-      "heroAlt": "Abstract compute hero"
+      "heroAlt": "Python script calculating cosine similarity between embedding vectors"
     }
   ],
   "services": [

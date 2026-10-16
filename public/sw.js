@@ -4,8 +4,8 @@
  * Network-First for HTML pages with offline cache fallback
  */
 
-const STATIC_CACHE = "shirone-static-v3";
-const PAGES_CACHE = "shirone-pages-v3";
+const STATIC_CACHE = "shirone-static-v5";
+const PAGES_CACHE = "shirone-pages-v5";
 const PRECACHE_URLS = ["/", "/anime/", "/manga/", "/logo/icon.webp"];
 
 self.addEventListener("install", (event) => {

@@ -72,18 +72,18 @@ const defaultGallery = {
   heading: "Every small experiment is a step forward — ",
   headingMuted: "learning by building every day",
   images: [
-    { src: "/assets/orbit-1.webp", alt: "Visual sample 1" },
-    { src: "/assets/orbit-2.webp", alt: "Visual sample 2" },
-    { src: "/assets/orbit-3.webp", alt: "Visual sample 3" },
-    { src: "/assets/orbit-4.webp", alt: "Visual sample 4" },
-    { src: "/assets/orbit-5.webp", alt: "Visual sample 5" },
-    { src: "/assets/orbit-6.webp", alt: "Visual sample 6" },
-    { src: "/assets/orbit-7.webp", alt: "Visual sample 7" },
-    { src: "/assets/orbit-8.webp", alt: "Visual sample 8" },
-    { src: "/assets/orbit-9.webp", alt: "Visual sample 9" },
-    { src: "/assets/orbit-10.webp", alt: "Visual sample 10" },
-    { src: "/assets/orbit-11.webp", alt: "Visual sample 11" },
-    { src: "/assets/orbit-12.webp", alt: "Visual sample 12" }
+    { src: "/assets/orbit-1.webp", alt: "Ollama CLI session running Llama 3.2 locally" },
+    { src: "/assets/orbit-2.webp", alt: "RAG vector embeddings and semantic search architecture diagram" },
+    { src: "/assets/orbit-3.webp", alt: "Python numpy array and cosine similarity script" },
+    { src: "/assets/orbit-4.webp", alt: "VS Code editor with Astro component architecture" },
+    { src: "/assets/orbit-5.webp", alt: "Vector database embeddings cluster and query match" },
+    { src: "/assets/orbit-6.webp", alt: "Bengaluru tech hub skyline illuminated at twilight" },
+    { src: "/assets/orbit-7.webp", alt: "Apple Magic Keyboard on clean study desk" },
+    { src: "/assets/orbit-8.webp", alt: "Ollama multi-model quantization inspection" },
+    { src: "/assets/orbit-9.webp", alt: "Linear algebra and matrix mathematics on chalkboard" },
+    { src: "/assets/orbit-10.webp", alt: "Late-night engineering study desk with laptop and coffee" },
+    { src: "/assets/orbit-11.webp", alt: "Git version control terminal workflow on main branch" },
+    { src: "/assets/orbit-12.webp", alt: "Engineering college library and study space" }
   ]
 };
 
