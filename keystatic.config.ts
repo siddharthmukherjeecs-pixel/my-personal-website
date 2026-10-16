@@ -26,6 +26,7 @@ export default config({
 			name: "Siddharth's Studio",
 		},
 		navigation: {
+			"Professional Showcase": ["proSite"],
 			"Writing & Publishing": ["posts", "moments"],
 			"Profile & Identity": ["about", "projects", "skills"],
 			"Curations & Network": ["anime", "manga", "timeline", "friends"],
@@ -100,6 +101,125 @@ export default config({
 		}),
 	},
 	singletons: {
+		proSite: singleton({
+			label: "Professional Showcase (/pro)",
+			path: "src/data/proSite",
+			format: "json",
+			schema: {
+				name: fields.text({ label: "Full Name" }),
+				role: fields.text({ label: "Role / Subtitle" }),
+				tagline: fields.text({ label: "Hero Tagline", multiline: true }),
+				email: fields.text({ label: "Email Address" }),
+				phoneLabel: fields.text({
+					label: "Location / Phone Label",
+					description: "e.g. Bengaluru, India",
+				}),
+				year: fields.text({ label: "Year", defaultValue: "2026" }),
+				ticker: fields.text({ label: "Running Marquee Ticker" }),
+				about: fields.object(
+					{
+						statement: fields.text({
+							label: "About Punchy Statement",
+							multiline: true,
+						}),
+						bio: fields.text({ label: "About Bio Paragraph", multiline: true }),
+						portrait: fields.text({ label: "Portrait Image URL" }),
+						contactLead: fields.text({ label: "Contact Callout Intro" }),
+						contactTail: fields.text({ label: "Contact Callout Outro" }),
+					},
+					{ label: "About Section" },
+				),
+				contact: fields.object(
+					{
+						heading: fields.text({ label: "Heading" }),
+						label: fields.text({ label: "Badge Label" }),
+						text: fields.text({ label: "Description", multiline: true }),
+						avatar: fields.text({ label: "Avatar Image URL" }),
+					},
+					{ label: "Contact Card" },
+				),
+				projects: fields.array(
+					fields.object({
+						id: fields.text({ label: "Slug / ID" }),
+						title: fields.text({ label: "Title" }),
+						category: fields.text({ label: "Category" }),
+						order: fields.number({ label: "Display Order", defaultValue: 1 }),
+						role: fields.text({ label: "Role" }),
+						timeline: fields.text({ label: "Timeline" }),
+						year: fields.text({ label: "Year" }),
+						overview: fields.text({ label: "Overview", multiline: true }),
+						challenge: fields.text({
+							label: "What I Learned / Challenge",
+							multiline: true,
+						}),
+						cover: fields.text({ label: "Cover Image URL" }),
+						coverAlt: fields.text({ label: "Cover Alt Text" }),
+						showcase: fields.text({ label: "Showcase Image URL" }),
+						showcaseAlt: fields.text({ label: "Showcase Alt Text" }),
+						heroImage: fields.text({ label: "Hero Image URL" }),
+						heroAlt: fields.text({ label: "Hero Alt Text" }),
+					}),
+					{
+						label: "Featured Case Study Projects",
+						itemLabel: (props) => props.fields.title.value || "Project",
+					},
+				),
+				services: fields.array(
+					fields.object({
+						name: fields.text({ label: "Topic Name" }),
+						image: fields.text({ label: "Visual Asset URL" }),
+						alt: fields.text({ label: "Alt Text" }),
+						captions: fields.array(fields.text({ label: "Bullet Point" }), {
+							label: "Highlights / Bullets",
+							itemLabel: (props) => props.value || "Bullet",
+						}),
+					}),
+					{
+						label: "What I'm Learning (Focus Areas)",
+						itemLabel: (props) => props.fields.name.value || "Topic",
+					},
+				),
+				principles: fields.array(
+					fields.object({
+						title: fields.text({ label: "Principle Title" }),
+						description: fields.text({ label: "Description", multiline: true }),
+						icon: fields.text({
+							label: "Icon Name (compass, sparkles, smile, target)",
+						}),
+						image: fields.text({ label: "Card Image URL" }),
+						alt: fields.text({ label: "Alt Text" }),
+					}),
+					{
+						label: "Mindset & Principles",
+						itemLabel: (props) => props.fields.title.value || "Principle",
+					},
+				),
+				awards: fields.array(
+					fields.object({
+						project: fields.text({ label: "Milestone / Topic" }),
+						award: fields.text({ label: "Badge Label (Caps)" }),
+						year: fields.text({ label: "Year" }),
+						cover: fields.text({ label: "Hover Image URL" }),
+						alt: fields.text({ label: "Alt Text" }),
+					}),
+					{
+						label: "Milestones / Journey Badges",
+						itemLabel: (props) =>
+							`${props.fields.project.value || "Milestone"} (${props.fields.award.value || "Badge"})`,
+					},
+				),
+				faq: fields.array(
+					fields.object({
+						q: fields.text({ label: "Question" }),
+						a: fields.text({ label: "Answer", multiline: true }),
+					}),
+					{
+						label: "FAQ Items",
+						itemLabel: (props) => props.fields.q.value || "FAQ Item",
+					},
+				),
+			},
+		}),
 		about: singleton({
 			label: "About & Profile",
 			path: "src/content/spec/about",

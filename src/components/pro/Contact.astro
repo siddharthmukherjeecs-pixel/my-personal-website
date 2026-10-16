@@ -9,7 +9,7 @@ const { contact } = proSite;
     <div class="contact-left">
       <ScrollWords as="h2" class="h2 balance" text={contact.heading} />
       <div class="contact-card">
-        <div class="contact-avatar"><img src="/assets/siddharth-avatar.webp" alt={proSite.name} loading="lazy" style="object-position: 38% 30%;" /></div>
+        <div class="contact-avatar"><img src={contact.avatar || "/assets/siddharth-avatar.webp"} alt={proSite.name} loading="lazy" style="object-position: 38% 30%;" /></div>
         <a class="body" href={proSite.phone.href}>{proSite.phone.label}</a>
       </div>
     </div>
