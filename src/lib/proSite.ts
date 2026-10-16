@@ -47,19 +47,19 @@ export interface ProFAQ {
 }
 
 const defaultNav = [
-  { label: "Overview", href: "/pro/#hero" },
-  { label: "About", href: "/pro/#about" },
-  { label: "What I'm Learning", href: "/pro/#focus" },
-  { label: "Mindset", href: "/pro/#principles" },
-  { label: "Journey", href: "/pro/#milestones" },
-  { label: "Contact", href: "/pro/#contact" }
+  { label: "Overview", href: "/#hero" },
+  { label: "About", href: "/#about" },
+  { label: "What I'm Learning", href: "/#focus" },
+  { label: "Mindset", href: "/#principles" },
+  { label: "Journey", href: "/#milestones" },
+  { label: "Contact", href: "/#contact" }
 ];
 
 const defaultFooterNav = [
-  { label: "Learning", href: "/pro/#focus" },
-  { label: "About", href: "/pro/#about" },
-  { label: "Journey", href: "/pro/#milestones" },
-  { label: "Contact", href: "/pro/#contact" }
+  { label: "Learning", href: "/#focus" },
+  { label: "About", href: "/#about" },
+  { label: "Journey", href: "/#milestones" },
+  { label: "Contact", href: "/#contact" }
 ];
 
 const defaultSocials = [
