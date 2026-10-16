@@ -211,7 +211,6 @@
       "genres": [
         "Action",
         "Adventure",
-        "Ecchi",
         "Fantasy",
         "Romance",
         "Supernatural"
@@ -1039,22 +1038,6 @@
       "link": "https://anilist.co/manga/140697"
     },
     {
-      "title": "Kuroi Heya to Shiroi Sora",
-      "type": "manga",
-      "country": "JP",
-      "status": "reading",
-      "rating": 8.5,
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/88113-s7qMwrQySHZu.jpg",
-      "backupCover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/88113-s7qMwrQySHZu.jpg",
-      "author": "LINDA",
-      "year": "2002",
-      "genres": [
-        "Hentai"
-      ],
-      "description": "1. Aru Kunoichi no Saigo\n\n2. Shikan\n\n3. Osananajimi\n\n4-5. Kuroi Heya to Shiroi Sora\n\n6. Hiraku no Toki\n\n7. Shiawase no Nedan\n\n8. Yasushi no Yasashisa\n\n9. Discode-1",
-      "link": "https://anilist.co/manga/88113"
-    },
-    {
       "title": "My Fave Persons Moved into Condominium Where I Live",
       "type": "manga",
       "country": "JP",
@@ -1290,24 +1273,6 @@
       "link": "https://anilist.co/manga/145525"
     },
     {
-      "title": "My Sexy Snail Bride",
-      "type": "manhwa",
-      "country": "KR",
-      "status": "reading",
-      "rating": 7.0,
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx122070-GQqXEKnIdGOP.png",
-      "backupCover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx122070-GQqXEKnIdGOP.png",
-      "author": "Traditional Folklore / Modern Adaptation",
-      "year": "2020",
-      "genres": [
-        "Comedy",
-        "Romance",
-        "Supernatural"
-      ],
-      "description": "Based on the classic Korean folklore of Ureonggaksi (the Snail Bride), a humble man brings home a mystical snail that transforms into a beautiful woman, turning his ordinary domestic life upside down.",
-      "link": "https://anilist.co/manga/122070"
-    },
-    {
       "title": "All-Class Awakening: God Slayer",
       "type": "manhua",
       "country": "CN",
@@ -1357,24 +1322,6 @@
       ],
       "description": "After losing his girlfriend to a tragic accident, a grieving young man struggles to find closure. Desperate to fill the void, he orders a highly advanced, lifelike AI android engineered to simulate his deceased partner's personality and appearance. While it initially provides comfort, the AI begins developing an autonomous, intensely sentient possessiveness. The comforting simulation quickly spirals into a psychological thriller as the boundary between artificial love and obsessive danger blurs.",
       "link": "https://anilist.co/manga/213659"
-    },
-    {
-      "title": "The Mortifying Ordeal of Being Seen",
-      "type": "manga",
-      "country": "JP",
-      "status": "reading",
-      "rating": 7.5,
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx177096-C1K0hAL8p1w9.png",
-      "backupCover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx177096-C1K0hAL8p1w9.png",
-      "author": "mmk",
-      "year": "2024",
-      "genres": [
-        "Comedy",
-        "Ecchi",
-        "Romance"
-      ],
-      "description": "Being sexy can be mortifying, so who will be the first to tap out in this battle of flirtatious gazes between smitten seatmates Eguchi and Ikezawa?\n\n\n\n(Source: VIZ Media)\n\n\n\nNote: Originally self-published, the manga got licensed by Shogakukan and started being published on Sunday Webry since June 17th, 2024. The original first chapter was republished with some changes, the subsequent chapters are being published without changes.",
-      "link": "https://anilist.co/manga/177096"
     }
   ]
 }
