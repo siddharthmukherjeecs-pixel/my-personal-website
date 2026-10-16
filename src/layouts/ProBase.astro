@@ -1,0 +1,48 @@
+---
+import "@fontsource/sora/400.css";
+import "@fontsource/sora/500.css";
+import "@fontsource/sora/600.css";
+import "@fontsource/sora/700.css";
+import "@/styles/pro.css";
+import { proSite } from "@/lib/proSite";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const defaultTitle = `${proSite.name} | ${proSite.role}`;
+const {
+  title = defaultTitle,
+  description = "First-year undergraduate in AI/ML & AI Engineering (AIE) at Bengaluru, India. Exploring neural architectures, applied machine learning, and clean web development.",
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://shirone.mysqil.com");
+const ogImage = new URL("/assets/og.jpg", Astro.site ?? "https://shirone.mysqil.com");
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.ico" />
+    <meta name="theme-color" content="#121212" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import "../scripts/pro/entry";
+    </script>
+  </body>
+</html>

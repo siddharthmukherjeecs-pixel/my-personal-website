@@ -159,6 +159,12 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		external: true,
 		pageKey: "github",
 	},
+	Professional: {
+		name: "Pro Mode",
+		url: "/pro/",
+		icon: "material-symbols:business-center-outline-rounded",
+		pageKey: "pro",
+	},
 };
 
 const defaultNavBarConfig: NavBarConfig = {
@@ -174,6 +180,7 @@ const defaultNavBarConfig: NavBarConfig = {
 			name: i18n(I18nKey.more),
 			icon: "material-symbols:apps-rounded",
 			children: [
+				LinkPresets.Professional,
 				LinkPresets.About,
 				LinkPresets.Contact,
 				LinkPresets.Friends,
