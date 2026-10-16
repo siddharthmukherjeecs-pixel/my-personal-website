@@ -426,11 +426,47 @@ import { showSnackbar } from "../utils/snackbar";
 
 bindFancyboxRuntime();
 
-// Register Service Worker for offline resilience and asset acceleration
-if (typeof window !== "undefined" && "serviceWorker" in navigator && !window.location.host.includes("localhost:4321")) {
-	window.addEventListener("load", () => {
-		navigator.serviceWorker.register("/sw.js").catch(() => {});
-	});
+// Force-bust stale cache & purge legacy SW cache (ensures zero visitors see outdated manga lists)
+const CURRENT_CACHE_VERSION = "2026-10-16-v3";
+if (typeof window !== "undefined") {
+	try {
+		const lastVersion = localStorage.getItem("shirone_version");
+		if (lastVersion !== CURRENT_CACHE_VERSION) {
+			localStorage.setItem("shirone_version", CURRENT_CACHE_VERSION);
+			if ("caches" in window) {
+				caches.keys().then((names) => {
+					for (const name of names) {
+						if (!name.includes("v3")) caches.delete(name);
+					}
+				});
+			}
+			if ((window as any).swup?.cache) {
+				(window as any).swup.cache.clear();
+			}
+			if ("serviceWorker" in navigator) {
+				navigator.serviceWorker.getRegistrations().then((registrations) => {
+					for (const reg of registrations) reg.update();
+				});
+			}
+			if (lastVersion) {
+				window.location.reload();
+			}
+		}
+	} catch {}
+
+	if ("serviceWorker" in navigator) {
+		navigator.serviceWorker.addEventListener("message", (event) => {
+			if (event.data?.type === "CACHE_PURGED_RELOAD") {
+				window.location.reload();
+			}
+		});
+
+		if (!window.location.host.includes("localhost:4321")) {
+			window.addEventListener("load", () => {
+				navigator.serviceWorker.register("/sw.js").then((reg) => reg.update()).catch(() => {});
+			});
+		}
+	}
 }
 
 // Adaptive Low-Bandwidth: Disable aggressive hover preloads on 2G / Slow 3G / Save-Data

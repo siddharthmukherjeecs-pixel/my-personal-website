@@ -43,6 +43,28 @@ const ogImage = new URL("/assets/og.jpg", Astro.site ?? "https://shirone.mysqil.
     <slot />
     <script>
       import "../scripts/pro/entry";
+
+      const CURRENT_CACHE_VERSION = "2026-10-16-v3";
+      if (typeof window !== "undefined") {
+        try {
+          const lastVersion = localStorage.getItem("shirone_version");
+          if (lastVersion !== CURRENT_CACHE_VERSION) {
+            localStorage.setItem("shirone_version", CURRENT_CACHE_VERSION);
+            if ("caches" in window) {
+              caches.keys().then((names) => {
+                for (const name of names) {
+                  if (!name.includes("v3")) caches.delete(name);
+                }
+              });
+            }
+            if ("serviceWorker" in navigator) {
+              navigator.serviceWorker.getRegistrations().then((registrations) => {
+                for (const reg of registrations) reg.update();
+              });
+            }
+          }
+        } catch {}
+      }
     </script>
   </body>
 </html>

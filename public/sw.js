@@ -4,8 +4,8 @@
  * Network-First for HTML pages with offline cache fallback
  */
 
-const STATIC_CACHE = "shirone-static-v2";
-const PAGES_CACHE = "shirone-pages-v2";
+const STATIC_CACHE = "shirone-static-v3";
+const PAGES_CACHE = "shirone-pages-v3";
 const PRECACHE_URLS = ["/", "/anime/", "/manga/", "/logo/icon.webp"];
 
 self.addEventListener("install", (event) => {
@@ -30,7 +30,14 @@ self.addEventListener("activate", (event) => {
 					}),
 				),
 			)
-			.then(() => self.clients.claim()),
+			.then(() => self.clients.claim())
+			.then(() =>
+				self.clients.matchAll({ type: "window" }).then((clients) => {
+					for (const client of clients) {
+						client.postMessage({ type: "CACHE_PURGED_RELOAD" });
+					}
+				}),
+			),
 	);
 });
 
