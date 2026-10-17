@@ -452,3 +452,31 @@ textarea.input { height: auto; min-height: 120px; padding: 16px 18px; resize: no
   transform: translateY(-1px);
   color: #ffffff;
 }
+
+/* Recruiter & Interviewer action pill */
+.recruiter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  font-family: var(--font, sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-decoration: none;
+}
+.recruiter-pill:hover {
+  background: rgba(56, 189, 248, 0.24);
+  border-color: #38bdf8;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+  transform: translateY(-1px);
+  color: #ffffff;
+}

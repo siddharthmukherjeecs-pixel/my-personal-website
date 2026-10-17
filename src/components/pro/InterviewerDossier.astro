@@ -1,0 +1,440 @@
+---
+import { proSite } from "@/lib/proSite";
+import Icon from "./Icon.astro";
+---
+<div id="interviewerDossier" class="dossier-modal" aria-hidden="true" data-dossier>
+  <div class="dossier-backdrop" data-dossier-close></div>
+  <div class="dossier-dialog" role="dialog" aria-labelledby="dossierTitle" aria-modal="true">
+    <div class="dossier-header">
+      <div class="dossier-badge">
+        <span class="dossier-dot"></span>
+        <span>FOR INTERVIEWERS &amp; ENGINEERING LEADS</span>
+      </div>
+      <button type="button" class="dossier-close-btn" aria-label="Close dialog" data-dossier-close>
+        <Icon name="x" size={20} stroke={1.5} />
+      </button>
+    </div>
+
+    <div class="dossier-body">
+      <!-- Profile Strip -->
+      <div class="dossier-profile">
+        <img class="dossier-avatar" src={proSite.contact.avatar || "/assets/siddharth-avatar.webp"} alt={proSite.name} />
+        <div class="dossier-info">
+          <h2 id="dossierTitle" class="dossier-name">{proSite.name}</h2>
+          <p class="dossier-role">{proSite.role}</p>
+          <p class="dossier-location">📍 Bengaluru, Karnataka, India · Open to Summer Internships &amp; Collabs</p>
+        </div>
+      </div>
+
+      <!-- Quick Executive Summary -->
+      <div class="dossier-section">
+        <h3 class="dossier-section-title">⚡ Quick Executive Summary</h3>
+        <p class="dossier-summary-text">
+          First-year Artificial Intelligence &amp; Machine Learning (AI/ML &amp; AIE) undergraduate in Bengaluru. 
+          Rather than waiting for upper years, actively building hands-on from Day 1: testing offline local LLM inference via Ollama, 
+          dissecting vector embeddings &amp; RAG retrieval mechanics, and developing modern responsive web platforms with Astro and TypeScript.
+        </p>
+      </div>
+
+      <!-- Key Strengths Grid (The "Drool" Factor) -->
+      <div class="dossier-section">
+        <h3 class="dossier-section-title">💎 Why Interview Siddharth?</h3>
+        <div class="dossier-strengths-grid">
+          <div class="dossier-strength-card">
+            <span class="strength-icon">🚀</span>
+            <h4>Extreme Initiative</h4>
+            <p>Self-started exploration of open-weights models and vector search in freshman year. High agency learner.</p>
+          </div>
+          <div class="dossier-strength-card">
+            <span class="strength-icon">🔬</span>
+            <h4>Hands-on Experimenter</h4>
+            <p>Runs benchmarks on personal hardware, studies quantization (Q4_K_M), and writes numpy math scripts from scratch.</p>
+          </div>
+          <div class="dossier-strength-card">
+            <span class="strength-icon">💻</span>
+            <h4>Modern Engineering Discipline</h4>
+            <p>Clean Git commit habits, strict TypeScript typing, responsive CSS clamp architecture, and 0-error build standards.</p>
+          </div>
+          <div class="dossier-strength-card">
+            <span class="strength-icon">🌱</span>
+            <h4>Beginner Mindset &amp; Humility</h4>
+            <p>Learns by breaking things and debugging root causes. Highly receptive to technical feedback and senior mentorship.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Stack Matrix -->
+      <div class="dossier-section">
+        <h3 class="dossier-section-title">🛠️ Core Capabilities Matrix</h3>
+        <div class="dossier-tech-groups">
+          <div class="tech-group">
+            <span class="tech-group-label">AI / ML Tooling</span>
+            <div class="tech-tags">
+              <span class="tech-tag">Ollama CLI</span>
+              <span class="tech-tag">Llama 3.2 (3B)</span>
+              <span class="tech-tag">Mistral (7B)</span>
+              <span class="tech-tag">RAG Retrieval</span>
+              <span class="tech-tag">nomic-embed-text</span>
+              <span class="tech-tag">ChromaDB</span>
+              <span class="tech-tag">Cosine Similarity</span>
+            </div>
+          </div>
+          <div class="tech-group">
+            <span class="tech-group-label">Languages &amp; Web</span>
+            <div class="tech-tags">
+              <span class="tech-tag">Python 3 (NumPy)</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Astro 7.3</span>
+              <span class="tech-tag">WebGL Shaders</span>
+              <span class="tech-tag">HTML5 / Modern CSS</span>
+              <span class="tech-tag">Keystatic CMS</span>
+            </div>
+          </div>
+          <div class="tech-group">
+            <span class="tech-group-label">Environment &amp; Systems</span>
+            <div class="tech-tags">
+              <span class="tech-tag">macOS / Linux Terminal</span>
+              <span class="tech-tag">Git &amp; GitHub</span>
+              <span class="tech-tag">pnpm / Vite</span>
+              <span class="tech-tag">Vercel Deployment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons for Recruiters -->
+      <div class="dossier-actions">
+        <a href="/resume/" class="dossier-btn primary">
+          <span>📄 View Full Interactive Resume</span>
+          <Icon name="arrow-up-right" size={16} stroke={2} />
+        </a>
+        <a href={`mailto:${proSite.email}?subject=Interview%20Inquiry%20-%20Siddharth%20Mukherjee`} class="dossier-btn secondary">
+          <span>✉️ Contact for Interview</span>
+        </a>
+        <a href="https://github.com/siddharthmukherjeecs-pixel" target="_blank" rel="noreferrer" class="dossier-btn tertiary">
+          <span>🐙 GitHub Profile</span>
+        </a>
+        <button type="button" class="dossier-btn copy-email-btn" data-copy-email={proSite.email}>
+          <span data-copy-label>📋 Copy Email</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.dossier-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.dossier-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.dossier-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.dossier-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #0f141f;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.1);
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dossier-modal.is-open .dossier-dialog {
+  transform: translateY(0) scale(1);
+}
+.dossier-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+.dossier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+.dossier-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+.dossier-close-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.dossier-close-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+.dossier-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.dossier-profile {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.dossier-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.3);
+}
+.dossier-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dossier-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+.dossier-role {
+  font-size: 14px;
+  color: #38bdf8;
+  font-weight: 500;
+  margin: 0;
+}
+.dossier-location {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+.dossier-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dossier-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #e2e8f0;
+  margin: 0;
+}
+.dossier-summary-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin: 0;
+}
+.dossier-strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 600px) {
+  .dossier-strengths-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.dossier-strength-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.strength-icon {
+  font-size: 20px;
+}
+.dossier-strength-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0;
+}
+.dossier-strength-card p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #94a3b8;
+  margin: 0;
+}
+.dossier-tech-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tech-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tech-group-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tech-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+}
+.dossier-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.dossier-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+.dossier-btn.primary {
+  background: #38bdf8;
+  color: #030712;
+}
+.dossier-btn.primary:hover {
+  background: #7dd3fc;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+}
+.dossier-btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.dossier-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+.dossier-btn.tertiary, .dossier-btn.copy-email-btn {
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.dossier-btn.tertiary:hover, .dossier-btn.copy-email-btn:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+}
+</style>
+
+<script>
+  function setupDossier() {
+    const modal = document.querySelector<HTMLElement>("[data-dossier]");
+    if (!modal) return;
+
+    const openBtns = document.querySelectorAll<HTMLElement>("[data-open-dossier]");
+    const closeBtns = modal.querySelectorAll<HTMLElement>("[data-dossier-close]");
+    const copyBtn = modal.querySelector<HTMLButtonElement>("[data-copy-email]");
+
+    const open = () => {
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+
+    const close = () => {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+
+    openBtns.forEach(btn => btn.addEventListener("click", open));
+    closeBtns.forEach(btn => btn.addEventListener("click", close));
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) {
+        close();
+      }
+    });
+
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        const email = copyBtn.dataset.copyEmail || "siddharthmukherjee.cs@gmail.com";
+        const label = copyBtn.querySelector<HTMLElement>("[data-copy-label]");
+        try {
+          await navigator.clipboard.writeText(email);
+          if (label) label.textContent = "✔ Email Copied!";
+          setTimeout(() => {
+            if (label) label.textContent = "📋 Copy Email";
+          }, 2500);
+        } catch {
+          if (label) label.textContent = email;
+        }
+      });
+    }
+  }
+
+  // Setup on page load
+  setupDossier();
+  document.addEventListener("astro:page-load", setupDossier);
+</script>

@@ -21,7 +21,19 @@ document.querySelectorAll<HTMLFormElement>("[data-contact-form]").forEach((form)
     e.preventDefault();
     if (state === "loading" || state === "success") return;
     set("loading");
-    window.setTimeout(() => set("success"), 1200);
+    
+    const formData = new FormData(form);
+    const name = ((formData.get("name") as string) || "").trim() || "Visitor / Interviewer";
+    const email = ((formData.get("email") as string) || "").trim();
+    const msg = ((formData.get("message") as string) || "").trim();
+
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+    const body = encodeURIComponent(`Hi Siddharth,\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${msg}\n\nSent via siddharth-mukherjee.me`);
+    
+    window.setTimeout(() => {
+      window.location.href = `mailto:siddharthmukherjee.cs@gmail.com?subject=${subject}&body=${body}`;
+      set("success");
+    }, 600);
   });
 });
 
