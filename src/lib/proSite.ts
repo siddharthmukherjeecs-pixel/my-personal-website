@@ -52,12 +52,14 @@ const defaultNav = [
   { label: "What I'm Learning", href: "/#focus" },
   { label: "Mindset", href: "/#principles" },
   { label: "Journey", href: "/#milestones" },
+  { label: "Writing", href: "/#writing" },
   { label: "Resume / CV", href: "/resume/" },
   { label: "Contact", href: "/#contact" }
 ];
 
 const defaultFooterNav = [
   { label: "Resume / CV", href: "/resume/" },
+  { label: "Writing", href: "/#writing" },
   { label: "Learning", href: "/#focus" },
   { label: "About", href: "/#about" },
   { label: "Journey", href: "/#milestones" },
