@@ -5,8 +5,8 @@ import { z } from "astro/zod";
 const postsCollection = defineCollection({
 	loader: glob({ base: "./src/content/posts", pattern: "**/*.{md,mdx}" }),
 	schema: z.object({
-		title: z.string(),
-		published: z.date(),
+		title: z.string().optional().default("Untitled Note"),
+		published: z.coerce.date().optional().default(() => new Date()),
 		publishedAt: z.date().optional(),
 		updated: z.date().optional(),
 		updatedAt: z.date().optional(),
