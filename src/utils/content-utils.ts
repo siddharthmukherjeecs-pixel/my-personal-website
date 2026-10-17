@@ -46,6 +46,44 @@ async function getRawSortedPosts(): Promise<CollectionEntry<"posts">[]> {
 	// 二次解析不变），因此 permalink 的 %category%、PostMeta 与聚合计数保持一致。
 	const seriesCatalog = await getSeriesCatalog();
 	for (const post of sorted) {
+		// Smart Auto-Title fallback: if title is missing or generic, extract from first heading or filename
+		if (!post.data.title || post.data.title === "Untitled Note" || post.data.title === "Untitled") {
+			const bodyText = (post as { body?: string }).body;
+			if (bodyText) {
+				const headingMatch = bodyText.match(/^#\s+(.+)$/m);
+				if (headingMatch && headingMatch[1].trim()) {
+					post.data.title = headingMatch[1].trim();
+				}
+			}
+			if (!post.data.title || post.data.title === "Untitled Note" || post.data.title === "Untitled") {
+				const baseName = post.id.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+				post.data.title = baseName.charAt(0).toUpperCase() + baseName.slice(1);
+			}
+		}
+
+		// Smart Auto-Description fallback: if description is empty, grab first paragraph
+		if (!post.data.description || post.data.description.trim() === "") {
+			const bodyText = (post as { body?: string }).body;
+			if (bodyText) {
+				const clean = bodyText
+					.replace(/^#+.*$/gm, "")
+					.replace(/!\[.*?\]\(.*?\)/g, "")
+					.replace(/\[(.*?)\]\(.*?\)/g, "$1")
+					.replace(/\[\[(.*?)\]\]/g, "$1")
+					.replace(/[#*_`>]/g, "")
+					.trim();
+				const firstPara = clean.split(/\n\s*\n/)[0]?.trim();
+				if (firstPara) {
+					post.data.description = firstPara.length > 150 ? `${firstPara.slice(0, 147)}...` : firstPara;
+				}
+			}
+		}
+
+		// Auto-Category fallback
+		if (!post.data.category || post.data.category.trim() === "") {
+			post.data.category = "Engineering";
+		}
+
 		const seriesSlug = normaliseSeriesSlug(post.data.series);
 		const seriesData = seriesSlug
 			? seriesCatalog.get(seriesSlug)?.data
