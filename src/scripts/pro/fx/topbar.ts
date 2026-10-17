@@ -57,7 +57,7 @@ const setOpen = (o: boolean) => {
   suppress = Date.now() + 700;
 };
 btn.addEventListener("click", () => setOpen(!open));
-nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+nav.querySelectorAll("a, button").forEach((el) => el.addEventListener("click", () => setOpen(false)));
 phone.addEventListener("change", () => {
   if (!phone.matches && open) setOpen(false);
 });

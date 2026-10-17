@@ -13,6 +13,10 @@ const SMOOTH = (p: number) => p * p * p * (p * (p * 6 - 15) + 10);
 const words = Array.from(document.querySelectorAll<HTMLElement>(".sw"));
 const blocks = Array.from(document.querySelectorAll<HTMLElement>(".sf"));
 
+const isMobile =
+  typeof window !== "undefined" &&
+  (window.innerWidth <= 809 || "ontouchstart" in window);
+
 if (!reducedMotion() && (words.length || blocks.length)) {
   onScrollFrame(() => {
     const vh = window.innerHeight || 1;
@@ -22,7 +26,11 @@ if (!reducedMotion() && (words.length || blocks.length)) {
       const r = s.getBoundingClientRect();
       const e = EASE(Math.max(0, Math.min(1, (ws - r.top) / (ws - we))));
       s.style.opacity = String(e);
-      s.style.filter = e < 0.999 ? "blur(" + ((1 - e) * 26).toFixed(2) + "px)" : "none";
+      if (!isMobile) {
+        s.style.filter = e < 0.999 ? "blur(" + ((1 - e) * 26).toFixed(2) + "px)" : "none";
+      } else {
+        s.style.filter = "none";
+      }
     }
     const bs = vh * 1.02;
     const be = vh * 0.42;
@@ -31,7 +39,11 @@ if (!reducedMotion() && (words.length || blocks.length)) {
       const e = SMOOTH(Math.max(0, Math.min(1, (bs - r.top) / (bs - be))));
       el.style.opacity = e.toFixed(3);
       el.style.transform = e < 0.999 ? "translate3d(0," + ((1 - e) * 14).toFixed(2) + "px,0)" : "none";
-      el.style.filter = e < 0.999 ? "blur(" + ((1 - e) * 14).toFixed(2) + "px)" : "none";
+      if (!isMobile) {
+        el.style.filter = e < 0.999 ? "blur(" + ((1 - e) * 14).toFixed(2) + "px)" : "none";
+      } else {
+        el.style.filter = "none";
+      }
     }
   });
 }

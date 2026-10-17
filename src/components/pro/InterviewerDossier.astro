@@ -385,6 +385,31 @@ import Icon from "./Icon.astro";
   border-color: rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.05);
 }
+@media (max-width: 480px) {
+  .dossier-dialog {
+    max-height: 94vh;
+    border-radius: 16px;
+  }
+  .dossier-header {
+    padding: 14px 18px;
+  }
+  .dossier-body {
+    padding: 18px 16px;
+    gap: 18px;
+  }
+  .dossier-profile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .dossier-actions {
+    flex-direction: column;
+  }
+  .dossier-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
 </style>
 
 <script>

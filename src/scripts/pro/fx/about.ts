@@ -8,6 +8,10 @@ const el = document.querySelector<HTMLElement>("[data-parallax]");
 if (el && !reducedMotion()) {
   const host = el.parentElement!;
   onScrollFrame(() => {
+    if (window.innerWidth <= 809) {
+      el.style.transform = "none";
+      return;
+    }
     const r = host.getBoundingClientRect();
     const vh = window.innerHeight || 1;
     const child = el.firstElementChild as HTMLElement | null;

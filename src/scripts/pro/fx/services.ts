@@ -17,7 +17,10 @@ if (el) {
   const apply = (i: number) => {
     if (i === idx) return;
     idx = i;
-    names.forEach((nm, k) => (nm.style.color = k === i ? "var(--white)" : "var(--white-60)"));
+    names.forEach((nm, k) => {
+      nm.style.color = k === i ? "var(--white)" : "var(--white-60)";
+      nm.classList.toggle("is-active-tab", k === i);
+    });
     imgs.forEach((im, k) => im.classList.toggle("is-on", k === i));
     caps.replaceChildren(
       ...captions[i].map((c) => {
@@ -33,7 +36,10 @@ if (el) {
     fill.style.width = `${((i + 1) / n) * 100}%`;
     counter.textContent = String(i + 1).padStart(2, "0");
   };
+  names[0]?.classList.add("is-active-tab");
+
   onScrollFrame(() => {
+    if (window.innerWidth <= 809) return;
     const rect = el.getBoundingClientRect();
     const total = Math.max(el.offsetHeight - window.innerHeight, 1);
     const p = Math.min(Math.max(-rect.top, 0), total) / total;
@@ -41,6 +47,10 @@ if (el) {
   });
   names.forEach((nm, i) =>
     nm.addEventListener("click", () => {
+      if (window.innerWidth <= 809) {
+        apply(i);
+        return;
+      }
       const rect = el.getBoundingClientRect();
       const total = Math.max(el.offsetHeight - window.innerHeight, 1);
       scrollToY(window.scrollY + rect.top + ((i + 0.5) / n) * total);

@@ -98,6 +98,8 @@ function formatDate(d: Date | string | undefined) {
 .pro-writing {
   padding-top: clamp(60px, 8vw, 120px);
   padding-bottom: clamp(60px, 8vw, 120px);
+  padding-left: 20px;
+  padding-right: 20px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -140,12 +142,13 @@ function formatDate(d: Date | string | undefined) {
 
 .writing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 20px;
 }
 @media (max-width: 640px) {
   .writing-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
@@ -292,5 +295,20 @@ function formatDate(d: Date | string | undefined) {
 .btn-subtle:hover {
   color: var(--white);
   background: rgba(255, 255, 255, 0.08);
+}
+@media (max-width: 640px) {
+  .writing-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+  }
+  .bottom-links {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .writing-card {
+    padding: 22px 18px;
+  }
 }
 </style>
