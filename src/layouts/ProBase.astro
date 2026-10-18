@@ -44,7 +44,7 @@ const ogImage = new URL("/assets/og.jpg", Astro.site ?? "https://shirone.mysqil.
     <script>
       import "../scripts/pro/entry";
 
-      const CURRENT_CACHE_VERSION = "2026-10-17-v6";
+      const CURRENT_CACHE_VERSION = "2026-10-18-v7";
       if (typeof window !== "undefined") {
         try {
           const lastVersion = localStorage.getItem("shirone_version");
@@ -53,7 +53,7 @@ const ogImage = new URL("/assets/og.jpg", Astro.site ?? "https://shirone.mysqil.
             if ("caches" in window) {
               caches.keys().then((names) => {
                 for (const name of names) {
-                  if (!name.includes("v6")) caches.delete(name);
+                  if (!name.includes("v7")) caches.delete(name);
                 }
               });
             }

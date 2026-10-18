@@ -47,20 +47,17 @@ export interface ProFAQ {
 }
 
 const defaultNav = [
-  { label: "Overview", href: "/#hero" },
   { label: "About", href: "/#about" },
-  { label: "What I'm Learning", href: "/#focus" },
-  { label: "Mindset", href: "/#principles" },
+  { label: "Focus", href: "/#focus" },
+  { label: "Principles", href: "/#principles" },
   { label: "Journey", href: "/#milestones" },
-  { label: "Writing", href: "/#writing" },
-  { label: "Resume / CV", href: "/resume/" },
+  { label: "Resume", href: "/resume/" },
   { label: "Contact", href: "/#contact" }
 ];
 
 const defaultFooterNav = [
-  { label: "Resume / CV", href: "/resume/" },
-  { label: "Writing", href: "/#writing" },
-  { label: "Learning", href: "/#focus" },
+  { label: "Resume", href: "/resume/" },
+  { label: "Focus", href: "/#focus" },
   { label: "About", href: "/#about" },
   { label: "Journey", href: "/#milestones" },
   { label: "Contact", href: "/#contact" }
