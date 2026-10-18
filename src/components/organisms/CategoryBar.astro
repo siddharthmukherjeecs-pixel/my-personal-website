@@ -84,6 +84,11 @@ const softCategory = !isHome && !isArchive && postCategory ? postCategory : "";
 </nav>
 
 <style lang="stylus">
+	.category-bar-list
+		scroll-behavior: smooth
+		overscroll-behavior-inline: contain
+		-webkit-overflow-scrolling: touch
+
 	.category-bar__count
 		font-size: 0.7rem
 		font-weight: 600

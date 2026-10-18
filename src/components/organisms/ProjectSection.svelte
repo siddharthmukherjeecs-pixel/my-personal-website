@@ -119,7 +119,7 @@ $effect(() => {
 });
 </script>
 
-<Card color="var(--card-bg)" radius="l" class="projects-section px-8 py-6">
+<Card color="var(--card-bg)" radius="l" class="projects-section px-4 py-5 sm:px-6 sm:py-5 md:px-8 md:py-6">
 	<PageHeader
 		icon="material-symbols:deployed-code-outline-rounded"
 		{title}

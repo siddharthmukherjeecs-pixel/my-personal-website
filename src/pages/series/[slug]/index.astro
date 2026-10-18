@@ -67,7 +67,7 @@ const subtitle = `${statusLabel} · ${ordered.length} ${i18n(I18nKey.postsCount)
 	{markdownStylesheetAssets.map(({ pack, css }) => (
 		<style is:inline slot="head" data-swup-optional={pack} set:html={css}></style>
 	))}
-	<Card color="var(--card-bg)" radius="l" class="series-detail px-8 py-6">
+	<Card color="var(--card-bg)" radius="l" class="series-detail px-4 py-5 sm:px-6 sm:py-5 md:px-8 md:py-6">
 		<PageHeader
 			icon="material-symbols:auto-stories-rounded"
 			title={series.data.title}

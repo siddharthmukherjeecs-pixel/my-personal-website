@@ -105,8 +105,8 @@ button { font: inherit; }
 .topbar-bar { position: relative; z-index: 55; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; width: 100%; }
 .topbar-logo { display: flex; flex-direction: column; gap: 2px; }
 .topbar-links { display: flex; align-items: center; gap: 24px; }
-.topbar-menu { display: none; position: relative; z-index: 60; width: 36px; height: 36px; padding: 6px; border: 0; background: rgba(255, 255, 255, 0.05); border-radius: 8px; color: var(--white); cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.topbar-icon { position: absolute; top: 6px; left: 6px; width: 24px; height: 24px; transition: opacity 0.3s var(--ease-out); }
+.topbar-menu { display: none; position: relative; z-index: 60; min-width: 44px; min-height: 44px; width: 44px; height: 44px; padding: 10px; border: 0; background: rgba(255, 255, 255, 0.05); border-radius: 8px; color: var(--white); cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.topbar-icon { position: absolute; top: 10px; left: 10px; width: 24px; height: 24px; transition: opacity 0.3s var(--ease-out); }
 .topbar-mobile {
   position: fixed; top: 0; left: 0; width: 100%; height: 0; overflow: hidden; opacity: 0;
   visibility: hidden; pointer-events: none;
@@ -118,10 +118,19 @@ button { font: inherit; }
 .topbar-mobile.is-open {
   height: 100vh; height: 100dvh; opacity: 0.999;
   visibility: visible; pointer-events: auto;
-  padding: 85px 24px 40px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: max(85px, calc(60px + env(safe-area-inset-top, 0px))) 24px max(40px, calc(20px + env(safe-area-inset-bottom, 0px)));
+  overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
 }
 @media (max-width: 809px) { .topbar-links { display: none; } .topbar-menu { display: flex; align-items: center; justify-content: center; } }
-.topbar-links a, .topbar-mobile a { color: var(--white-60); }
+.topbar-links a { color: var(--white-60); }
+.topbar-mobile a {
+  color: var(--white-60);
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 0;
+  touch-action: manipulation;
+}
 .topbar-links a.is-current, .topbar-mobile a.is-current { color: var(--white); }
 @media (hover: hover) and (pointer: fine) { .topbar-links a { transition: color 0.2s ease; } .topbar-links a:hover { color: var(--white); } }
 
@@ -272,7 +281,7 @@ button { font: inherit; }
 /* ---------- Services ---------- */
 .services { background: var(--black); }
 .services-scroll { position: relative; height: 3600px; }
-.services-switcher { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 100px 20px; overflow: clip; background: var(--black); }
+.services-switcher { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; justify-content: space-between; padding: 100px 20px; overflow: clip; background: var(--black); }
 .services-top { display: flex; justify-content: space-between; align-items: flex-start; }
 .services-middle { display: flex; align-items: center; gap: 40px; flex: 1; min-height: 0; }
 .services-names { flex: 1; display: flex; flex-direction: column; gap: 12px; }
@@ -340,7 +349,7 @@ button { font: inherit; }
 
 /* ---------- Gallery ---------- */
 .gallery { position: relative; height: 3200px; background: var(--black); }
-.gallery-pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
+.gallery-pin { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center; }
 .gallery-heading { position: relative; z-index: 10; max-width: 800px; text-align: center; }
 @media (max-width: 1199px) { .gallery-heading { max-width: 400px; } }
 @media (max-width: 809px) {
@@ -474,7 +483,7 @@ textarea.input { height: auto; min-height: 120px; padding: 16px 18px; resize: no
     margin-bottom: 0 !important;
   }
 }
-.pc-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.pc-sticky { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; }
 .pc-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
 .pc-overlays { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .pc-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; padding: 24px; text-align: center; }
@@ -494,7 +503,7 @@ textarea.input { height: auto; min-height: 120px; padding: 16px 18px; resize: no
 .pc-root.pc-nogl { height: auto; margin-bottom: 0; }
 .pc-root.pc-nogl .pc-sticky { display: none; }
 .pc-root.pc-nogl .pc-fallback { display: block; }
-.pc-fb-slide { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+.pc-fb-slide { position: relative; width: 100%; height: 100vh; height: 100dvh; overflow: hidden; }
 .pc-fb-media { position: absolute; top: 50%; left: 50%; width: 80%; max-width: 1400px; height: 68vh; transform: translate(-50%, -50%); overflow: hidden; border-radius: 20px; }
 @media (max-width: 1199px) { .pc-fb-media { width: 84%; height: 58vh; } }
 @media (max-width: 809px) { .pc-fb-media { width: 92%; height: 50vh; } }

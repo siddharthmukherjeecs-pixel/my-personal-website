@@ -114,6 +114,19 @@ let drawerEl: HTMLElement | undefined = $state();
 		</div>
 
 		<nav class="site-drawer__nav" aria-label="Navigation drawer">
+			<a
+				href="/"
+				class="site-drawer__item site-drawer__item--pro"
+				onclick={handleNavClick}
+			>
+				<span class="site-drawer__item-icon" aria-hidden="true">
+					<Icon icon="material-symbols:business-center-outline-rounded" />
+				</span>
+				<span class="site-drawer__item-label">Pro Portfolio</span>
+				<span class="site-drawer__item-badge">Pro Mode</span>
+			</a>
+			<div class="site-drawer__divider" aria-hidden="true"></div>
+
 			{#each primaryItems as item (item.value)}
 				{#if item.children}
 					<div class="site-drawer__group">
@@ -188,7 +201,7 @@ let drawerEl: HTMLElement | undefined = $state();
 		transform: translateX(0)
 
 	&__brand
-		padding: var(--m3e-space-5) var(--shape-corner-xl) var(--m3e-space-3)
+		padding: max(var(--m3e-space-5), calc(var(--m3e-space-3) + env(safe-area-inset-top, 0px))) var(--shape-corner-xl) var(--m3e-space-3)
 		flex: none
 
 	&__title
@@ -203,7 +216,31 @@ let drawerEl: HTMLElement | undefined = $state();
 	&__nav
 		flex: 1
 		overflow-y: auto
-		padding: var(--m3e-space-2) var(--m3e-space-3) var(--m3e-space-4)
+		-webkit-overflow-scrolling: touch
+		overscroll-behavior: contain
+		padding: var(--m3e-space-2) var(--m3e-space-3) max(var(--m3e-space-4), calc(var(--m3e-space-2) + env(safe-area-inset-bottom, 0px)))
+
+	&__divider
+		height: 1px
+		background: var(--outline-variant)
+		margin: var(--m3e-space-2) var(--m3e-space-4)
+		opacity: 0.6
+
+	&__item--pro
+		background: unquote("color-mix(in oklab, var(--primary) 10%, var(--surface-container-high))")
+		color: var(--primary)
+		font-weight: 600
+		margin-bottom: var(--m3e-space-1)
+		&:hover
+			background: unquote("color-mix(in oklab, var(--primary) 16%, var(--surface-container-high))")
+
+	&__item-badge
+		font-size: 0.75rem
+		font-weight: 700
+		padding: 0.125rem 0.5rem
+		border-radius: var(--shape-corner-full)
+		background: var(--primary-container)
+		color: var(--on-primary-container)
 
 	/* 一级/子项：全宽 56dp，选中整项 secondary-container 全圆 pill */
 	&__item

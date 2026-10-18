@@ -182,7 +182,7 @@ $effect(() => {
 });
 </script>
 
-<Card color="var(--card-bg)" radius="l" class="archive-panel px-8 py-6">
+<Card color="var(--card-bg)" radius="l" class="archive-panel px-4 py-5 sm:px-6 sm:py-5 md:px-8 md:py-6">
 	<!-- 带筛选参数（?category= / ?tag= / ?uncategorized）是定向浏览视图：
 	    隐藏分组切换，只留面包屑 + 筛选后时间轴；无筛选才显示分组切换。 -->
 	{#if !filterCrumb}

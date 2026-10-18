@@ -47,12 +47,41 @@
        macOS 默认使用覆盖式滚动条，本来就不影响布局宽度。 */
     html {
         scrollbar-gutter: stable;
+        text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
     }
 
     /* 全局正文色走主题变量：裸内容（未显式设色的文字/按钮）明暗自适应，
-       否则默认黑色在暗色模式下不可见 */
+       否则默认黑色在暗色模式下不可见；
+       移动端防横向溢出与原生点击高亮消除 */
     body {
         color: var(--on-surface);
+        overflow-x: clip;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 移动端快速响应：消除双击缩放导致的 300ms 触摸延迟 */
+    button, a, input, select, textarea, [role="button"] {
+        touch-action: manipulation;
+    }
+
+    /* 触屏移动端可触控目标尺寸保障 (WCAG 2.5.5 / 2.5.8) */
+    @media (pointer: coarse) {
+        .m3-icon-button,
+        .float-control,
+        button.topbar-menu {
+            min-width: 44px;
+            min-height: 44px;
+        }
+    }
+
+    /* 防止 iOS Safari 在表单聚焦时自动放大视口 (font-size < 16px 触发 auto-zoom) */
+    @media (max-width: 767px) {
+        input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+        select,
+        textarea {
+            font-size: 16px;
+        }
     }
 }
 

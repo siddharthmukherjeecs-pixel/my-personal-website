@@ -151,7 +151,10 @@ import Icon from "./Icon.astro";
   width: 100%;
   max-width: 760px;
   max-height: 90vh;
+  max-height: min(90vh, 90dvh);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   background: #0f141f;
   border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: 20px;
@@ -199,10 +202,16 @@ import Icon from "./Icon.astro";
   border: none;
   color: #94a3b8;
   cursor: pointer;
-  padding: 6px;
+  padding: 10px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 8px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  transition: color 0.15s ease, background 0.15s ease;
+}
   justify-content: center;
   transition: color 0.15s ease, background 0.15s ease;
 }
@@ -388,6 +397,7 @@ import Icon from "./Icon.astro";
 @media (max-width: 480px) {
   .dossier-dialog {
     max-height: 94vh;
+    max-height: 94dvh;
     border-radius: 16px;
   }
   .dossier-header {

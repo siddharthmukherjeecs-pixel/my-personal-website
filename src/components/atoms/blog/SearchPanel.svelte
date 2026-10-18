@@ -94,9 +94,12 @@ let {
 			border: none
 			background: transparent
 			color: var(--on-surface)
-			font: var(--m3e-type-body-small)
+			font: var(--m3e-type-body-large)
+			font-size: 1rem /* Prevents iOS auto-zoom on input focus */
 			outline: none
 			caret-color: var(--primary)
+			@media (min-width: bp-md)
+				font: var(--m3e-type-body-small)
 			&::placeholder
 				color: var(--on-surface-variant)
 

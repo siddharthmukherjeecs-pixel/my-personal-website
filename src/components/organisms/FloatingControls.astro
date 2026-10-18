@@ -137,8 +137,8 @@ const isHomeItemVisible = homeItem
 <style lang="stylus">
 .m3-floating-controls-container
 	position: fixed
-	right: var(--fab-inline-offset)
-	bottom: var(--fab-bottom)
+	right: unquote("calc(var(--fab-inline-offset) + env(safe-area-inset-right, 0px))")
+	bottom: unquote("calc(var(--fab-bottom) + env(safe-area-inset-bottom, 0px))")
 	z-index: 45
 	display: flex
 	flex-direction: column
@@ -154,7 +154,7 @@ const isHomeItemVisible = homeItem
 
 	&--start
 		right: auto
-		left: var(--fab-inline-offset)
+		left: unquote("calc(var(--fab-inline-offset) + env(safe-area-inset-left, 0px))")
 
 @media (prefers-reduced-motion: reduce)
 	.m3-floating-controls-container

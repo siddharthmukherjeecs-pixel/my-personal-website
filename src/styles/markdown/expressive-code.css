@@ -218,6 +218,18 @@
 	pointer-events: none;
 }
 
+.expressive-code pre {
+	overscroll-behavior-inline: contain;
+	-webkit-overflow-scrolling: touch;
+}
+
+@media (hover: none) or (pointer: coarse) {
+	.expressive-code .copy-btn,
+	.expressive-code.auto-collapsible .collapse-toggle-btn {
+		opacity: 0.85;
+	}
+}
+
 @media (width < 768px) {
 	.expressive-code .frame {
 		--code-action-top: var(--m3e-space-2);
@@ -230,10 +242,12 @@
 
 	.expressive-code .copy-btn {
 		right: var(--m3e-space-2);
+		touch-action: manipulation;
 	}
 
 	.expressive-code.auto-collapsible .collapse-toggle-btn {
 		right: calc(var(--m3e-space-8) + var(--m3e-space-4));
+		touch-action: manipulation;
 	}
 
 	/* !important boundary: Expressive Code owns the generated language label; Shirone hides it in its narrow frame layout. */
