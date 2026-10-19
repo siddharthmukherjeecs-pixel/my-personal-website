@@ -101,7 +101,7 @@ export function initCarousel(root: HTMLElement) {
   const n = srcs.length;
   const tablet = window.matchMedia("(max-width: 1199px)");
   const phone = window.matchMedia("(max-width: 809px)");
-  const spacing = () => (phone.matches ? 60 : 75);
+  const spacing = () => (phone.matches ? 45 : 75);
   const imageWidth = () => (phone.matches ? 92 : tablet.matches ? 84 : 80);
   const imageHeight = () => (phone.matches ? 50 : tablet.matches ? 58 : 68);
   // Reduced motion: keep the scroll-linked layout but drop the idle liquid drift.
