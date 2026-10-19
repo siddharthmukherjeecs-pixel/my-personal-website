@@ -137,6 +137,10 @@ export function initCarousel(root: HTMLElement) {
     gl = null;
   }
   if (!gl) return fail();
+  canvas.addEventListener("webglcontextlost", (e) => {
+    e.preventDefault();
+    fail();
+  });
   const compile = (type: number, src: string) => {
     const s = gl.createShader(type);
     gl.shaderSource(s, src);

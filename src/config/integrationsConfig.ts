@@ -85,7 +85,15 @@ export const IMAGE_ENDPOINT_ROUTE = "/_image/";
  */
 export const swupOptions: NonNullable<Parameters<typeof swup>[0]> = {
 	theme: false as const,
-	ignore: ['a[href="#"]', 'a[href^="/keystatic"]', 'a[href^="/admin"]'],
+	ignore: [
+		'a[href="#"]',
+		'a[href^="/keystatic"]',
+		'a[href^="/admin"]',
+		'a[href="/"]',
+		'a[href^="/pro"]',
+		'a[href^="/resume"]',
+		'a[href^="/cv"]',
+	],
 	animationClass: "transition-swup-",
 	containers: ["main", "#toc"],
 	smoothScrolling: true,

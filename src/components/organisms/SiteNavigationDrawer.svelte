@@ -116,6 +116,7 @@ let drawerEl: HTMLElement | undefined = $state();
 		<nav class="site-drawer__nav" aria-label="Navigation drawer">
 			<a
 				href="/"
+				data-no-swup
 				class="site-drawer__item site-drawer__item--pro"
 				onclick={handleNavClick}
 			>
@@ -138,7 +139,7 @@ let drawerEl: HTMLElement | undefined = $state();
 						{#if openGroups[item.value]}
 							<div class="site-drawer__group-body">
 								{#each item.children as child (child.value)}
-									<a href={child.href} class="site-drawer__item site-drawer__item--child" class:site-drawer__item--active={activePrimary === child.value} aria-current={activePrimary === child.value ? "page" : undefined} target={child.external ? "_blank" : undefined} rel={child.external ? "noopener noreferrer" : undefined} onclick={handleNavClick}>
+									<a href={child.href} data-no-swup={child.href === "/" || child.href === "/pro/" || child.href === "/pro" ? "" : undefined} class="site-drawer__item site-drawer__item--child" class:site-drawer__item--active={activePrimary === child.value} aria-current={activePrimary === child.value ? "page" : undefined} target={child.external ? "_blank" : undefined} rel={child.external ? "noopener noreferrer" : undefined} onclick={handleNavClick}>
 										{#if child.icon}<span class="site-drawer__item-icon" aria-hidden="true"><Icon icon={child.icon} /></span>{/if}
 										<span class="site-drawer__item-label">{child.label}</span>
 									</a>
@@ -147,7 +148,7 @@ let drawerEl: HTMLElement | undefined = $state();
 						{/if}
 					</div>
 				{:else if item.href}
-					<a href={item.href} class="site-drawer__item" class:site-drawer__item--active={activePrimary === item.value} aria-current={activePrimary === item.value ? "page" : undefined} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener noreferrer" : undefined} onclick={handleNavClick}>
+					<a href={item.href} data-no-swup={item.href === "/" || item.href === "/pro/" || item.href === "/pro" ? "" : undefined} class="site-drawer__item" class:site-drawer__item--active={activePrimary === item.value} aria-current={activePrimary === item.value ? "page" : undefined} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener noreferrer" : undefined} onclick={handleNavClick}>
 						{#if item.icon}<span class="site-drawer__item-icon" aria-hidden="true"><Icon icon={item.icon} /></span>{/if}
 						<span class="site-drawer__item-label">{item.label}</span>
 					</a>

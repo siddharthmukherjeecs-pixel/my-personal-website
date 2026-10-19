@@ -44,6 +44,7 @@ function isActive(link: (typeof links)[number]): boolean {
 		</IconButton>
 		<a
 			href={url("/")}
+			data-no-swup
 			class="group flex h-10 items-center gap-2 px-2 text-[var(--on-surface)] transition whitespace-nowrap"
 		>
 			<span class="h-5 w-1 rounded-full bg-[var(--primary)] transition-all group-hover:h-7"></span>
@@ -75,7 +76,8 @@ function isActive(link: (typeof links)[number]): boolean {
 						{link.children && <div class="top-app-bar__submenu" role="menu">
 							{link.children.map((child) => {
 								const childHref = child.external ? child.url : hrefFor(child.url);
-							return <a href={childHref} target={child.external ? "_blank" : undefined} rel={child.external ? "noopener noreferrer" : undefined} role="menuitem" data-nav-key={child.pageKey ?? ""} class="top-app-bar__submenu-item">
+								const isProChild = child.pageKey === "pro" || child.url === "/" || child.url === "/pro/" || child.url === "/pro";
+							return <a href={childHref} target={child.external ? "_blank" : undefined} rel={child.external ? "noopener noreferrer" : undefined} role="menuitem" data-nav-key={child.pageKey ?? ""} data-no-swup={isProChild ? "" : undefined} class="top-app-bar__submenu-item">
 									{child.icon && <Icon name={child.icon} class="text-[1.2rem]"></Icon>}{child.name}{child.external && <Icon name="material-symbols:arrow-outward-rounded" class="ml-auto text-[0.875rem]"></Icon>}
 								</a>;
 							})}
@@ -87,6 +89,7 @@ function isActive(link: (typeof links)[number]): boolean {
 		<div class="flex-1"></div>
 		<a
 			href="/"
+			data-no-swup
 			class="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-semibold tracking-wide border border-[var(--outline-variant)] bg-[var(--surface-container-low)] text-[var(--on-surface)] hover:bg-[var(--primary)] hover:text-[var(--on-primary)] hover:border-[var(--primary)] transition shadow-sm mr-2"
 			title="Return to Professional Portfolio"
 		>
