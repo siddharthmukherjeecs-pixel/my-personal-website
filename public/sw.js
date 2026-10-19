@@ -4,9 +4,9 @@
  * Network-First for HTML pages with offline cache fallback
  */
 
-const STATIC_CACHE = "shirone-static-v5";
-const PAGES_CACHE = "shirone-pages-v5";
-const PRECACHE_URLS = ["/", "/anime/", "/manga/", "/logo/icon.webp"];
+const STATIC_CACHE = "shirone-static-v10";
+const PAGES_CACHE = "shirone-pages-v10";
+const PRECACHE_URLS = ["/garden/", "/anime/", "/manga/", "/logo/icon.webp"];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
@@ -47,8 +47,11 @@ self.addEventListener("fetch", (event) => {
 
 	const url = new URL(req.url);
 
-	// Bypass caching for admin, keystatic, API, and preview endpoints
+	// Bypass caching for root pro portfolio, pro subroutes, resume, API, keystatic, admin
 	if (
+		url.pathname === "/" ||
+		url.pathname.startsWith("/pro") ||
+		url.pathname.startsWith("/resume") ||
 		url.pathname.startsWith("/api/") ||
 		url.pathname.startsWith("/keystatic") ||
 		url.pathname.startsWith("/admin")

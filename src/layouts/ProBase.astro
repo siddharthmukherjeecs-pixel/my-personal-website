@@ -38,33 +38,34 @@ const ogImage = new URL("/assets/og.jpg", Astro.site ?? "https://shirone.mysqil.
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <script is:inline>
+      (function() {
+        if (typeof window === "undefined") return;
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(regs) {
+            for (var i = 0; i < regs.length; i++) regs[i].unregister();
+          });
+        }
+        if ("caches" in window) {
+          caches.keys().then(function(keys) {
+            for (var i = 0; i < keys.length; i++) caches.delete(keys[i]);
+          });
+        }
+        var PRO_BUILD_ID = "2026-10-19-v12-fresh";
+        try {
+          var last = localStorage.getItem("pro_app_version");
+          if (last !== PRO_BUILD_ID) {
+            localStorage.setItem("pro_app_version", PRO_BUILD_ID);
+            if (last) window.location.reload();
+          }
+        } catch(e) {}
+      })();
+    </script>
   </head>
   <body>
     <slot />
     <script>
       import "../scripts/pro/entry";
-
-      const CURRENT_CACHE_VERSION = "2026-10-19-v9";
-      if (typeof window !== "undefined") {
-        try {
-          const lastVersion = localStorage.getItem("shirone_version");
-          if (lastVersion !== CURRENT_CACHE_VERSION) {
-            localStorage.setItem("shirone_version", CURRENT_CACHE_VERSION);
-            if ("caches" in window) {
-              caches.keys().then((names) => {
-                for (const name of names) {
-                  if (!name.includes("v9")) caches.delete(name);
-                }
-              });
-            }
-            if ("serviceWorker" in navigator) {
-              navigator.serviceWorker.getRegistrations().then((registrations) => {
-                for (const reg of registrations) reg.update();
-              });
-            }
-          }
-        } catch {}
-      }
     </script>
   </body>
 </html>
