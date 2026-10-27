@@ -62,6 +62,15 @@ phone.addEventListener("change", () => {
   if (!phone.matches && open) setOpen(false);
 });
 
+let heroBottom = window.innerHeight * 5;
+const measureHero = () => {
+  const hero = document.getElementById("hero");
+  if (hero) heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
+};
+measureHero();
+window.addEventListener("resize", measureHero);
+window.addEventListener("load", measureHero);
+
 const onScroll = () => {
   const cur = window.scrollY || 0;
   if (Date.now() < suppress || open) {
@@ -69,8 +78,6 @@ const onScroll = () => {
     setHidden(0);
     return;
   }
-  const hero = document.getElementById("hero");
-  const heroBottom = hero ? hero.getBoundingClientRect().bottom + cur : window.innerHeight * 5;
   const down = cur > lastY + 2;
   const up = cur < lastY - 2;
   if (cur < heroBottom - 40) setHidden(0);

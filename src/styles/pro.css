@@ -117,9 +117,7 @@ section[id] { scroll-margin-top: clamp(64px, 7vw, 90px); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(18, 18, 18, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(18, 18, 18, 0.92);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 .topbar-bar { position: relative; z-index: 55; display: flex; justify-content: space-between; align-items: center; padding-top: 18px; padding-bottom: 18px; width: 100%; }
@@ -527,8 +525,8 @@ textarea.input { height: auto; min-height: 120px; padding: 16px 18px; resize: no
 }
 
 /* ---------- Astro port additions ---------- */
-.sw { display: inline-block; will-change: opacity, filter; }
-.sf { display: flex; flex-direction: column; width: 100%; will-change: opacity, filter, transform; }
+.sw { display: inline-block; }
+.sf { display: flex; flex-direction: column; width: 100%; }
 .divider { width: 100%; height: 1px; background: var(--white-20); flex: 0 0 auto; }
 
 /* hero carousel (inline styles of ProjectCarousel moved to classes) */
@@ -701,8 +699,6 @@ textarea.input { height: auto; min-height: 120px; padding: 16px 18px; resize: no
   font-weight: 600;
   letter-spacing: -0.01em;
   transition: all 0.25s var(--ease-out);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   text-decoration: none;
 }
 .mode-toggle-pill:hover {
@@ -728,8 +724,6 @@ textarea.input { height: auto; min-height: 120px; padding: 16px 18px; resize: no
   letter-spacing: -0.01em;
   cursor: pointer;
   transition: all 0.25s var(--ease-out);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   text-decoration: none;
 }
 .recruiter-pill:hover {
