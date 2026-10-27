@@ -9,8 +9,17 @@ import { withUserConfig } from "../utils/config-overlay.ts";
  * 站点核心配置：标题 / 语言 / 主题色（HCT 动态配色）/ 横幅 / 目录 / 进度条 / favicon。
  * 类型见 src/types/config.ts。
  */
+// Set SITE_URL (e.g. https://yourname.com/) in your host's env vars. On Vercel the
+// production domain is picked up automatically; locally it falls back to localhost.
+const env = typeof process !== "undefined" ? process.env : {};
+const siteUrl = env.SITE_URL
+	? env.SITE_URL.replace(/\/?$/, "/")
+	: env.VERCEL_PROJECT_PRODUCTION_URL
+		? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}/`
+		: "http://localhost:4321/";
+
 export const siteConfig: SiteConfig = withUserConfig("site", {
-	site: "https://shirone.mysqil.com/",
+	site: siteUrl,
 	base: "/",
 	title: "Siddharth Mukherjee",
 	subtitle: "AI/ML · AIE · Student · Builder",
